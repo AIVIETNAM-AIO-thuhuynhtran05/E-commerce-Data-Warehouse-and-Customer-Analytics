@@ -1,0 +1,23 @@
+id,description,name,parent_category_id,slug
+1,Clearance,Health,,health
+2,Bestsellers,Shoes,,shoes
+3,New arrivals weekly,Office,,office
+4,New arrivals weekly,Electronics,,electronics
+5,Free shipping over $35,Tools,,tools
+6,Bestsellers,Outdoors,,outdoors
+7,Free shipping over $35,Movies,,movies
+8,Clearance,Toys,,toys
+9,Free shipping over $35,Computers,,computers
+10,Free shipping over $35,Jewelry,,jewelry
+11,Bestsellers,Automotive,,automotive
+12,Bestsellers,Baby,,baby
+13,Free shipping over $35,Grocery,,grocery
+14,Free shipping over $35,Clothing,,clothing
+15,Bestsellers,Beauty,,beauty
+16,Bestsellers,Home,,home
+17,Clearance,Kids,,kids
+18,Clearance,Garden,,garden
+19,Bestsellers,Games,,games
+20,Clearance,Music,,music
+21,New arrivals weekly,Books,,books
+22,Bestsellers,Sports,,sports

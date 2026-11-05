@@ -1,0 +1,7 @@
+id,description,status_name
+1,Closed,paid
+2,Closed,cancelled
+3,Waiting on the customer,pending
+4,In the warehouse,refunded
+5,In the warehouse,delivered
+6,Closed,shipped

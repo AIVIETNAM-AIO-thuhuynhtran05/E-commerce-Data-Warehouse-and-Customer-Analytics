@@ -1,0 +1,6 @@
+id,base_cost,carrier,estimated_days,name
+1,30.30,In store,6,store_pickup
+2,0.81,DHL,7,overnight
+3,12.23,UPS,4,two_day
+4,31.06,USPS,4,standard
+5,1.80,FedEx,7,expedited

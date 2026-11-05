@@ -1,0 +1,401 @@
+id,brand_id,category_id,compare_at_price,created_at,description,is_active,name,price,sku,slug
+1,11,1,176.29,2020-12-10 18:52:34,Ships in one business day,true,Luxurious Rubber Car,15.94,SKU-QXV-9003,p-e584df69
+2,2,18,196.13,2020-05-28 02:11:42,Ships in one business day,true,Luxurious Steel Towels,157.57,SKU-QGG-9297,p-d07064f0
+3,39,1,,2021-08-17 15:55:47,New this season,true,Soft Granite Bike,134.10,SKU-WOJ-3454,p-b3becdff
+4,39,16,108.19,2021-04-20 00:09:29,Customer favourite,true,Fantastic Gold Hat,108.19,SKU-PLZ-6978,p-ade77443
+5,21,5,45.4,2022-10-21 13:36:19,Limited stock,true,Practical Bronze Chicken,45.40,SKU-BOG-0511,p-0f838b44
+6,5,1,,2019-10-01 17:30:49,Eligible for free returns,false,Bespoke Wooden Keyboard,29.47,SKU-BVC-0653,p-b7defd45
+7,16,8,116.48,2021-07-09 09:24:43,Limited stock,false,Oriental Wooden Bacon,116.48,SKU-KFH-9845,p-1189b7da
+8,1,1,204.12,2023-11-28 18:50:54,New this season,true,Rustic Marble Soap,64.92,SKU-PXV-9457,p-aa6abba6
+9,13,2,159.32,2019-02-28 12:10:43,Eligible for free returns,true,Soft Wooden Chicken,159.32,SKU-VPL-3404,p-106efc42
+10,31,2,,2019-05-05 16:47:22,Limited stock,true,Unbranded Plastic Pizza,104.65,SKU-LWM-5535,p-ffa1b2e9
+11,6,13,,2024-12-01 21:46:21,Ships in one business day,true,Frozen Silk Ball,104.48,SKU-GTU-4204,p-40a1bfde
+12,2,4,,2023-07-26 12:09:16,Limited stock,true,Gorgeous Steel Pizza,4.35,SKU-QMU-7528,p-2cf48e13
+13,3,1,,2023-09-02 13:19:22,Ships in one business day,true,Fantastic Ceramic Mouse,76.38,SKU-ZBD-4124,p-0c597680
+14,23,2,,2019-04-23 00:47:43,Eligible for free returns,true,Gorgeous Steel Bike,3.05,SKU-UDQ-3935,p-c6f1d118
+15,1,2,183.85,2022-04-24 03:41:54,New this season,false,Modern Bamboo Pizza,20.17,SKU-NXY-0643,p-ef426f7b
+16,3,3,,2023-02-23 11:56:42,New this season,true,Small Bamboo Chips,32.53,SKU-NNF-2573,p-ce433505
+17,1,6,46.74,2021-02-13 05:50:56,Customer favourite,true,Oriental Steel Salad,46.74,SKU-WCM-3826,p-d1f60855
+18,9,1,,2019-05-23 22:29:17,Limited stock,true,Generic Bronze Gloves,151.19,SKU-JQY-2010,p-acb4fd68
+19,37,3,,2021-03-04 16:29:41,Customer favourite,true,Generic Bamboo Sausages,26.79,SKU-AVT-3544,p-60003103
+20,17,7,,2022-08-12 18:39:18,Ships in one business day,true,Fantastic Marble Towels,23.55,SKU-HVG-0473,p-56e40372
+21,5,22,,2019-03-15 17:58:23,New this season,true,Fresh Cotton Pizza,7.65,SKU-LEO-7512,p-44f1373b
+22,6,4,,2024-03-04 17:03:54,New this season,true,Frozen Concrete Chair,85.79,SKU-AJK-2781,p-4cc8eb7c
+23,1,1,,2019-07-20 14:57:35,New this season,true,Small Aluminum Shoes,38.49,SKU-FKK-4543,p-8b4a33cf
+24,24,5,,2019-01-31 17:12:16,Eligible for free returns,true,Frozen Granite Sausages,15.36,SKU-BVM-0454,p-1f1a8d81
+25,1,20,62.4,2020-12-12 02:46:23,Limited stock,true,Ergonomic Metal Pants,62.40,SKU-YMX-9204,p-261191a9
+26,25,6,180,2020-08-20 15:16:35,New this season,true,Bespoke Gold Pants,4.33,SKU-SJN-5704,p-a3d39ac7
+27,27,1,,2021-11-19 16:50:40,New this season,false,Gorgeous Aluminum Chicken,3.34,SKU-UYJ-9809,p-4eb9fb07
+28,15,19,,2023-09-08 02:47:17,New this season,true,Refined Ceramic Car,38.90,SKU-FVV-7211,p-32fdebb8
+29,10,2,67.8,2022-07-02 07:56:47,Limited stock,true,Tasty Bamboo Chicken,51.16,SKU-MGH-6294,p-2c5d3bd2
+30,1,2,,2021-05-22 15:04:50,Limited stock,true,Electronic Ceramic Chair,21.52,SKU-SGP-5979,p-80107dd3
+31,10,2,,2023-08-02 23:31:28,Customer favourite,true,Handmade Wooden Shirt,103.02,SKU-KNI-6218,p-1edeaa31
+32,36,1,,2019-05-29 21:13:51,Customer favourite,true,Awesome Gold Salad,3.80,SKU-YOI-2433,p-d0bf3c7c
+33,21,2,,2019-06-28 17:59:10,Ships in one business day,true,Fantastic Bamboo Mouse,4.39,SKU-VJA-3135,p-5861b48c
+34,1,20,106.94,2019-01-16 06:22:45,Limited stock,true,Fantastic Ceramic Chair,37.40,SKU-MIH-8532,p-6c115e80
+35,25,1,135.84,2022-08-16 06:42:06,Limited stock,true,Tasty Cotton Chair,135.84,SKU-RZT-6331,p-7a0c6218
+36,21,1,134.05,2022-02-17 13:58:01,Ships in one business day,true,Refined Aluminum Tuna,8.74,SKU-KAS-0892,p-882ce553
+37,25,8,,2023-05-04 07:27:19,New this season,true,Small Ceramic Cheese,12.44,SKU-TMC-8017,p-39d22ece
+38,1,12,,2019-09-17 22:17:32,New this season,true,Incredible Cotton Fish,42.17,SKU-MBE-1020,p-62fc08eb
+39,35,5,29.41,2020-10-01 02:37:01,Ships in one business day,true,Small Bamboo Soap,3.10,SKU-MGI-5949,p-c0de9516
+40,12,2,14.51,2023-04-25 02:33:02,Customer favourite,true,Modern Concrete Sausages,8.81,SKU-XRE-9320,p-8d1861e4
+41,1,1,190.74,2019-10-22 00:54:45,Limited stock,true,Bespoke Cotton Table,142.35,SKU-PFD-2923,p-23906c09
+42,1,2,160.32,2022-05-13 12:24:47,Customer favourite,true,Handmade Metal Tuna,22.04,SKU-CLR-9948,p-3bbb50fb
+43,13,13,,2021-12-25 00:47:07,Eligible for free returns,true,Handcrafted Marble Towels,18.16,SKU-CUK-5034,p-3e09ea9b
+44,3,22,,2024-03-07 13:52:36,New this season,true,Awesome Concrete Hat,148.02,SKU-PAI-3255,p-137e726b
+45,18,7,43.36,2023-11-01 15:02:45,Limited stock,true,Incredible Cotton Gloves,22.32,SKU-QEG-0505,p-c5937a32
+46,28,11,41.93,2022-07-10 07:40:44,Customer favourite,false,Practical Plastic Soap,41.93,SKU-RGU-6070,p-81e171ff
+47,15,4,96.44,2020-10-23 21:22:44,Ships in one business day,true,Rustic Marble Mouse,3.22,SKU-XIM-5225,p-8c34a05b
+48,3,5,,2025-05-05 23:28:20,Eligible for free returns,true,Handmade Ceramic Keyboard,126.70,SKU-SPK-6818,p-602772c3
+49,1,2,70.76,2019-07-24 19:05:44,Limited stock,true,Modern Rubber Table,70.76,SKU-ZAJ-5135,p-c43acac3
+50,5,1,,2023-03-29 12:32:50,New this season,true,Unbranded Steel Shoes,4.63,SKU-TVI-4785,p-da78d6e0
+51,38,21,,2024-08-17 06:03:47,New this season,true,Soft Wooden Chips,35.95,SKU-YGS-1789,p-9a4b1df6
+52,4,1,,2021-05-27 05:33:36,Ships in one business day,true,Unbranded Silk Car,15.93,SKU-CRR-3046,p-1f315185
+53,15,3,145.61,2020-06-27 01:01:28,Limited stock,true,Bespoke Metal Salad,3.60,SKU-JHT-0721,p-17431f45
+54,1,5,155.04,2025-02-13 15:55:22,Customer favourite,true,Small Bamboo Towels,155.04,SKU-EUI-8097,p-8b9a1872
+55,1,21,175.08,2019-11-01 23:42:22,Limited stock,true,Rustic Cotton Chicken,60.08,SKU-GDH-3609,p-c9e0a9e5
+56,2,1,,2019-10-04 11:21:10,Customer favourite,true,Oriental Rubber Table,77.50,SKU-ZRR-2928,p-82e727db
+57,32,2,,2024-03-31 17:44:48,Ships in one business day,true,Incredible Plastic Towels,78.14,SKU-AKP-3992,p-2d9c32bf
+58,9,1,,2019-05-29 09:26:20,Limited stock,true,Modern Concrete Hat,29.77,SKU-NTH-9002,p-cea4d115
+59,4,10,166.2,2024-01-01 10:56:25,Limited stock,true,Practical Bamboo Soap,24.93,SKU-IVM-9492,p-bc56cafb
+60,18,2,55.97,2023-07-11 20:11:34,Ships in one business day,true,Intelligent Ceramic Cheese,7.00,SKU-JBI-2490,p-51ab8e09
+61,5,4,,2023-08-08 13:28:57,Eligible for free returns,true,Bespoke Steel Fish,131.18,SKU-JOU-0506,p-d0c72a11
+62,27,14,,2022-10-25 21:36:13,Limited stock,true,Elegant Cotton Cheese,20.27,SKU-REV-4998,p-9c7e318d
+63,6,1,,2024-04-19 12:12:55,Eligible for free returns,true,Small Metal Shoes,115.96,SKU-RKV-4621,p-c41c989b
+64,3,1,94.5,2023-02-10 22:24:01,Ships in one business day,true,Rustic Ceramic Chair,12.30,SKU-JEY-9884,p-5ba5d59b
+65,12,1,,2019-10-31 11:57:13,New this season,true,Unbranded Concrete Salad,60.22,SKU-AYZ-7707,p-69e1f3bb
+66,1,20,,2023-11-25 07:29:52,New this season,false,Bespoke Wooden Hat,15.41,SKU-KWR-9967,p-da35536c
+67,3,17,217.59,2025-04-15 16:49:45,Ships in one business day,true,Oriental Silk Bacon,147.45,SKU-MVV-9772,p-095f57e8
+68,23,7,,2022-12-21 13:51:21,Customer favourite,true,Handcrafted Granite Pants,81.73,SKU-KHK-7951,p-f7dffda3
+69,1,3,169.11,2023-09-18 22:53:06,Eligible for free returns,true,Generic Gold Table,52.99,SKU-SOT-4600,p-618ccd56
+70,15,2,48.64,2020-02-08 05:08:22,Customer favourite,true,Unbranded Granite Shirt,47.02,SKU-RTB-0310,p-59e735d7
+71,22,5,198.58,2021-09-23 11:34:21,Ships in one business day,false,Modern Steel Soap,10.10,SKU-VWG-3596,p-ad5f7b20
+72,6,15,,2020-02-03 17:13:22,Eligible for free returns,true,Refined Silk Mouse,36.06,SKU-UMS-5343,p-9c45999e
+73,5,2,,2019-12-08 00:48:52,Customer favourite,true,Modern Wooden Keyboard,4.84,SKU-RIT-0669,p-ff6a8424
+74,32,1,,2022-08-01 22:00:33,Eligible for free returns,true,Soft Concrete Keyboard,14.57,SKU-BQU-2998,p-e6823a96
+75,1,3,119.25,2022-10-30 23:21:13,Limited stock,true,Handmade Steel Ball,63.68,SKU-OWJ-7111,p-9d66c07a
+76,7,1,,2020-02-24 19:10:18,Ships in one business day,true,Unbranded Bronze Bacon,112.44,SKU-KWW-7571,p-a818b778
+77,5,1,,2022-06-29 06:32:36,Limited stock,true,Unbranded Bamboo Chicken,17.00,SKU-VEI-8255,p-c4cd1368
+78,2,6,,2024-01-15 02:03:04,New this season,true,Luxurious Steel Chips,144.40,SKU-LVI-7618,p-c4d0444e
+79,19,2,,2020-03-11 09:12:21,Customer favourite,true,Practical Wooden Chips,40.86,SKU-DAQ-2427,p-282e226d
+80,39,2,,2019-01-15 23:08:01,Limited stock,true,Electronic Plastic Car,53.23,SKU-TXR-7595,p-14538a21
+81,2,4,,2021-05-04 12:37:14,Limited stock,true,Generic Metal Pizza,29.50,SKU-DAQ-1045,p-915a4009
+82,3,2,,2024-11-05 21:10:32,Ships in one business day,false,Elegant Steel Soap,37.13,SKU-MSN-5204,p-c94619bf
+83,9,1,,2021-11-11 00:40:50,Ships in one business day,true,Frozen Rubber Bacon,29.67,SKU-SRW-0982,p-e5d554ff
+84,1,14,89.26,2020-10-09 15:17:15,Ships in one business day,true,Elegant Bamboo Fish,36.21,SKU-ZLV-1158,p-80339044
+85,23,7,,2024-08-27 14:15:02,Eligible for free returns,true,Tasty Granite Pants,5.65,SKU-NRX-8832,p-397330d0
+86,2,22,136.57,2021-09-22 07:30:15,Customer favourite,false,Incredible Aluminum Table,136.57,SKU-VLW-7947,p-d8aaa1ed
+87,1,1,,2022-01-27 04:01:38,Eligible for free returns,true,Licensed Metal Chair,153.61,SKU-CKB-2937,p-3f368624
+88,9,1,,2023-12-28 12:16:14,Customer favourite,true,Luxurious Granite Shoes,41.63,SKU-SMZ-2394,p-eef8264f
+89,12,3,122.4,2021-07-25 21:49:44,Limited stock,true,Refined Plastic Chicken,26.11,SKU-FHX-8374,p-4a6fc693
+90,31,2,,2021-03-26 20:31:01,Limited stock,true,Generic Rubber Mouse,38.43,SKU-GUQ-9936,p-dc35fe04
+91,28,1,,2021-09-07 22:32:58,Limited stock,true,Licensed Silk Table,3.96,SKU-UDO-5433,p-416b94fc
+92,1,1,,2019-04-17 12:33:52,Ships in one business day,true,Small Bamboo Computer,94.64,SKU-CPM-8402,p-d400f18e
+93,35,21,154.84,2019-01-15 10:32:14,Ships in one business day,true,Soft Granite Bike,84.42,SKU-PDW-7400,p-62331a8c
+94,29,4,192.46,2019-06-24 09:39:34,Limited stock,true,Tasty Marble Salad,66.95,SKU-BGP-4896,p-2a8b9b74
+95,4,1,142,2020-09-04 03:44:41,Ships in one business day,true,Intelligent Wooden Shoes,142.00,SKU-ITD-6485,p-9dc566d6
+96,28,1,,2023-12-12 16:19:51,Eligible for free returns,true,Handmade Steel Fish,35.05,SKU-LTD-9991,p-b22c073d
+97,15,10,,2019-08-16 06:00:12,Limited stock,true,Rustic Bamboo Keyboard,157.06,SKU-VFB-5680,p-e86ed45d
+98,6,2,120.72,2023-02-26 04:36:25,Customer favourite,true,Intelligent Rubber Shirt,120.72,SKU-ZTX-5922,p-133e6d3d
+99,24,22,,2022-07-02 02:50:45,New this season,true,Handcrafted Ceramic Bacon,53.71,SKU-IAH-9080,p-7b773144
+100,35,5,,2019-01-01 07:48:45,Limited stock,true,Small Steel Soap,66.52,SKU-UPR-1982,p-0433f306
+101,22,1,,2021-01-03 04:14:51,Limited stock,true,Frozen Gold Table,99.39,SKU-IEJ-7884,p-fbd722e2
+102,37,1,,2019-12-23 11:56:01,Limited stock,true,Fantastic Cotton Car,3.07,SKU-ZVL-2438,p-60029f2b
+103,7,1,,2021-12-12 09:19:23,Customer favourite,true,Fantastic Bronze Ball,42.84,SKU-KBD-4916,p-195eb661
+104,30,4,109,2024-03-20 02:14:26,Limited stock,true,Elegant Metal Bacon,109.00,SKU-SYK-3641,p-bae4f892
+105,22,7,122.1,2019-08-21 00:41:55,Ships in one business day,true,Soft Aluminum Tuna,122.10,SKU-JHD-4260,p-a363aacb
+106,4,15,132.11,2023-12-02 07:18:15,New this season,true,Recycled Bronze Fish,28.67,SKU-DGY-9051,p-550671f1
+107,11,14,93.37,2020-02-17 02:40:21,Customer favourite,true,Handcrafted Steel Chair,42.50,SKU-DKJ-6925,p-b30c27e2
+108,3,4,,2019-12-08 11:45:49,Limited stock,true,Fantastic Concrete Hat,35.21,SKU-WOO-3490,p-b96d5b50
+109,2,18,,2025-04-13 12:08:05,Customer favourite,true,Fresh Bamboo Chair,5.06,SKU-OEO-4213,p-8541f7d1
+110,10,20,,2025-05-08 17:00:53,Customer favourite,true,Intelligent Steel Table,26.80,SKU-UBC-2187,p-ed0dabd6
+111,13,8,43.61,2023-06-02 14:15:44,New this season,true,Practical Steel Keyboard,11.08,SKU-ZGJ-7446,p-ca2e8cf5
+112,27,1,,2019-05-06 16:05:54,Ships in one business day,true,Bespoke Steel Gloves,25.23,SKU-EXZ-3060,p-b577c464
+113,34,21,128.54,2021-11-06 20:34:35,Customer favourite,true,Electronic Concrete Bike,3.04,SKU-OWR-9158,p-0c903784
+114,15,13,,2019-12-23 15:44:21,Limited stock,false,Incredible Plastic Cheese,66.29,SKU-XJU-5763,p-58d2ddb3
+115,22,12,,2024-05-27 01:34:46,Customer favourite,true,Frozen Marble Soap,20.41,SKU-ZHQ-9489,p-94319537
+116,1,2,207.74,2020-02-14 06:37:56,Eligible for free returns,true,Frozen Bronze Chips,105.21,SKU-OYR-4194,p-7efa97e1
+117,32,4,,2024-07-16 08:02:02,Ships in one business day,true,Soft Plastic Gloves,3.86,SKU-UEE-2060,p-398b552e
+118,27,14,153.75,2023-08-27 18:53:35,Ships in one business day,true,Refined Marble Cheese,58.28,SKU-ZUH-5797,p-90f5e24e
+119,23,10,,2019-01-28 10:23:01,Ships in one business day,true,Licensed Bamboo Mouse,8.87,SKU-DWL-7410,p-0a739e34
+120,17,1,,2024-12-08 06:47:21,New this season,true,Ergonomic Concrete Pizza,33.89,SKU-ZXP-3427,p-593d6357
+121,7,1,,2022-08-25 12:30:12,Limited stock,true,Ergonomic Ceramic Mouse,28.29,SKU-AQM-7949,p-aa02f3f5
+122,2,2,,2023-04-29 08:30:26,Eligible for free returns,false,Practical Granite Soap,42.44,SKU-ZDK-0768,p-05f01c44
+123,40,16,148.78,2022-07-18 15:00:56,Customer favourite,true,Tasty Silk Tuna,4.47,SKU-QYR-9175,p-58483c8a
+124,19,6,,2024-11-14 08:45:51,Limited stock,true,Soft Plastic Pants,11.34,SKU-CIS-6048,p-6560a668
+125,5,1,110.56,2023-05-20 06:19:52,Customer favourite,true,Rustic Wooden Table,31.82,SKU-CWD-2498,p-5269a055
+126,27,12,53.47,2023-12-24 09:15:25,Eligible for free returns,true,Awesome Gold Towels,48.10,SKU-YXI-7784,p-c6b57fc5
+127,9,12,,2024-03-26 21:47:26,New this season,true,Gorgeous Rubber Tuna,116.90,SKU-LJY-8062,p-da31530a
+128,8,20,20.61,2024-05-19 18:54:06,Limited stock,true,Handmade Rubber Mouse,20.61,SKU-AGU-0879,p-1c5f098b
+129,8,4,192.65,2023-12-17 05:15:27,Customer favourite,true,Gorgeous Plastic Chicken,105.05,SKU-UHJ-9657,p-72b264f7
+130,32,1,125.14,2021-01-11 18:38:45,Eligible for free returns,true,Bespoke Marble Pants,69.01,SKU-ILL-2598,p-0f90069e
+131,7,9,54.52,2024-04-19 22:20:31,Ships in one business day,true,Bespoke Aluminum Ball,27.01,SKU-CWE-7771,p-1a5a654b
+132,1,1,167.82,2020-09-29 23:32:09,Ships in one business day,true,Unbranded Plastic Keyboard,94.38,SKU-CBA-4082,p-becfba15
+133,8,18,144.48,2019-10-17 11:01:31,Customer favourite,true,Electronic Bronze Pizza,25.28,SKU-PFE-9994,p-8e00e3a1
+134,39,1,88.53,2019-06-08 10:24:58,New this season,true,Modern Marble Salad,34.05,SKU-RUA-8945,p-7f45a5b5
+135,34,19,175.9,2023-09-06 18:19:12,Eligible for free returns,true,Ergonomic Ceramic Towels,4.89,SKU-TLM-1597,p-22c56ee2
+136,4,1,69.73,2019-09-17 19:07:02,Limited stock,true,Frozen Granite Bike,13.83,SKU-LRC-2303,p-b91be06f
+137,17,3,,2023-10-12 12:37:37,Customer favourite,true,Refined Steel Bike,44.81,SKU-XCV-3766,p-c64b3511
+138,27,16,,2021-06-08 03:59:24,New this season,true,Generic Ceramic Shirt,63.86,SKU-XAT-6042,p-b86c8f8e
+139,32,9,,2021-12-11 23:16:10,Ships in one business day,true,Small Bronze Gloves,100.04,SKU-UUN-6000,p-1a72f9ab
+140,38,1,,2023-07-01 22:51:38,New this season,true,Fantastic Metal Towels,81.88,SKU-BAU-4418,p-38edf9d3
+141,2,20,84.02,2021-05-13 06:35:46,New this season,true,Gorgeous Aluminum Hat,52.64,SKU-HNX-2630,p-ae364c96
+142,9,7,69.64,2022-04-14 14:49:10,Customer favourite,true,Gorgeous Bronze Ball,17.73,SKU-JHR-3784,p-a92363c9
+143,6,4,,2023-04-25 23:24:44,New this season,false,Modern Bronze Car,143.61,SKU-JHJ-8842,p-78bbfd84
+144,19,8,,2024-02-11 04:12:46,Ships in one business day,true,Licensed Bronze Cheese,10.09,SKU-OUX-7443,p-4a458a1c
+145,5,10,,2021-11-07 23:50:38,Limited stock,true,Incredible Aluminum Bike,44.44,SKU-EDE-8207,p-a0aa00f0
+146,18,2,71.33,2021-01-06 19:40:56,Eligible for free returns,true,Awesome Gold Computer,3.02,SKU-NIC-5259,p-8ee31107
+147,13,11,,2022-09-25 08:55:15,Eligible for free returns,true,Rustic Bronze Shirt,141.80,SKU-GGH-2330,p-f2b0987d
+148,10,5,,2022-02-05 10:43:24,Customer favourite,true,Fantastic Steel Keyboard,77.07,SKU-BQN-3604,p-ff8169e9
+149,6,1,,2023-08-21 22:07:42,Limited stock,true,Bespoke Steel Bike,41.88,SKU-HSQ-2673,p-146a3e3c
+150,36,1,,2019-12-17 23:35:39,Customer favourite,true,Recycled Aluminum Bike,7.75,SKU-HIC-8543,p-ce2cd063
+151,1,9,,2020-06-22 11:33:29,Limited stock,true,Incredible Plastic Salad,59.32,SKU-IQY-9315,p-c37da47e
+152,9,9,,2019-08-19 05:48:00,Eligible for free returns,true,Recycled Gold Shirt,13.20,SKU-GBY-2229,p-105aa03a
+153,9,9,,2019-11-24 14:36:02,Limited stock,true,Electronic Bamboo Keyboard,95.54,SKU-AZL-5360,p-9add1849
+154,24,1,169.05,2019-05-20 11:34:51,New this season,true,Sleek Steel Bacon,20.03,SKU-XPE-9518,p-45d45137
+155,9,2,,2019-07-05 09:33:54,Customer favourite,true,Practical Concrete Shirt,112.21,SKU-SKL-4121,p-f615807c
+156,37,1,,2023-01-18 22:20:26,Limited stock,true,Elegant Steel Cheese,134.02,SKU-TIE-9699,p-d379c8f8
+157,10,17,,2022-08-11 12:55:00,Ships in one business day,true,Frozen Bamboo Ball,68.12,SKU-TMN-7390,p-037123be
+158,12,20,,2019-03-08 04:48:00,New this season,true,Refined Steel Shirt,17.48,SKU-PQL-8718,p-099c33ba
+159,2,1,,2019-08-30 00:21:05,Customer favourite,true,Incredible Aluminum Towels,5.08,SKU-BZJ-1845,p-b15acedd
+160,14,1,,2020-12-18 09:38:03,Limited stock,true,Practical Bronze Keyboard,9.08,SKU-RTT-7879,p-04026ae6
+161,26,12,130.41,2021-08-08 16:19:17,New this season,true,Tasty Cotton Chips,130.41,SKU-NXO-3766,p-d937ff3f
+162,9,20,,2021-01-22 21:23:56,Customer favourite,true,Rustic Rubber Bacon,3.81,SKU-NRA-5930,p-0ac70d05
+163,4,4,,2024-09-28 09:47:02,Limited stock,true,Handmade Gold Keyboard,27.13,SKU-GTM-2539,p-0a22d307
+164,26,21,,2021-07-20 10:38:02,Ships in one business day,true,Handmade Granite Fish,22.45,SKU-ASU-2746,p-993fc825
+165,8,14,102.68,2020-02-20 19:47:08,Ships in one business day,true,Soft Granite Mouse,84.89,SKU-BWU-1116,p-b3cadac1
+166,12,3,70.26,2019-04-22 21:53:50,Customer favourite,true,Fantastic Ceramic Mouse,70.26,SKU-LIP-9477,p-fda018e3
+167,20,12,,2025-04-10 08:10:00,New this season,true,Electronic Bronze Soap,16.65,SKU-ZRV-6253,p-4d92ec93
+168,1,7,,2023-07-19 19:51:02,New this season,true,Fantastic Metal Car,3.47,SKU-POH-4374,p-3e5253ed
+169,28,12,,2019-01-27 13:07:24,Customer favourite,true,Recycled Bronze Tuna,52.24,SKU-VPZ-8098,p-c7028245
+170,28,9,,2019-02-07 15:44:49,Limited stock,true,Ergonomic Silk Hat,8.20,SKU-SCW-2438,p-9ba4cafc
+171,5,5,,2024-10-03 14:58:19,New this season,true,Elegant Concrete Pizza,40.66,SKU-UQS-1287,p-86d42665
+172,27,13,,2019-06-13 22:09:32,Eligible for free returns,true,Bespoke Granite Shoes,84.82,SKU-YAT-8020,p-4a66e0a4
+173,1,1,,2024-07-31 01:52:00,Ships in one business day,true,Handmade Concrete Pizza,123.83,SKU-COE-3396,p-15116fb7
+174,37,3,67.74,2024-12-30 01:04:16,New this season,true,Modern Plastic Ball,11.87,SKU-EDE-2712,p-6257d687
+175,15,17,,2020-04-08 09:36:47,New this season,true,Handcrafted Gold Cheese,102.46,SKU-RFZ-0482,p-3d7552e5
+176,18,4,,2025-06-03 08:38:43,Customer favourite,true,Handmade Silk Shoes,4.20,SKU-UYW-2028,p-34179e06
+177,6,11,,2024-05-21 06:59:07,Ships in one business day,true,Electronic Granite Salad,4.37,SKU-XCS-2871,p-d8ebfdc5
+178,1,3,126.16,2022-08-08 21:36:02,Eligible for free returns,true,Ergonomic Cotton Chair,79.80,SKU-MXS-5446,p-7f6a2e95
+179,1,1,195.1,2019-02-21 22:17:23,New this season,true,Handmade Plastic Ball,75.93,SKU-HNR-0039,p-cb16cad7
+180,1,5,,2023-09-23 12:14:34,New this season,true,Elegant Granite Bacon,157.68,SKU-BGX-3959,p-c6fbadee
+181,29,1,138.55,2019-12-13 06:22:21,Eligible for free returns,true,Handcrafted Bamboo Shoes,138.55,SKU-WQC-8324,p-25da274b
+182,1,12,,2020-04-22 04:53:55,Ships in one business day,true,Gorgeous Bronze Shoes,118.55,SKU-QAO-8937,p-7935422e
+183,31,21,,2022-09-09 08:20:29,Customer favourite,false,Intelligent Cotton Chips,57.39,SKU-TKI-0630,p-3dd0d32a
+184,13,6,,2022-08-12 03:03:39,New this season,false,Tasty Marble Bike,143.64,SKU-GYW-7515,p-78c76018
+185,36,4,,2024-07-02 09:11:34,Eligible for free returns,true,Gorgeous Wooden Soap,38.28,SKU-QUK-6993,p-ac8bf1b9
+186,3,7,150.01,2024-11-01 22:37:55,New this season,true,Gorgeous Bamboo Chair,8.94,SKU-EPZ-9968,p-d0c48b2b
+187,21,1,,2025-03-15 17:50:58,Customer favourite,true,Unbranded Bamboo Pizza,19.13,SKU-RYD-5877,p-efbc51d5
+188,1,10,110.69,2023-07-17 07:02:40,Limited stock,true,Bespoke Bronze Chicken,53.49,SKU-OCL-9081,p-17e25b8b
+189,5,13,113.33,2024-02-02 16:15:24,Eligible for free returns,true,Unbranded Bamboo Gloves,66.27,SKU-AJI-4305,p-8609ff91
+190,9,18,116.22,2024-10-13 02:13:19,New this season,false,Handcrafted Cotton Keyboard,15.59,SKU-NHB-3425,p-d5e97a20
+191,1,3,,2022-01-28 03:14:01,Limited stock,true,Soft Aluminum Ball,22.76,SKU-MVR-8029,p-71f63150
+192,11,3,163.88,2020-02-24 03:48:55,Eligible for free returns,true,Incredible Gold Computer,37.98,SKU-UUP-3026,p-dbebc405
+193,3,18,,2025-04-27 09:58:40,Limited stock,true,Fresh Marble Bacon,11.41,SKU-YWG-0383,p-60510b43
+194,26,17,97.61,2019-12-08 03:37:50,Ships in one business day,true,Elegant Bronze Tuna,21.74,SKU-JIZ-1923,p-4d6e607d
+195,38,12,121.03,2024-07-10 08:05:36,New this season,true,Luxurious Cotton Soap,105.02,SKU-WRX-9474,p-acc074f9
+196,1,16,74.28,2020-08-26 04:37:27,Limited stock,true,Practical Plastic Table,74.28,SKU-SJQ-6414,p-76502097
+197,3,2,,2023-07-12 02:11:34,New this season,true,Bespoke Plastic Tuna,137.92,SKU-ULR-8117,p-3d399e72
+198,1,17,,2021-06-13 08:22:29,New this season,true,Fantastic Ceramic Shoes,23.50,SKU-GXV-9005,p-b7509d21
+199,2,3,,2020-12-13 01:09:57,Customer favourite,true,Incredible Granite Gloves,55.88,SKU-KOT-1119,p-7c85d8fe
+200,1,3,,2019-04-19 13:12:35,Limited stock,true,Recycled Rubber Car,121.19,SKU-BQW-9881,p-abdf3d36
+201,22,20,102.72,2019-04-21 09:48:54,Ships in one business day,true,Practical Aluminum Bacon,54.58,SKU-MQJ-9841,p-fb4c767f
+202,37,7,,2019-08-06 09:17:50,Eligible for free returns,true,Handmade Bronze Fish,77.89,SKU-QYW-0392,p-b07e17d2
+203,24,16,,2019-02-13 02:53:56,Customer favourite,true,Handmade Silk Towels,17.50,SKU-BCK-6562,p-fd8e1797
+204,19,3,,2023-12-05 01:08:09,Limited stock,false,Recycled Marble Table,8.62,SKU-ERJ-6096,p-a385456c
+205,10,12,168.57,2024-11-03 06:30:40,New this season,true,Tasty Plastic Soap,15.50,SKU-IIP-7315,p-455606c4
+206,16,8,,2021-07-21 19:13:34,Ships in one business day,true,Fantastic Steel Computer,111.13,SKU-BLN-8959,p-ebf3831b
+207,11,6,,2023-05-17 04:43:51,Ships in one business day,true,Generic Wooden Computer,128.15,SKU-OHY-4584,p-1072a343
+208,15,1,,2020-06-16 07:45:50,Ships in one business day,true,Frozen Metal Salad,78.28,SKU-NCI-9776,p-0e09077e
+209,4,15,,2019-01-15 04:24:13,Limited stock,false,Soft Bamboo Shoes,72.87,SKU-JQL-9845,p-4f909cd3
+210,40,7,207.17,2020-10-01 18:25:01,Limited stock,true,Generic Aluminum Gloves,3.01,SKU-BTN-0625,p-974e2b15
+211,2,9,95.11,2023-01-10 16:30:27,Ships in one business day,true,Recycled Gold Soap,6.68,SKU-JGB-8920,p-db2dcc57
+212,22,1,,2024-08-09 07:53:49,New this season,true,Small Metal Keyboard,105.50,SKU-NMG-0810,p-10511d78
+213,32,2,,2021-06-17 02:34:34,Customer favourite,true,Soft Bronze Towels,20.56,SKU-QGS-3587,p-079c88e7
+214,29,1,,2024-06-04 19:28:53,New this season,false,Gorgeous Ceramic Chair,29.90,SKU-CCQ-4709,p-fd2da831
+215,1,22,213.61,2020-08-06 20:35:52,Customer favourite,true,Intelligent Granite Hat,40.54,SKU-HZP-9008,p-870a023c
+216,25,1,,2021-07-22 19:24:22,Ships in one business day,true,Frozen Bronze Soap,122.08,SKU-BOD-0143,p-5bf8f2eb
+217,24,11,16.68,2024-07-19 04:01:36,New this season,true,Ergonomic Silk Table,16.68,SKU-ZMN-6515,p-053fc0fb
+218,1,1,,2020-02-09 07:57:12,Limited stock,true,Frozen Marble Chair,33.37,SKU-GPC-2186,p-706a9395
+219,1,5,,2023-09-29 17:13:55,Ships in one business day,true,Handcrafted Aluminum Bacon,152.94,SKU-SZA-5504,p-9799b99a
+220,19,5,126.27,2019-08-13 14:23:29,Limited stock,true,Generic Ceramic Fish,12.42,SKU-FFY-7922,p-b2a2e35b
+221,39,1,154.37,2025-03-03 01:35:42,Eligible for free returns,true,Tasty Granite Soap,47.76,SKU-MVR-6305,p-4b27676f
+222,3,17,156.73,2024-08-23 09:06:50,Customer favourite,true,Handcrafted Plastic Computer,156.73,SKU-OBH-4970,p-d0a87f69
+223,2,1,,2024-10-04 14:29:24,Eligible for free returns,true,Ergonomic Rubber Chicken,23.56,SKU-EGS-4080,p-162e4380
+224,2,6,,2023-05-21 23:19:38,Customer favourite,true,Rustic Gold Ball,67.11,SKU-ZEY-3594,p-ae7c085c
+225,14,1,,2021-10-07 15:56:42,Eligible for free returns,true,Fantastic Gold Sausages,88.14,SKU-DBO-2703,p-e75f81f7
+226,30,16,181.87,2019-09-05 04:46:15,New this season,true,Rustic Silk Pizza,4.02,SKU-YJE-8780,p-7c73c937
+227,16,1,,2024-01-26 19:25:43,Customer favourite,true,Oriental Plastic Chips,4.74,SKU-CGL-9063,p-b909158d
+228,6,12,,2021-09-13 18:31:38,Ships in one business day,true,Fantastic Cotton Ball,110.76,SKU-UZZ-7655,p-6dbddffd
+229,9,3,132.84,2023-02-24 18:48:11,Eligible for free returns,true,Handcrafted Wooden Towels,3.78,SKU-XGF-3693,p-2898be5c
+230,35,6,,2021-10-20 20:41:37,New this season,true,Fresh Metal Gloves,103.33,SKU-MTO-7708,p-e0e8e86c
+231,36,16,,2021-11-17 08:27:34,New this season,true,Unbranded Cotton Shirt,149.30,SKU-BIC-4534,p-57a8df18
+232,6,17,171.41,2020-04-05 09:34:43,Eligible for free returns,true,Handmade Marble Chicken,39.50,SKU-VXJ-1420,p-db617d54
+233,1,2,147.32,2024-05-20 08:14:19,Ships in one business day,true,Handmade Ceramic Shirt,147.32,SKU-FSK-7536,p-f7fccb98
+234,1,13,,2022-09-15 12:38:35,Customer favourite,true,Unbranded Metal Chips,5.33,SKU-PCS-7873,p-5b7a9470
+235,7,4,138.75,2022-11-15 13:28:17,Customer favourite,true,Sleek Bronze Chair,21.59,SKU-KCT-2449,p-c5fd4139
+236,5,16,,2021-06-11 22:20:38,Limited stock,true,Unbranded Marble Shoes,43.48,SKU-ADJ-1070,p-59200b45
+237,10,11,8.26,2019-03-25 12:54:04,Limited stock,true,Refined Gold Pants,8.26,SKU-VBB-7930,p-19d5cb8e
+238,19,2,,2025-06-06 23:42:16,Eligible for free returns,true,Awesome Bamboo Keyboard,112.52,SKU-MLG-2870,p-f04cfa13
+239,1,4,,2024-03-14 13:39:26,Eligible for free returns,true,Awesome Bamboo Computer,73.42,SKU-DBF-9135,p-cf08b74b
+240,1,10,,2024-05-03 02:57:11,Eligible for free returns,true,Ergonomic Concrete Chicken,111.29,SKU-SHJ-5206,p-02ff1bc9
+241,33,1,17.24,2024-04-11 07:13:31,Ships in one business day,true,Intelligent Cotton Table,10.46,SKU-CIX-8463,p-715916f5
+242,1,5,,2023-07-08 14:39:36,Eligible for free returns,true,Modern Silk Cheese,151.84,SKU-RCP-1907,p-41a6d7fe
+243,3,20,,2020-02-14 19:37:08,Ships in one business day,true,Practical Aluminum Gloves,138.57,SKU-YRZ-5324,p-27fbf3da
+244,1,22,165.12,2022-09-23 02:20:51,New this season,true,Oriental Metal Fish,33.50,SKU-QYV-2219,p-c38abc22
+245,6,18,13.83,2020-07-10 00:00:15,Customer favourite,true,Rustic Granite Fish,13.83,SKU-VUA-5235,p-21c1bc18
+246,6,13,36.13,2025-03-01 04:32:57,Ships in one business day,true,Bespoke Steel Bike,36.13,SKU-IXL-6501,p-054e0e37
+247,23,7,122.49,2022-03-31 10:21:04,Customer favourite,true,Unbranded Metal Car,92.60,SKU-CFC-6833,p-44e03575
+248,13,1,,2022-04-25 09:33:58,Customer favourite,true,Refined Cotton Towels,158.15,SKU-AXL-7450,p-7e9accc4
+249,2,21,200.87,2022-07-03 02:09:13,Limited stock,true,Frozen Steel Salad,7.06,SKU-PKP-9860,p-83b666d7
+250,16,2,115.71,2024-02-25 09:10:32,Customer favourite,true,Handmade Plastic Tuna,59.89,SKU-BNJ-2319,p-5a6b1cc8
+251,24,20,,2023-10-07 21:25:05,Customer favourite,true,Handmade Wooden Tuna,155.95,SKU-HSY-4714,p-c0e88759
+252,17,2,,2022-05-19 01:14:40,Limited stock,true,Refined Cotton Bacon,3.28,SKU-CJX-7974,p-067a5e26
+253,1,13,,2022-01-09 19:20:43,Limited stock,true,Awesome Granite Pizza,76.03,SKU-ZOZ-8800,p-774a8fb7
+254,5,1,,2023-05-23 15:46:29,Ships in one business day,false,Luxurious Ceramic Chicken,31.28,SKU-PVH-5164,p-8c4c53b3
+255,10,14,,2024-06-14 19:09:33,Customer favourite,false,Practical Steel Soap,7.31,SKU-VGY-8034,p-dac9ac32
+256,3,22,,2019-04-24 01:22:23,New this season,true,Electronic Granite Chair,34.49,SKU-JBW-3942,p-69a5791c
+257,7,11,113.27,2021-10-14 20:39:21,Customer favourite,true,Refined Wooden Shirt,113.27,SKU-YOM-6171,p-03dafa69
+258,20,1,,2022-09-13 01:51:36,Limited stock,true,Frozen Cotton Soap,63.41,SKU-VOB-1707,p-5c925821
+259,33,2,93.73,2023-04-18 03:37:22,Eligible for free returns,true,Licensed Metal Shoes,87.43,SKU-EKY-4246,p-181da788
+260,1,6,68.57,2022-08-26 20:30:27,New this season,true,Fantastic Silk Shoes,55.29,SKU-PZK-7348,p-8919ebb4
+261,20,9,,2019-10-24 10:31:18,Customer favourite,true,Bespoke Ceramic Chair,3.07,SKU-RGJ-4623,p-732e7f53
+262,4,2,42.72,2021-10-23 20:41:48,Eligible for free returns,true,Sleek Silk Chair,42.72,SKU-HDK-5552,p-0e89d8db
+263,1,1,,2020-09-02 09:23:04,New this season,true,Rustic Ceramic Ball,137.48,SKU-SZA-9747,p-bee14f5c
+264,2,3,147.18,2024-04-28 22:23:19,New this season,true,Small Concrete Car,147.18,SKU-AIO-2752,p-5dd14b62
+265,8,8,82.5,2022-11-02 17:45:51,Customer favourite,false,Fresh Gold Gloves,52.96,SKU-JEK-0888,p-224b41e6
+266,8,1,170.37,2021-10-16 03:58:17,Customer favourite,true,Practical Ceramic Bacon,35.30,SKU-SMZ-1713,p-60cb89f7
+267,38,6,84.29,2023-09-22 17:53:14,Eligible for free returns,true,Handmade Bronze Hat,3.34,SKU-ULB-4450,p-adaff63a
+268,17,22,196.54,2024-09-27 17:39:11,Eligible for free returns,true,Licensed Bamboo Chips,153.63,SKU-PGK-0356,p-124a0a1a
+269,9,5,208.7,2023-09-05 05:26:07,Eligible for free returns,true,Handmade Metal Table,30.06,SKU-AKV-6497,p-22caa27f
+270,20,4,,2024-04-06 17:07:41,Ships in one business day,true,Fresh Bronze Pizza,73.16,SKU-XPI-9879,p-7dafab9f
+271,4,15,,2020-06-12 20:57:42,Ships in one business day,true,Generic Granite Shoes,27.20,SKU-NPT-0225,p-11e51c62
+272,12,15,,2020-10-05 04:20:30,New this season,true,Modern Metal Car,12.30,SKU-PGB-1108,p-d2c85a10
+273,5,2,,2019-06-08 00:20:16,Limited stock,true,Tasty Silk Gloves,108.66,SKU-YJQ-3436,p-ad110a12
+274,1,13,211.48,2020-09-07 02:03:07,Customer favourite,true,Recycled Cotton Pants,76.67,SKU-ZRO-9536,p-a6f2b5ee
+275,37,12,91.05,2020-08-21 01:53:15,Customer favourite,true,Intelligent Aluminum Cheese,31.49,SKU-XZC-0024,p-e80e5df9
+276,1,10,74.02,2022-05-13 09:54:21,Customer favourite,true,Sleek Cotton Towels,21.00,SKU-UTB-9850,p-42cce866
+277,4,17,,2024-10-21 10:29:31,Eligible for free returns,true,Elegant Marble Shirt,135.60,SKU-IJS-9059,p-a413b735
+278,7,1,,2024-05-15 16:09:17,Ships in one business day,true,Tasty Steel Mouse,7.03,SKU-YPO-1379,p-02a08f61
+279,5,2,,2020-02-12 02:38:33,Limited stock,true,Modern Plastic Cheese,104.45,SKU-GYO-9023,p-c055973d
+280,28,11,,2021-02-07 12:47:57,Customer favourite,true,Small Granite Pizza,14.46,SKU-OBR-2439,p-b7b3b6c9
+281,34,1,22.27,2022-07-20 10:45:10,Ships in one business day,true,Incredible Cotton Table,3.41,SKU-CXB-1835,p-bf34bb0a
+282,15,19,,2024-10-16 01:41:05,Ships in one business day,true,Luxurious Marble Chicken,121.06,SKU-OVX-4757,p-91819095
+283,40,14,122.13,2025-04-15 13:25:33,Limited stock,true,Fresh Wooden Mouse,3.11,SKU-KEN-6269,p-4f0fd0d0
+284,18,4,202.34,2024-01-07 00:57:43,Ships in one business day,true,Practical Rubber Salad,88.64,SKU-VPD-2476,p-45b11d79
+285,2,1,,2022-05-23 19:43:14,New this season,true,Fresh Wooden Shirt,3.68,SKU-QFY-3026,p-3cc4fb8d
+286,7,2,,2020-01-30 02:21:46,Customer favourite,true,Small Aluminum Gloves,86.19,SKU-TWZ-1263,p-b30c2b38
+287,3,1,,2020-10-07 15:47:16,New this season,true,Luxurious Aluminum Sausages,126.38,SKU-IMG-9613,p-5dc1e7ed
+288,15,4,,2020-10-25 02:04:07,Limited stock,true,Tasty Concrete Table,13.53,SKU-ROY-9927,p-daa6682c
+289,28,1,,2022-04-03 11:12:00,Ships in one business day,true,Bespoke Rubber Ball,3.00,SKU-ZUH-9932,p-79a1268b
+290,39,1,213.58,2021-11-04 02:24:16,Ships in one business day,true,Tasty Silk Shoes,82.15,SKU-QHH-9022,p-c0c08404
+291,39,8,82.69,2023-12-10 08:00:54,Ships in one business day,true,Intelligent Metal Chips,64.43,SKU-GTS-4400,p-da808e9d
+292,3,1,93.04,2019-12-18 08:55:27,Eligible for free returns,true,Practical Metal Pants,38.72,SKU-HKT-6481,p-f9cc5f5d
+293,1,1,93.21,2020-05-11 07:44:39,Eligible for free returns,true,Licensed Ceramic Towels,11.37,SKU-VZB-3271,p-8168d603
+294,23,17,202.51,2024-09-01 04:53:09,Eligible for free returns,true,Fresh Concrete Table,13.99,SKU-QKS-2892,p-f13c0b5f
+295,2,1,149.36,2024-03-15 02:05:18,Customer favourite,true,Tasty Marble Pants,131.06,SKU-OKD-7519,p-a961c0a3
+296,12,3,,2019-11-05 10:36:26,New this season,true,Bespoke Bronze Sausages,5.49,SKU-WWI-1433,p-d28ed3d9
+297,1,14,209.73,2020-12-03 16:48:02,Limited stock,true,Generic Gold Shirt,3.00,SKU-SZM-2350,p-04544a5a
+298,30,18,,2020-03-19 00:02:34,New this season,true,Awesome Granite Shirt,3.13,SKU-HTZ-1897,p-ab390b3a
+299,7,3,,2022-06-28 06:14:47,Ships in one business day,true,Licensed Bamboo Table,131.65,SKU-AYR-5284,p-b227ed0a
+300,31,10,,2022-03-22 13:28:03,Customer favourite,true,Luxurious Aluminum Hat,110.50,SKU-MHJ-6587,p-1fccc08e
+301,40,10,,2025-03-27 18:05:08,Limited stock,true,Oriental Rubber Chicken,103.62,SKU-JEV-1188,p-00254e89
+302,19,1,,2024-07-30 10:05:48,Eligible for free returns,true,Awesome Cotton Shirt,63.73,SKU-JIG-5998,p-f93b271c
+303,1,2,,2023-10-30 20:25:48,New this season,true,Gorgeous Metal Pants,7.41,SKU-VXY-7588,p-14b92219
+304,1,1,,2024-07-29 10:44:53,Customer favourite,true,Modern Bronze Pants,53.46,SKU-TDS-6930,p-f3327df6
+305,17,10,113.76,2024-12-23 13:51:47,Customer favourite,true,Elegant Aluminum Towels,113.76,SKU-MPN-6136,p-7d6d89cd
+306,2,1,102.67,2022-06-30 08:23:43,Customer favourite,true,Handmade Marble Sausages,8.12,SKU-VDA-2615,p-2cc05bde
+307,2,16,79.89,2025-03-21 18:52:56,Eligible for free returns,true,Refined Silk Salad,79.89,SKU-KHE-0909,p-4a99a36b
+308,1,1,87.98,2021-05-13 09:40:10,New this season,true,Oriental Concrete Sausages,87.98,SKU-EPN-2639,p-e7cf846e
+309,39,4,,2021-08-08 13:38:01,New this season,true,Refined Metal Computer,8.78,SKU-EVN-6553,p-1c2c2fd3
+310,7,3,,2021-03-21 20:10:13,Ships in one business day,true,Unbranded Marble Mouse,153.88,SKU-AMP-7371,p-5ade12ff
+311,4,18,,2020-03-27 12:02:00,Customer favourite,true,Sleek Ceramic Tuna,150.06,SKU-AYM-9194,p-80bc163d
+312,2,3,,2024-01-31 23:30:56,Limited stock,true,Ergonomic Granite Gloves,5.90,SKU-THO-8033,p-231d0a17
+313,1,7,,2022-09-02 07:19:22,Limited stock,true,Frozen Concrete Hat,133.74,SKU-SNR-1363,p-c7d7f525
+314,30,1,,2025-04-08 19:53:01,Limited stock,true,Awesome Metal Sausages,73.42,SKU-YDQ-9340,p-b3fe95b3
+315,3,3,,2022-01-08 04:30:55,Eligible for free returns,true,Modern Metal Table,32.25,SKU-HWM-4903,p-7e884871
+316,37,7,,2022-06-11 22:33:52,Ships in one business day,true,Ergonomic Silk Computer,148.44,SKU-DEQ-0319,p-fde3fec0
+317,16,20,166.79,2024-08-07 03:04:33,Eligible for free returns,true,Fresh Marble Bacon,4.62,SKU-FUT-1568,p-a9316c9f
+318,34,1,,2025-01-31 21:28:27,Limited stock,true,Elegant Rubber Table,6.20,SKU-MWP-9156,p-e8890e47
+319,1,4,,2019-04-21 05:29:57,New this season,true,Rustic Marble Salad,138.08,SKU-PAK-4205,p-4fb081a2
+320,1,22,,2021-12-23 05:01:14,Limited stock,true,Gorgeous Steel Pants,23.50,SKU-VFX-6991,p-3497570c
+321,11,2,89.16,2023-12-24 02:12:08,New this season,true,Tasty Silk Chair,87.79,SKU-XOP-2109,p-deb71c7b
+322,1,1,,2019-03-03 04:43:38,New this season,true,Unbranded Metal Soap,116.11,SKU-WMG-3195,p-17d09c87
+323,5,1,,2019-09-20 19:22:55,Ships in one business day,true,Ergonomic Cotton Salad,48.06,SKU-IUH-0145,p-d84eefe8
+324,2,2,,2020-11-14 09:36:16,Ships in one business day,true,Licensed Aluminum Computer,5.19,SKU-EOA-7045,p-9250a3ed
+325,12,4,,2019-07-31 15:02:59,Ships in one business day,true,Licensed Cotton Pants,3.15,SKU-AZQ-0967,p-c61473f1
+326,2,1,,2025-01-08 15:02:52,Customer favourite,true,Bespoke Gold Tuna,46.08,SKU-VZJ-6918,p-cac0782f
+327,16,2,35.22,2020-02-23 20:15:51,Customer favourite,true,Awesome Aluminum Computer,5.14,SKU-HQO-3038,p-926e643e
+328,10,21,150.62,2019-02-22 05:46:02,Limited stock,true,Refined Wooden Mouse,70.33,SKU-BSO-4595,p-45a66563
+329,31,1,175.7,2021-11-12 12:27:16,Eligible for free returns,true,Ergonomic Granite Car,118.95,SKU-JAX-6794,p-3603c94a
+330,26,1,,2025-03-24 06:17:13,Customer favourite,false,Intelligent Steel Towels,33.47,SKU-JUD-0370,p-e6f5aa8d
+331,10,8,,2022-09-16 03:46:10,Ships in one business day,true,Intelligent Marble Hat,157.81,SKU-PTS-3610,p-9c110062
+332,8,4,,2019-02-24 18:39:39,New this season,true,Modern Steel Fish,11.78,SKU-NDQ-9444,p-88f052c1
+333,39,11,,2024-02-12 08:10:02,Limited stock,true,Licensed Concrete Bacon,30.15,SKU-FCU-3370,p-61482c3d
+334,24,2,,2021-07-26 08:46:35,Eligible for free returns,true,Generic Granite Keyboard,9.18,SKU-CCG-1280,p-dd6eb371
+335,2,5,,2021-07-12 14:32:01,Customer favourite,true,Sleek Bamboo Hat,71.02,SKU-NSN-5369,p-87d870ab
+336,10,15,,2025-01-31 03:22:10,New this season,true,Small Bamboo Chicken,85.76,SKU-NYM-7281,p-d036c466
+337,8,9,,2023-05-06 09:53:38,Eligible for free returns,true,Generic Rubber Chair,6.09,SKU-YFU-2299,p-f5d2b278
+338,7,1,,2024-08-15 14:45:45,New this season,true,Handmade Plastic Chips,73.74,SKU-TPX-8273,p-459a5d68
+339,2,8,,2022-01-26 08:41:50,Customer favourite,true,Incredible Bronze Bacon,11.63,SKU-UXF-7087,p-7dcfbc4f
+340,14,12,117.94,2019-02-03 06:52:19,Ships in one business day,true,Gorgeous Granite Chips,13.23,SKU-ZRL-9797,p-bfa6487f
+341,28,1,,2019-09-10 15:31:39,Ships in one business day,true,Intelligent Aluminum Chips,57.65,SKU-YYO-2968,p-0d205823
+342,28,7,187.91,2019-10-27 23:13:37,Customer favourite,true,Handcrafted Steel Table,102.65,SKU-OMH-1309,p-b64f42cc
+343,6,3,,2022-07-09 11:55:18,Eligible for free returns,true,Handcrafted Wooden Pants,101.54,SKU-FHZ-1309,p-575f81d7
+344,34,3,,2023-10-06 18:48:11,New this season,true,Tasty Gold Pants,27.55,SKU-IOO-6851,p-c1681fc3
+345,1,1,210.79,2023-05-11 18:36:27,Eligible for free returns,true,Handcrafted Metal Hat,100.01,SKU-UXB-4023,p-ae3c3192
+346,6,18,,2019-03-01 05:51:26,Eligible for free returns,true,Recycled Gold Shoes,52.97,SKU-ZTV-0329,p-64453ed4
+347,1,3,,2022-06-19 04:44:59,New this season,true,Soft Ceramic Shoes,38.68,SKU-SBB-9655,p-f49199bc
+348,34,10,50.47,2024-08-14 23:47:58,New this season,true,Licensed Bronze Salad,29.20,SKU-KVV-4587,p-32fedc42
+349,29,1,,2020-06-23 21:08:49,Customer favourite,true,Gorgeous Metal Hat,141.62,SKU-UUI-5280,p-21a2ecfb
+350,3,6,,2021-10-22 10:30:00,New this season,true,Bespoke Rubber Towels,149.67,SKU-SRS-9319,p-60332e94
+351,33,3,29.18,2019-04-12 17:38:49,Customer favourite,false,Generic Concrete Chips,3.08,SKU-BRT-4764,p-7bba8343
+352,16,15,,2024-06-14 10:14:54,New this season,true,Soft Aluminum Shirt,81.46,SKU-GPO-1507,p-39d3d03a
+353,23,21,,2019-04-03 10:59:24,New this season,false,Licensed Gold Chair,4.60,SKU-TZT-0028,p-3d653cce
+354,2,4,,2023-03-29 05:23:35,Limited stock,true,Recycled Aluminum Car,33.69,SKU-OGE-9644,p-92b22cd4
+355,2,1,218.2,2020-10-07 21:28:54,Customer favourite,true,Unbranded Bronze Soap,55.84,SKU-SYS-6553,p-cd9ec77d
+356,24,4,,2024-10-06 14:12:37,Eligible for free returns,true,Licensed Ceramic Chips,36.21,SKU-TQO-9726,p-6aecb972
+357,3,15,,2021-08-29 17:29:16,Limited stock,true,Modern Gold Pizza,108.62,SKU-LQZ-3684,p-ba4b6436
+358,20,2,,2025-04-05 06:06:35,Customer favourite,true,Soft Rubber Tuna,15.72,SKU-AMM-3582,p-9cadbd9f
+359,13,14,63.85,2020-08-15 15:11:55,New this season,true,Practical Concrete Computer,63.85,SKU-LRX-2916,p-14445191
+360,15,1,,2024-12-26 19:44:09,Limited stock,true,Licensed Steel Bacon,43.06,SKU-SZF-7258,p-a64185aa
+361,4,3,65.81,2019-12-04 23:35:48,New this season,true,Handmade Steel Fish,65.81,SKU-ORI-9058,p-4a23de2e
+362,35,2,147.72,2019-05-17 15:47:29,Customer favourite,true,Soft Ceramic Chips,101.27,SKU-ETQ-2791,p-13d6a17b
+363,10,3,22,2024-09-24 18:56:53,New this season,true,Unbranded Wooden Towels,16.95,SKU-GRY-2377,p-27abf39d
+364,19,10,155.14,2023-12-03 08:16:31,Ships in one business day,true,Soft Granite Table,155.14,SKU-CQF-9328,p-fdf271ff
+365,34,10,,2025-06-24 18:09:56,New this season,true,Soft Ceramic Fish,85.71,SKU-HDQ-5972,p-0aea79f2
+366,2,5,,2024-06-20 12:13:53,Customer favourite,true,Fresh Concrete Ball,33.62,SKU-UHU-7993,p-58ec4b8a
+367,1,7,,2023-10-31 10:16:56,Limited stock,true,Intelligent Wooden Car,17.38,SKU-PHR-5313,p-d14efbc2
+368,1,10,192.89,2022-12-05 19:22:58,New this season,true,Small Marble Computer,3.06,SKU-FDQ-0332,p-211c0fba
+369,39,12,,2024-01-03 01:45:07,Eligible for free returns,true,Refined Steel Salad,3.05,SKU-EIR-9862,p-61d11eea
+370,21,9,,2023-01-09 13:12:10,New this season,true,Handcrafted Silk Pants,100.14,SKU-KYK-2944,p-3b40b05d
+371,6,12,,2021-05-23 05:06:34,Ships in one business day,true,Intelligent Concrete Keyboard,104.23,SKU-GWZ-1874,p-0d56eee0
+372,2,1,,2022-04-21 04:11:43,New this season,true,Bespoke Silk Tuna,37.74,SKU-GBX-7346,p-6ad5b178
+373,1,1,,2019-04-18 16:34:25,New this season,true,Handmade Concrete Sausages,3.62,SKU-VJT-0577,p-fa887b04
+374,2,1,,2019-04-21 13:48:40,Ships in one business day,true,Fantastic Granite Chair,6.37,SKU-GMF-6293,p-30e41b75
+375,16,14,53.04,2021-05-27 13:05:40,Limited stock,true,Electronic Bamboo Bacon,25.99,SKU-JOK-7161,p-c0ff3076
+376,1,13,,2021-08-21 21:40:24,Eligible for free returns,true,Handmade Gold Salad,4.23,SKU-CNZ-0769,p-71ab26c1
+377,7,7,,2022-11-27 13:18:56,Eligible for free returns,true,Unbranded Rubber Keyboard,106.53,SKU-TON-0525,p-b9d0bbad
+378,5,1,217.72,2021-05-25 06:28:11,Customer favourite,true,Modern Bronze Car,3.23,SKU-RYA-6884,p-efc942ba
+379,18,5,125.39,2019-12-10 13:42:13,Customer favourite,true,Intelligent Aluminum Table,14.27,SKU-BJL-5413,p-21599235
+380,1,1,158.21,2024-03-25 22:35:11,New this season,true,Refined Marble Hat,62.65,SKU-FLZ-6925,p-eb19bd90
+381,19,18,,2024-01-18 15:52:46,New this season,true,Intelligent Plastic Cheese,11.82,SKU-JSF-7977,p-62b98dcf
+382,27,5,,2023-06-05 02:00:26,Limited stock,true,Luxurious Metal Mouse,6.61,SKU-ULO-8264,p-42beb75b
+383,18,5,,2022-05-29 03:34:44,New this season,true,Rustic Rubber Towels,82.83,SKU-PYV-3632,p-969ad72d
+384,1,9,,2023-02-21 12:00:06,Customer favourite,true,Soft Wooden Pants,84.90,SKU-QBS-2896,p-c835c291
+385,16,14,,2021-01-31 11:24:40,New this season,true,Modern Steel Cheese,23.05,SKU-STU-1450,p-d02de681
+386,2,6,142.54,2019-07-17 14:24:58,Ships in one business day,true,Practical Bamboo Soap,142.54,SKU-YGM-0894,p-6300001c
+387,19,5,,2022-08-30 11:42:08,Ships in one business day,false,Fantastic Steel Chicken,126.25,SKU-BTP-0546,p-4322dec4
+388,1,21,169.94,2022-09-14 00:48:49,Customer favourite,true,Small Cotton Cheese,14.29,SKU-NFS-4142,p-ecb3fe68
+389,4,1,,2020-04-17 18:10:53,Eligible for free returns,true,Soft Rubber Gloves,14.34,SKU-BCC-4784,p-74681205
+390,24,22,,2020-12-29 19:04:05,Eligible for free returns,true,Modern Rubber Bacon,82.48,SKU-INR-8046,p-c828e466
+391,2,22,,2023-03-26 23:20:06,Eligible for free returns,true,Oriental Plastic Mouse,121.43,SKU-AGW-3989,p-121618a4
+392,2,1,,2023-09-19 18:32:08,Ships in one business day,true,Bespoke Granite Sausages,122.24,SKU-ZTA-9258,p-255a1b1a
+393,2,15,,2019-05-30 15:38:10,Limited stock,true,Oriental Aluminum Keyboard,21.55,SKU-APK-8047,p-d53190b4
+394,3,1,,2023-08-07 23:43:11,Customer favourite,true,Frozen Ceramic Cheese,4.33,SKU-ZFR-7969,p-e24bcf73
+395,25,1,211.5,2022-12-05 04:24:37,Eligible for free returns,true,Small Aluminum Towels,29.94,SKU-NQR-7863,p-4b13bc46
+396,26,21,46.48,2021-12-13 08:40:32,Customer favourite,true,Incredible Steel Table,4.91,SKU-QUI-0025,p-3a747f2f
+397,3,1,,2022-03-14 11:58:54,Limited stock,true,Licensed Steel Soap,34.96,SKU-WBD-0260,p-c8b1a2ed
+398,2,1,,2022-07-17 00:28:23,Eligible for free returns,true,Fantastic Aluminum Keyboard,50.84,SKU-MQH-4494,p-a43ddf39
+399,8,5,,2024-02-23 21:05:56,Customer favourite,true,Electronic Plastic Ball,17.20,SKU-YEQ-3226,p-d7b8c2d3
+400,8,18,,2019-06-23 02:33:14,Limited stock,true,Gorgeous Silk Hat,4.80,SKU-TBN-4860,p-d4304539

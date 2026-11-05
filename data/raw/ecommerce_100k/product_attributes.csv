@@ -1,0 +1,5 @@
+id,name,type
+1,accent_color,text
+2,finish,text
+3,trim_color,text
+4,color,text

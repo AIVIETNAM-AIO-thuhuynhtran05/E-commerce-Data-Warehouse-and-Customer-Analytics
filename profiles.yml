@@ -1,0 +1,8 @@
+ecommerce_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: warehouse/ecommerce.duckdb
+      schema: analytics
+      threads: 4

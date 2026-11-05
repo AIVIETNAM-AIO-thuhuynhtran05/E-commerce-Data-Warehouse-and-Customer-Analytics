@@ -1,0 +1,131 @@
+version: 2
+
+sources:
+  - name: ecommerce_raw
+    schema: raw
+    description: Generated e-commerce source data loaded from CSV files.
+    tables:
+      - name: addresses
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: audit_logs
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: brands
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: cart_items
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: categories
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: countries
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: discount_coupons
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: orders
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: order_items
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: order_returns
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: order_statuses
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: payments
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: payment_methods
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: products
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: product_attributes
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: product_attribute_values
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: product_images
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: product_inventories
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: product_reviews
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: return_reasons
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: shipments
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: shipping_methods
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: shopping_carts
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: suppliers
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: support_messages
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: support_tickets
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: tax_rates
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: users
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: warehouses
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: wishlists
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: wishlist_items
+        columns:
+          - name: id
+            tests: [not_null, unique]
