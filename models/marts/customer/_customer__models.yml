@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: mart_customer_360
+    description: >
+      One row per customer with order history, RFM segment and review summary.
+      lifetime_order_value counts every order status; lifetime_revenue counts
+      only paid, shipped and delivered orders.
+    columns:
+      - name: customer_key
+        data_tests: [not_null, unique]
+      - name: rfm_segment
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Champions', 'Loyal', 'Recent', 'At risk', 'Hibernating', 'Needs attention', 'No revenue orders']
+      - name: recency_days
+        description: Days between the last revenue order and the last order date in the dataset.

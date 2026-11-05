@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_orders__payments_agg
+    description: Payments aggregated to one row per order.
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+
+  - name: int_orders__enriched
+    description: >
+      One row per order with status business rules (from the order_status_mapping
+      seed), item counts and payment totals. counts_as_revenue is defined here only.
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: counts_as_revenue
+        description: True for paid, shipped and delivered orders.
+        data_tests: [not_null]
+      - name: has_items
+        description: False for orders without any order item (shipping-only orders).
+
+  - name: int_order_items__enriched
+    description: >
+      One row per order item with order context, allocated discount and refunded
+      returns. Feeds fact_sales.
+    columns:
+      - name: order_item_id
+        data_tests: [not_null, unique]
+      - name: discount_amount
+        description: Order discount allocated to the line by its share of gross amount.
+      - name: net_amount
+        description: gross_amount - discount_amount, before tax and shipping.
+      - name: refunded_quantity
+        description: Quantity from returns with status refunded.
+      - name: recognized_revenue
+        description: net_amount when the order status counts as revenue, else 0.
+
+  - name: int_customers__order_history
+    description: Order history summary, one row per customer with at least one order.
+    columns:
+      - name: customer_id
+        data_tests: [not_null, unique]
+
+  - name: int_addresses__geography
+    description: One row per address with its location attributes and geography_key.
+    columns:
+      - name: address_id
+        data_tests: [not_null, unique]
+      - name: geography_key
+        data_tests: [not_null]

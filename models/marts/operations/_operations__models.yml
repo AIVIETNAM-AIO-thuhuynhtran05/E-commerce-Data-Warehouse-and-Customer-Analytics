@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fact_inventory_current
+    description: >
+      Current stock per inventory record. Not a historical snapshot, so it
+      cannot show inventory trends.
+    columns:
+      - name: inventory_id
+        data_tests: [not_null, unique]
+      - name: product_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+
+  - name: fact_support_tickets
+    description: One row per support ticket with message counts and first reply time.
+    columns:
+      - name: ticket_id
+        data_tests: [not_null, unique]
+      - name: customer_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: hours_to_first_agent_reply
+        description: Null when no agent has replied.

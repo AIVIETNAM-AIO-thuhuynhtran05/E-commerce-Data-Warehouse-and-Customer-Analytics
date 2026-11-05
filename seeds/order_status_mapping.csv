@@ -1,0 +1,7 @@
+status_name,fulfillment_stage,counts_as_revenue
+pending,awaiting_payment,false
+paid,paid,true
+shipped,in_transit,true
+delivered,completed,true
+cancelled,cancelled,false
+refunded,refunded,false

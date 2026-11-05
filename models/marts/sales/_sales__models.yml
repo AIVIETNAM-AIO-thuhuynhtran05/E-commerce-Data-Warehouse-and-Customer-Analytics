@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: mart_sales_daily
+    description: >
+      Daily sales by product category, built on fact_sales. order_count is a
+      distinct count, so it is not additive across categories.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [order_date, category_name]
+    columns:
+      - name: order_date
+        data_tests: [not_null]
+      - name: recognized_revenue
+        description: Net sales of paid, shipped and delivered orders.
+
+  - name: mart_product_performance
+    description: One row per product with sales, refunds and review metrics.
+    columns:
+      - name: product_key
+        data_tests: [not_null, unique]
+      - name: refund_rate
+        description: Refunded units / units sold.
+      - name: revenue_rank
+        description: Rank by recognized revenue, 1 = highest.

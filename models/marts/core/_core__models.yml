@@ -1,0 +1,253 @@
+version: 2
+
+# Sales star schema. Dimensions use surrogate keys built with
+# dbt_utils.generate_surrogate_key; facts reference them with *_key columns.
+
+models:
+  # ---------- dimensions ----------
+  - name: dim_date
+    description: Calendar, one row per day between the calendar_start_date and calendar_end_date vars.
+    columns:
+      - name: date_key
+        description: YYYYMMDD integer.
+        data_tests: [not_null, unique]
+      - name: date_day
+        data_tests: [not_null, unique]
+
+  - name: dim_customer
+    description: One row per customer. PII is limited to name, email and phone; password hashes are dropped in staging.
+    columns:
+      - name: customer_key
+        data_tests: [not_null, unique]
+      - name: customer_id
+        data_tests: [not_null, unique]
+      - name: first_order_cohort_month
+        description: Month of the customer's first order; null if they never ordered.
+
+  - name: dim_product
+    description: One row per product with current attributes (SCD type 1). Price history is in snap_products.
+    columns:
+      - name: product_key
+        data_tests: [not_null, unique]
+      - name: product_id
+        data_tests: [not_null, unique]
+
+  - name: dim_geography
+    description: One row per ship-to location (country, state, city, postal code).
+    columns:
+      - name: geography_key
+        data_tests: [not_null, unique]
+
+  - name: dim_order_status
+    description: Order statuses with business rules from the order_status_mapping seed.
+    columns:
+      - name: order_status_key
+        data_tests: [not_null, unique]
+      - name: counts_as_revenue
+        data_tests: [not_null]
+
+  - name: dim_promotion
+    description: Discount coupons plus a "No promotion" row (coupon_id = -1) for orders without a coupon.
+    columns:
+      - name: promotion_key
+        data_tests: [not_null, unique]
+      - name: coupon_id
+        data_tests: [not_null, unique]
+
+  - name: dim_shipping_method
+    columns:
+      - name: shipping_method_key
+        data_tests: [not_null, unique]
+
+  - name: dim_payment_method
+    columns:
+      - name: payment_method_key
+        data_tests: [not_null, unique]
+
+  # ---------- facts ----------
+  - name: fact_sales
+    description: >
+      Grain: one row per order item. Main fact of the sales star schema.
+      Measures are additive at line level and exclude shipping. Use
+      recognized_revenue for revenue; it is 0 for pending, cancelled and
+      refunded orders.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "net_amount = gross_amount - discount_amount"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "refunded_quantity <= quantity"
+    columns:
+      - name: order_item_id
+        data_tests: [not_null, unique]
+      - name: order_id
+        description: Degenerate dimension.
+        data_tests: [not_null]
+      - name: order_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: product_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: ship_to_geography_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_geography')
+                field: geography_key
+      - name: promotion_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_promotion')
+                field: promotion_key
+      - name: shipping_method_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_shipping_method')
+                field: shipping_method_key
+      - name: order_status_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_order_status')
+                field: order_status_key
+      - name: gross_amount
+        description: quantity x unit_price.
+      - name: discount_amount
+        description: Order discount allocated to the line by its share of gross amount.
+      - name: net_amount
+        description: gross_amount - discount_amount. Before tax and shipping.
+      - name: recognized_revenue
+        description: net_amount for paid, shipped and delivered orders; 0 otherwise.
+
+  - name: fact_orders
+    description: >
+      Grain: one row per order. Use for order counts, AOV and order-level
+      amounts (shipping, total). Never sum order_total after joining to
+      fact_sales: it repeats once per line.
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: order_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: ship_to_geography_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_geography')
+                field: geography_key
+      - name: promotion_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_promotion')
+                field: promotion_key
+      - name: order_status_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_order_status')
+                field: order_status_key
+
+  - name: fact_payments
+    description: "Grain: one row per payment transaction."
+    columns:
+      - name: payment_id
+        data_tests: [not_null, unique]
+      - name: payment_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: payment_method_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_payment_method')
+                field: payment_method_key
+      - name: customer_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+
+  - name: fact_shipments
+    description: "Grain: one row per shipment."
+    columns:
+      - name: shipment_id
+        data_tests: [not_null, unique]
+      - name: shipped_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: delivered_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: is_delivered_on_time
+        description: Transit days within the shipping method's estimated days.
+
+  - name: fact_returns
+    description: "Grain: one row per return request."
+    columns:
+      - name: return_id
+        data_tests: [not_null, unique]
+      - name: product_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: requested_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: return_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['requested', 'approved', 'rejected', 'refunded']

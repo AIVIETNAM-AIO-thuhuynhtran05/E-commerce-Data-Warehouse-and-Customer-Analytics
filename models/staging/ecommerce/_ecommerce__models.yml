@@ -1,0 +1,248 @@
+version: 2
+
+models:
+  - name: stg_ecommerce__addresses
+    description: Customer addresses. Used as ship-to and bill-to locations on orders.
+    columns:
+      - name: address_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: customer_id
+        description: Customer who saved the address.
+      - name: state_province
+        description: Two-letter state code.
+  - name: stg_ecommerce__audit_logs
+    description: Row-level change log from the source application.
+    columns:
+      - name: audit_log_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: performed_by_user_id
+        description: User who made the change.
+      - name: action
+        description: insert, update or delete.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['insert', 'update', 'delete']
+  - name: stg_ecommerce__brands
+    description: Product brands.
+    columns:
+      - name: brand_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__cart_items
+    description: Products added to shopping carts.
+    columns:
+      - name: cart_item_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__categories
+    description: Product categories. All categories are top level in this dataset.
+    columns:
+      - name: category_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: parent_category_id
+        description: Parent category. Loaded as text because every value is empty.
+  - name: stg_ecommerce__countries
+    description: Country reference data.
+    columns:
+      - name: country_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__discount_coupons
+    description: Discount coupons that can be applied to an order.
+    columns:
+      - name: coupon_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__order_items
+    description: One row per product line in an order.
+    columns:
+      - name: order_item_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: line_discount_amount
+        description: Line-level discount. Always 0 in this dataset; discounts are order level.
+  - name: stg_ecommerce__order_returns
+    description: Return requests for order items.
+    columns:
+      - name: return_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: return_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['requested', 'approved', 'rejected', 'refunded']
+  - name: stg_ecommerce__order_statuses
+    description: Order status lookup.
+    columns:
+      - name: order_status_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: status_name
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['pending', 'paid', 'shipped', 'delivered', 'cancelled', 'refunded']
+  - name: stg_ecommerce__orders
+    description: One row per order. Amounts are order level.
+    columns:
+      - name: order_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: coupon_id
+        description: Null when no coupon was used.
+      - name: subtotal
+        description: Sum of quantity x unit price over the order items.
+      - name: discount_amount
+        description: Order-level discount.
+      - name: order_total
+        description: subtotal - discount + tax + shipping.
+  - name: stg_ecommerce__payment_methods
+    description: Payment method lookup.
+    columns:
+      - name: payment_method_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__payments
+    description: Payment transactions.
+    columns:
+      - name: payment_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: payment_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'refunded', 'failed']
+  - name: stg_ecommerce__product_attribute_values
+    description: Attribute values assigned to products.
+    columns:
+      - name: attribute_value_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__product_attributes
+    description: Product attribute definitions.
+    columns:
+      - name: attribute_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__product_images
+    description: Product images.
+    columns:
+      - name: product_image_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__product_inventories
+    description: Current stock by product and warehouse. Not a historical snapshot.
+    columns:
+      - name: inventory_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__product_reviews
+    description: Product reviews written by customers.
+    columns:
+      - name: review_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: rating
+        description: 1 to 5.
+  - name: stg_ecommerce__products
+    description: Product catalog.
+    columns:
+      - name: product_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: price
+        description: Current list price.
+  - name: stg_ecommerce__return_reasons
+    description: Return reason lookup.
+    columns:
+      - name: return_reason_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__shipments
+    description: One shipment per order.
+    columns:
+      - name: shipment_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__shipping_methods
+    description: Shipping method lookup.
+    columns:
+      - name: shipping_method_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__shopping_carts
+    description: Shopping carts.
+    columns:
+      - name: cart_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__suppliers
+    description: Suppliers. Not linked to products in this dataset.
+    columns:
+      - name: supplier_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__support_messages
+    description: Messages within support tickets.
+    columns:
+      - name: message_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: sender_type
+        description: customer or agent.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['customer', 'agent']
+  - name: stg_ecommerce__support_tickets
+    description: Customer support tickets.
+    columns:
+      - name: ticket_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+      - name: priority
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['low', 'medium', 'high']
+      - name: ticket_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['open', 'pending', 'resolved', 'closed']
+  - name: stg_ecommerce__tax_rates
+    description: Sales tax rates by state.
+    columns:
+      - name: tax_rate_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__users
+    description: Customers. password_hash is dropped here so it never reaches downstream models.
+    columns:
+      - name: customer_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__warehouses
+    description: Warehouses that hold inventory.
+    columns:
+      - name: warehouse_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__wishlist_items
+    description: Products saved to wishlists.
+    columns:
+      - name: wishlist_item_id
+        description: Primary key.
+        data_tests: [not_null, unique]
+  - name: stg_ecommerce__wishlists
+    description: Customer wishlists.
+    columns:
+      - name: wishlist_id
+        description: Primary key.
+        data_tests: [not_null, unique]

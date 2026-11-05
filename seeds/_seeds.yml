@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+  - name: order_status_mapping
+    description: >
+      Business rules for order statuses. counts_as_revenue decides which
+      orders are included in recognized revenue.
+    config:
+      column_types:
+        status_name: varchar
+        fulfillment_stage: varchar
+        counts_as_revenue: boolean
+    columns:
+      - name: status_name
+        data_tests: [not_null, unique]
+      - name: counts_as_revenue
+        data_tests: [not_null]

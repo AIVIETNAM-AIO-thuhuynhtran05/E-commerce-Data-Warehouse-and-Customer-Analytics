@@ -1,19 +1,38 @@
+-- Grain: one row per return request.
+
+with returns as (
+
+    select * from {{ ref('stg_ecommerce__order_returns') }}
+
+),
+
+items as (
+
+    select order_item_id, order_id, product_id, customer_id, unit_price
+    from {{ ref('int_order_items__enriched') }}
+
+),
+
+reasons as (
+
+    select * from {{ ref('stg_ecommerce__return_reasons') }}
+
+)
+
 select
-    r.id as return_id,
-    r.order_item_id,
-    oi.order_id,
-    oi.product_id,
-    o.user_id as customer_id,
-    cast(r.requested_at as date) as requested_date,
-    cast(r.processed_at as date) as processed_date,
-    r.quantity,
-    r.reason_id,
-    rr.reason_text,
-    r.status
-from {{ ref('stg_ecommerce__order_returns') }} as r
-left join {{ ref('stg_ecommerce__order_items') }} as oi
-    on r.order_item_id = oi.id
-left join {{ ref('stg_ecommerce__orders') }} as o
-    on oi.order_id = o.id
-left join {{ ref('stg_ecommerce__return_reasons') }} as rr
-    on r.reason_id = rr.id
+    returns.return_id,
+    returns.order_item_id,
+    items.order_id,
+    {{ date_key('returns.requested_at') }}                         as requested_date_key,
+    {{ date_key('returns.processed_at') }}                         as processed_date_key,
+    {{ dbt_utils.generate_surrogate_key(['items.customer_id']) }}  as customer_key,
+    {{ dbt_utils.generate_surrogate_key(['items.product_id']) }}   as product_key,
+    reasons.return_reason,
+    returns.return_status,
+    returns.returned_quantity,
+    cast(returns.returned_quantity * items.unit_price as decimal(18, 2)) as returned_amount
+from returns
+left join items
+    on returns.order_item_id = items.order_item_id
+left join reasons
+    on returns.return_reason_id = reasons.return_reason_id

@@ -3,129 +3,160 @@ version: 2
 sources:
   - name: ecommerce_raw
     schema: raw
-    description: Generated e-commerce source data loaded from CSV files.
+    description: Generated e-commerce source data loaded from CSV files by scripts/load_csvs.py.
     tables:
       - name: addresses
+        description: Customer addresses. Used as ship-to and bill-to locations on orders.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: audit_logs
+        description: Row-level change log from the source application.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: brands
+        description: Product brands.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: cart_items
+        description: Products added to shopping carts.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: categories
+        description: Product categories. All categories are top level in this dataset.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: countries
+        description: Country reference data.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: discount_coupons
+        description: Discount coupons that can be applied to an order.
         columns:
           - name: id
-            tests: [not_null, unique]
-      - name: orders
-        columns:
-          - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: order_items
+        description: One row per product line in an order.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: order_returns
+        description: Return requests for order items.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: order_statuses
+        description: Order status lookup.
         columns:
           - name: id
-            tests: [not_null, unique]
-      - name: payments
+            data_tests: [not_null, unique]
+      - name: orders
+        description: One row per order. Amounts are order level.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: payment_methods
+        description: Payment method lookup.
         columns:
           - name: id
-            tests: [not_null, unique]
-      - name: products
+            data_tests: [not_null, unique]
+      - name: payments
+        description: Payment transactions.
         columns:
           - name: id
-            tests: [not_null, unique]
-      - name: product_attributes
-        columns:
-          - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: product_attribute_values
+        description: Attribute values assigned to products.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
+      - name: product_attributes
+        description: Product attribute definitions.
+        columns:
+          - name: id
+            data_tests: [not_null, unique]
       - name: product_images
+        description: Product images.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: product_inventories
+        description: Current stock by product and warehouse. Not a historical snapshot.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: product_reviews
+        description: Product reviews written by customers.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
+      - name: products
+        description: Product catalog.
+        columns:
+          - name: id
+            data_tests: [not_null, unique]
       - name: return_reasons
+        description: Return reason lookup.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: shipments
+        description: One shipment per order.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: shipping_methods
+        description: Shipping method lookup.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: shopping_carts
+        description: Shopping carts.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: suppliers
+        description: Suppliers. Not linked to products in this dataset.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: support_messages
+        description: Messages within support tickets.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: support_tickets
+        description: Customer support tickets.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: tax_rates
+        description: Sales tax rates by state.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: users
+        description: Customers. password_hash is dropped here so it never reaches downstream models.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: warehouses
+        description: Warehouses that hold inventory.
         columns:
           - name: id
-            tests: [not_null, unique]
-      - name: wishlists
-        columns:
-          - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
       - name: wishlist_items
+        description: Products saved to wishlists.
         columns:
           - name: id
-            tests: [not_null, unique]
+            data_tests: [not_null, unique]
+      - name: wishlists
+        description: Customer wishlists.
+        columns:
+          - name: id
+            data_tests: [not_null, unique]

@@ -1,0 +1,11 @@
+snapshots:
+  - name: snap_products
+    description: >
+      SCD type 2 history of product price and status. The source has no
+      updated_at column, so the check strategy compares these columns on each
+      run and opens a new version when any of them change.
+    relation: ref('stg_ecommerce__products')
+    config:
+      unique_key: product_id
+      strategy: check
+      check_cols: [price, compare_at_price, is_active]
