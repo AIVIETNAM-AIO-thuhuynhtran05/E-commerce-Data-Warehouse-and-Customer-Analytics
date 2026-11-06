@@ -23,7 +23,7 @@ and organised in three layers: staging → intermediate → marts.
 DuckDB  raw.*
     │
     ▼  dbt                                        (Transform)
-staging        31 views   rename, cast, clean, drop PII — one model per source table
+staging        31 views   rename, cast, clean, drop password_hash — one model per source table
     │
     ▼
 intermediate    5 views   joins, order-grain rollups, business rules (revenue definition)
@@ -169,28 +169,134 @@ those changes. At 100K rows a full rebuild takes seconds.
   - `assert_no_revenue_from_non_revenue_statuses`: pending, cancelled and refunded orders add no revenue.
   - `warn_orders_without_items` (**warning**): 2,258 orders have no items (subtotal 0, total = shipping). Reported on every build without blocking it.
 
-## Repository layout
+## Project structure
 
 ```text
-data/raw/ecommerce_100k/        source CSVs
-scripts/load_csvs.py            CSV → DuckDB raw schema
-models/
-  staging/ecommerce/            stg_ecommerce__*  + _ecommerce__sources.yml, _ecommerce__models.yml
-  intermediate/                 int_*             + _int__models.yml
-  marts/
-    core/                       dim_*, fact_*     + _core__models.yml
-    sales/                      mart_sales_daily, mart_product_performance
-    customer/                   mart_customer_360
-    operations/                 fact_inventory_current, fact_support_tickets
-seeds/                          order_status_mapping.csv (business rules)
-snapshots/                      snap_products (SCD2 price history)
-macros/                         generate_schema_name, to_money, date_key
-tests/                          singular business-rule tests
-analyses/                       fan-out and revenue-definition queries
+dbt/
+├── README.md
+├── dbt_project.yml              project config: folders, materializations, schemas, vars
+├── profiles.yml                 connection to the local DuckDB file
+├── packages.yml                 dbt packages (dbt_utils)
+├── package-lock.yml             pinned package versions
+├── requirements.txt             Python dependencies (dbt-duckdb)
+├── .gitignore
+│
+├── data/raw/ecommerce_100k/     31 source CSV files                    ┐ Extract
+├── scripts/load_csvs.py         loads the CSVs into DuckDB schema raw  ┘ + Load
+├── warehouse/                   ecommerce.duckdb is created here (not committed)
+│
+├── models/                                                              ┐
+│   ├── staging/ecommerce/       31 views: clean each source table       │
+│   ├── intermediate/            5 views: joins and business rules       │ Transform
+│   └── marts/                   18 tables: star schema and marts        │ (dbt)
+│       ├── core/  sales/  customer/  operations/                        │
+├── seeds/                       business-rule lookup (CSV)              │
+├── snapshots/                   SCD2 price history                      │
+├── macros/                      reusable SQL snippets                   ┘
+│
+├── tests/                       singular business-rule tests
+└── analyses/                    one-off queries that explain design choices
 ```
 
-DuckDB schemas match the folders: `staging`, `intermediate`, `core`, `sales`,
-`customer`, `operations`, `seeds`, `snapshots`.
+Each folder under `models/` is built into the DuckDB schema of the same name:
+`staging`, `intermediate`, `core`, `sales`, `customer`, `operations`, plus
+`seeds` and `snapshots`. Source tables stay in `raw`.
+
+### Root files
+
+| File | Purpose |
+|---|---|
+| `dbt_project.yml` | Project name, folder paths, materialization per layer (staging and intermediate as views, marts as tables), target schema per folder, and the `dim_date` calendar range (`vars`). |
+| `profiles.yml` | dbt connection profile. Points to `warehouse/ecommerce.duckdb`. Local only, no credentials. |
+| `packages.yml` / `package-lock.yml` | Declares and pins `dbt_utils` (used for surrogate keys). Installed by `dbt deps` into `dbt_packages/`. |
+| `requirements.txt` | Python packages: `dbt-duckdb`, which also installs dbt Core and DuckDB. |
+
+### Extract and load
+
+| File | Purpose |
+|---|---|
+| `data/raw/ecommerce_100k/*.csv` | 31 generated source tables (orders, order_items, users, products, payments, ...). |
+| `scripts/load_csvs.py` | Creates schema `raw` in DuckDB and loads every CSV into a table of the same name (`orders.csv` → `raw.orders`). dbt only reads these tables, never the CSVs. |
+
+### `models/staging/ecommerce/`: clean the source
+
+One view per source table. Rename, cast and clean only: no joins, no filters, no business rules.
+
+| File | Purpose |
+|---|---|
+| `_ecommerce__sources.yml` | Declares the 31 tables in schema `raw` as source `ecommerce_raw`, with a description and `not_null` / `unique` tests on `id`. Models read them with `{{ source('ecommerce_raw', '<table>') }}`. |
+| `_ecommerce__models.yml` | Documents the 31 staging models and tests them: primary keys after renaming (`order_id`, `customer_id`, ...) and `accepted_values` on statuses and other categorical columns. |
+| `stg_ecommerce__<table>.sql` (×31) | Renames keys (`id` → `order_id`, `user_id` → `customer_id`), casts money to `decimal(18,2)` and dates to `timestamp`, trims and lowercases text, drops `password_hash`. |
+
+### `models/intermediate/`: join and apply business rules
+
+Logic reused by several marts lives here, so it is written once.
+
+| File | Purpose |
+|---|---|
+| `_int__models.yml` | Documentation and tests for the intermediate models. |
+| `int_orders__enriched.sql` | One row per order. Joins status, the `order_status_mapping` seed, item counts and payments. **The only place that decides whether an order counts as revenue.** |
+| `int_order_items__enriched.sql` | One row per order item. Adds order context, allocates the order-level discount to lines by gross amount, attaches refunded returns. |
+| `int_orders__payments_agg.sql` | Payments rolled up to one row per order, so they can be joined to orders without duplicating rows. |
+| `int_customers__order_history.sql` | One row per customer with orders: first / last order, order count, revenue. |
+| `int_addresses__geography.sql` | Maps each address to a location (country, state, city, postal code) and its `geography_key`. Street details are dropped. |
+
+### `models/marts/`: tables for analysis
+
+**`core/`**: the star schema. Dimensions and facts with surrogate keys and documented grains.
+
+| File | Purpose |
+|---|---|
+| `_core__models.yml` | Documentation and tests: primary keys, `relationships` from every fact key to its dimension. |
+| `dim_date.sql` | Calendar, one row per day, range from `vars` in `dbt_project.yml`. |
+| `dim_customer.sql` | Customers with signup date and first-order cohort. |
+| `dim_product.sql` | Current product attributes with category and brand (SCD1; price history is in `snap_products`). |
+| `dim_geography.sql` | Ship-to locations. |
+| `dim_promotion.sql` | Discount coupons plus a "No promotion" row (`coupon_id = -1`). |
+| `dim_order_status.sql` | Order statuses with `counts_as_revenue` from the seed. |
+| `dim_payment_method.sql`, `dim_shipping_method.sql` | Lookup dimensions. |
+| `fact_sales.sql` | **Central fact**, one row per order item: quantity, gross, discount, net, tax, recognized revenue, refunds. |
+| `fact_orders.sql` | One row per order: order-level amounts (shipping, tax, total) that cannot be split across items. |
+| `fact_payments.sql` | One row per payment transaction. |
+| `fact_shipments.sql` | One row per shipment: days to ship, transit time, on-time delivery. |
+| `fact_returns.sql` | One row per return request: reason and refund amount. |
+
+**`sales/`, `customer/`, `operations/`**: pre-aggregated tables built on top of `core/`.
+
+| File | Purpose |
+|---|---|
+| `sales/mart_sales_daily.sql` | One row per order date and product category: daily sales trend. |
+| `sales/mart_product_performance.sql` | One row per product: units, revenue, returns, reviews. |
+| `customer/mart_customer_360.sql` | One row per customer: lifetime metrics and RFM segment. |
+| `operations/fact_inventory_current.sql` | Current stock by product and warehouse. |
+| `operations/fact_support_tickets.sql` | One row per support ticket: priority, status, message counts, hours to first agent reply. |
+| `_sales__models.yml`, `_customer__models.yml`, `_operations__models.yml` | Documentation and tests for each folder. |
+
+### Other dbt folders
+
+| File | Purpose |
+|---|---|
+| `seeds/order_status_mapping.csv` | Business rule as data: for each order status, its fulfillment stage and whether it `counts_as_revenue`. Loaded by `dbt seed`. |
+| `seeds/_seeds.yml` | Column types and tests for the seed. |
+| `snapshots/snap_products.yml` | SCD type 2 snapshot of product price and status (`check` strategy). Each `dbt snapshot` run opens a new version when price or status changes. |
+| `macros/to_money.sql` | `to_money(col)` → `cast(col as decimal(18,2))`. |
+| `macros/date_key.sql` | `date_key(col)` → integer `YYYYMMDD`, matching `dim_date.date_key`. |
+| `macros/generate_schema_name.sql` | Uses the folder schema name as-is (`core`, not dbt's default `analytics_core`). |
+| `tests/assert_fact_sales_reconciles_to_orders.sql` | Line gross and allocated discounts must add up to the order header. |
+| `tests/assert_no_revenue_from_non_revenue_statuses.sql` | Pending, cancelled and refunded orders must have zero recognized revenue. |
+| `tests/warn_orders_without_items.sql` | Warning only: reports orders that have no items. |
+| `analyses/fanout_revenue_inflation.sql` | Shows how joining order-level amounts to item grain inflates totals. Compiled, not built. |
+| `analyses/revenue_definitions.sql` | Compares four definitions of "revenue" on the same data. |
+
+### Generated, not committed
+
+| Path | Created by |
+|---|---|
+| `warehouse/ecommerce.duckdb` | `scripts/load_csvs.py` and `dbt build` |
+| `target/` | Every dbt command: compiled SQL, `manifest.json`, docs site |
+| `dbt_packages/` | `dbt deps` |
+| `logs/` | dbt run logs |
+| `.venv/` | Python virtual environment |
 
 ## Run locally
 
