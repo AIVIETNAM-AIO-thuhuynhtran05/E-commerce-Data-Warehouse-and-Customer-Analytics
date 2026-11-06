@@ -169,6 +169,44 @@ those changes. At 100K rows a full rebuild takes seconds.
   - `assert_no_revenue_from_non_revenue_statuses`: pending, cancelled and refunded orders add no revenue.
   - `warn_orders_without_items` (**warning**): 2,258 orders have no items (subtotal 0, total = shipping). Reported on every build without blocking it.
 
+## Jinja in this project
+
+[Jinja](https://jinja.palletsprojects.com/) is a Python templating language. dbt
+treats every model as a Jinja template: `dbt compile` renders it into plain SQL,
+and only that SQL is sent to DuckDB. This adds variables, conditions, loops and
+reusable functions to SQL, which has none of these on its own.
+
+| Syntax | Meaning | Example |
+|---|---|---|
+| `{{ ... }}` | Expression: its result is written into the SQL | `{{ ref('stg_ecommerce__orders') }}` |
+| `{% ... %}` | Statement: `if`, `for`, `set`, `macro`; writes nothing by itself | `{% macro to_money(column_name) %}` |
+| `{# ... #}` | Comment, removed at compile time | `{# Cast a numeric column... #}` |
+
+A model before and after compilation (simplified from `stg_ecommerce__orders`;
+the full compiled SQL is in `target/compiled/ecommerce_analytics/models/`):
+
+```sql
+-- written
+select {{ to_money('total') }} as order_total
+from {{ source('ecommerce_raw', 'orders') }}
+
+-- compiled
+select cast(total as decimal(18, 2)) as order_total
+from "ecommerce"."raw"."orders"
+```
+
+Where the project uses Jinja:
+
+| Use | Where |
+|---|---|
+| `source()` and `ref()`: resolve table names and build the DAG | every model |
+| Custom macros | `macros/to_money.sql`, `macros/date_key.sql`, `macros/generate_schema_name.sql` |
+| Package macros | `dbt_utils.generate_surrogate_key` for dimension keys |
+| Project variables | `var('calendar_start_date')` and `var('calendar_end_date')` in `dim_date` |
+
+Macros are kept small and single-purpose so that a model can still be read
+without compiling it.
+
 ## Project structure
 
 ```text
