@@ -63,7 +63,7 @@
 | `ephemeral` | Không tạo object, chèn vào model khác dưới dạng CTE | Bước trung gian nhỏ |
 
 - Incremental: dùng `{% if is_incremental() %}` để lọc, `{{ this }}` là bảng hiện có, bắt buộc có `unique_key`.
-- ⚠️ Cạm bẫy của incremental:
+- Incremental dễ sai nhất, hay gặp 3 lỗi:
   - Dòng đến trễ sẽ bị bỏ sót mãi. Cách phòng: lọc lùi một khoảng an toàn, ví dụ `max - 3 ngày`.
   - Thiếu `unique_key` thì dòng cập nhật bị chèn trùng.
   - Cần dựng lại từ đầu thì chạy `--full-refresh`.
@@ -97,7 +97,7 @@
 
 **Marts**
 - Mỗi mart là một thực thể hoặc sự kiện nghiệp vụ, thường rộng và denormalize. Có đầy đủ test, tài liệu, contract.
-- ⚠️ Không tạo mart theo từng dashboard.
+- Không tạo mart theo từng dashboard.
 
 **Trong project:** 54 model = 31 staging + 5 intermediate + 18 marts (core: 8 dim + 5 fact; sales, customer, operations).
 
@@ -169,7 +169,7 @@
 
 - Vòng lặp dùng `loop.last` để tránh thừa dấu phẩy.
 - Macro là hàm Jinja tái sử dụng, nằm trong `macros/`, theo nguyên tắc DRY.
-- ⚠️ Nếu đồng nghiệp phải compile mới đọc hiểu được thì đã dùng Jinja quá tay.
+- Nếu đồng nghiệp phải compile mới đọc hiểu được thì đã dùng Jinja quá tay.
 - **Trong project:**
   - `to_money(col)`: ép về `decimal(18,2)`
   - `date_key(col)`: đổi ngày thành số `YYYYMMDD`
