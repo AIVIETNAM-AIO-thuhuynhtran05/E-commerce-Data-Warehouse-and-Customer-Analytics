@@ -159,6 +159,15 @@ ship-to location of the order rather than an attribute of the customer.
 but the source has no `updated_at` column, so an incremental filter would miss
 those changes. At 100K rows a full rebuild takes seconds.
 
+**7. Revenue follows the order status, not the payments table.** An order counts
+as revenue when its status is paid, shipped or delivered, whether or not a
+completed payment exists. 1,429 such orders have no completed payment (993 paid,
+210 shipped, 226 delivered) and are still counted. This is an assumption set for
+this project: in a real company, whether the order status or the payment record
+is the source of truth is a rule to agree with finance. The
+`warn_revenue_orders_without_completed_payment` test reports these orders on
+every build.
+
 ## Data quality
 
 - Primary keys: `unique` + `not_null` on every source, staging model, dimension and fact.
@@ -168,6 +177,7 @@ those changes. At 100K rows a full rebuild takes seconds.
   - `assert_fact_sales_reconciles_to_orders`: line gross and allocated discounts equal the order header.
   - `assert_no_revenue_from_non_revenue_statuses`: pending, cancelled and refunded orders add no revenue.
   - `warn_orders_without_items` (**warning**): 2,258 orders have no items (subtotal 0, total = shipping). Reported on every build without blocking it.
+  - `warn_revenue_orders_without_completed_payment` (**warning**): 1,429 orders counted as revenue have no completed payment. See design decision 7.
 
 ## Jinja in this project
 
