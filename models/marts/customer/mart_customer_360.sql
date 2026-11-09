@@ -12,8 +12,8 @@
 --   R - Recency  : lần mua gần nhất cách đây bao lâu (càng gần càng tốt)
 --   F - Frequency: mua bao nhiêu lần
 --   M - Monetary : mang lại bao nhiêu tiền
--- Mỗi tiêu chí được chấm từ 1 đến 5, rồi kết hợp lại thành nhóm như
--- Champions, Loyal, At risk...
+-- Mỗi tiêu chí được chấm từ 1 đến 5 (F theo ngưỡng cố định, R và M theo phân
+-- vị), rồi kết hợp R và F thành nhóm như Champions, Loyal, At risk...
 --
 -- RFM chỉ tính trên đơn được tính doanh thu. "Hôm nay" được lấy là ngày đặt
 -- đơn cuối cùng trong dữ liệu, vì dữ liệu là lịch sử (2021 đến 2025). Nếu dùng
@@ -86,27 +86,78 @@ reviews as (
 ),
 
 -- Bước 3: chấm điểm RFM ------------------------------------------------------
+--
+-- Cách chấm (README, quyết định số 10):
+--   - F dùng ngưỡng cố định, vì số đơn ít và rời rạc (1, 2, 3...).
+--   - R và M chia theo phân vị 20/40/60/80%.
+-- Cả hai cách đều cho cùng điểm với khách có cùng giá trị, và cho cùng kết
+-- quả mỗi lần chạy. Trước đây dùng ntile(5): ntile chia đều số khách nên cắt
+-- ngang những khách giống hệt nhau, và khách nào rơi vào nhóm nào thay đổi
+-- giữa các lần build.
 
-rfm as (
+-- Các chỉ số đầu vào của RFM, chỉ cho khách có ít nhất một đơn tính doanh thu.
+rfm_base as (
 
     select
         order_metrics.customer_key,
         -- số ngày từ lần mua gần nhất đến ngày mốc
         date_diff('day', order_metrics.last_revenue_order_date, reference_date.as_of_date) as recency_days,
-
-        -- ntile(5): sắp xếp khách theo một cột rồi chia thành 5 nhóm bằng nhau,
-        -- nhóm 1 là thấp nhất, nhóm 5 là cao nhất.
-        -- R: sắp theo ngày mua gần nhất tăng dần, nên mua gần đây nhất được 5.
-        ntile(5) over (order by order_metrics.last_revenue_order_date)                     as recency_score,
-        -- F: mua càng nhiều đơn điểm càng cao
-        ntile(5) over (order by order_metrics.revenue_order_count)                         as frequency_score,
-        -- M: mang lại càng nhiều tiền điểm càng cao
-        ntile(5) over (order by order_metrics.lifetime_revenue)                            as monetary_score
+        order_metrics.revenue_order_count,
+        order_metrics.lifetime_revenue
     from order_metrics
     -- cross join với bảng 1 dòng: gắn ngày mốc vào mọi khách
     cross join reference_date
-    -- chỉ chấm điểm khách có ít nhất một đơn tính doanh thu
     where order_metrics.revenue_order_count > 0
+
+),
+
+-- Ngưỡng phân vị của R và M, tính trên toàn bộ khách. Kết quả 1 dòng.
+-- quantile_cont(cột, [0.2, 0.4, 0.6, 0.8]) trả về một list 4 ngưỡng;
+-- list trong DuckDB đánh số từ 1, nên ngưỡng 20% là [1], 80% là [4].
+rfm_thresholds as (
+
+    select
+        quantile_cont(recency_days, [0.2, 0.4, 0.6, 0.8])     as recency_cuts,
+        quantile_cont(lifetime_revenue, [0.2, 0.4, 0.6, 0.8]) as monetary_cuts
+    from rfm_base
+
+),
+
+rfm as (
+
+    select
+        rfm_base.customer_key,
+        rfm_base.recency_days,
+
+        -- R: số ngày càng ít (mua càng gần đây) điểm càng cao
+        case
+            when rfm_base.recency_days <= t.recency_cuts[1] then 5
+            when rfm_base.recency_days <= t.recency_cuts[2] then 4
+            when rfm_base.recency_days <= t.recency_cuts[3] then 3
+            when rfm_base.recency_days <= t.recency_cuts[4] then 2
+            else 1
+        end as recency_score,
+
+        -- F: ngưỡng cố định theo số đơn. Dữ liệu có 1.551 khách 1 đơn, 1.504
+        -- khách 2 đơn, 1.200 khách 3 đơn, nên mỗi mức thấp là một nhóm riêng.
+        case
+            when rfm_base.revenue_order_count = 1 then 1
+            when rfm_base.revenue_order_count = 2 then 2
+            when rfm_base.revenue_order_count <= 4 then 3
+            when rfm_base.revenue_order_count <= 7 then 4
+            else 5
+        end as frequency_score,
+
+        -- M: mang lại càng nhiều tiền điểm càng cao
+        case
+            when rfm_base.lifetime_revenue <= t.monetary_cuts[1] then 1
+            when rfm_base.lifetime_revenue <= t.monetary_cuts[2] then 2
+            when rfm_base.lifetime_revenue <= t.monetary_cuts[3] then 3
+            when rfm_base.lifetime_revenue <= t.monetary_cuts[4] then 4
+            else 5
+        end as monetary_score
+    from rfm_base
+    cross join rfm_thresholds as t
 
 )
 
@@ -172,6 +223,6 @@ left join reviews
 --    với recognized_revenue ở fact_sales (sau giảm giá, chưa gồm thuế và phí
 --    ship). Tổng: 6,35 triệu so với 5,49 triệu; phần chênh đúng bằng thuế cộng
 --    phí ship. Trên dashboard nên đặt tên khác nhau cho hai chỉ số này.
--- 2. Điểm cần sửa: ntile chia đều số khách nên cắt ngang những khách có cùng
---    giá trị. Ví dụ khách cùng có 1 đơn có người được 1 điểm F, có người được 2.
---    Nên dùng ngưỡng cố định hoặc phân vị để khách giống nhau luôn cùng điểm.
+-- 2. RFM tính trên toàn bộ lịch sử (2021 đến 2025), trong khi doanh nghiệp
+--    thường chỉ lấy 12 hoặc 24 tháng gần nhất. Lý do chọn và so sánh với cách
+--    làm phổ biến: README, quyết định số 10.

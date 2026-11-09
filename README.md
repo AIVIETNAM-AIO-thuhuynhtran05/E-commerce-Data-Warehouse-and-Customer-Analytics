@@ -10,7 +10,7 @@ and organised in three layers: staging → intermediate → marts.
 |---|---|
 | Source | 31 generated CSV tables, ~264K rows (7K customers, 36K orders, 100K order items, 2021–2025) |
 | Models | 54 (31 staging, 5 intermediate, 8 dimensions, 5 core facts, 5 marts) |
-| Tests | 235 data tests: keys, relationships, accepted values, and business-rule tests |
+| Tests | 236 data tests: keys, relationships, accepted values, and business-rule tests |
 | Other dbt features | seed, snapshot (SCD2), macros, `dbt_utils`, analyses |
 | Warehouse | DuckDB (local file) |
 
@@ -192,6 +192,28 @@ what the customer was billed. In a BI tool, label them differently, for example
 "Revenue" and "Customer billed value", so the two totals are not compared as if
 they were the same measure.
 
+**10. RFM scoring: common practice and the choices made here.** RFM segments
+customers by Recency (days since the last purchase), Frequency (number of
+orders) and Monetary value. Each is scored 1 to 5 and R × F is mapped to named
+segments.
+
+| Choice | Common business practice | This project | Why it fits this data |
+|---|---|---|---|
+| Observation window | Last 12 or 24 months, so old activity does not inflate scores | Full history, 2021 to 2025 | The data is generated, with no real purchase cycle to anchor a window. A 24-month window would drop 1,294 of 6,234 revenue customers from scoring. |
+| Reference date ("today") | Date the report runs | Last order date in the data (2025-12-31) | The data is historical; using the real date would make every customer look lapsed. |
+| Monetary basis | Net revenue: after discount and refunds, excluding tax and shipping | Billed order total of revenue orders, including tax and shipping | Same basis as `lifetime_revenue` (decision 9). Switching to net revenue is a one-line change if the business prefers it. |
+| Frequency score | Fixed thresholds set with the business, stable month to month | Fixed thresholds: 1, 2, 3–4, 5–7, 8+ orders | Order counts are small and discrete: 1,551 customers have 1 order, 1,504 have 2, 1,200 have 3. Each low count gets its own score. |
+| Recency and monetary scores | Fixed thresholds or percentile cut-offs | Percentile cut-offs at 20/40/60/80% | No business thresholds exist for generated data; percentiles give five groups of about 1,250 customers each. |
+| Segments | 8 to 11 named cells on an R × F grid, M used to prioritise inside a cell | 6 segments plus "No revenue orders" | Enough to show the method; finer segments such as "Can't lose them" can be added later. |
+
+The first version used `ntile(5)`, which splits customers into equal-sized
+groups regardless of ties: customers with the same single order got either
+score 1 or 2, and segment counts changed between builds of the same data
+(Champions went from 1,387 to 1,687). The current scores are deterministic, and
+`assert_rfm_scores_are_consistent` fails if equal inputs ever get different
+scores. Current segments: Hibernating 1,809, Recent 1,619, Needs attention
+1,002, Champions 881, No revenue orders 766, At risk 569, Loyal 354.
+
 ## Data quality
 
 - Primary keys: `unique` + `not_null` on every source, staging model, dimension and fact.
@@ -202,6 +224,7 @@ they were the same measure.
   - `assert_no_revenue_from_non_revenue_statuses`: pending, cancelled and refunded orders add no revenue.
   - `warn_orders_without_items` (**warning**): 2,258 orders have no items (subtotal 0, total = shipping). Reported on every build without blocking it.
   - `assert_refund_not_above_amount_paid` and `assert_return_not_above_amount_paid`: no refund or return is worth more than the customer paid for the line.
+  - `assert_rfm_scores_are_consistent`: customers with the same recency, order count or lifetime revenue get the same RFM score.
   - `warn_revenue_orders_without_completed_payment` (**warning**): 1,429 orders counted as revenue have no completed payment. See design decision 7.
 
 ## Jinja in this project
