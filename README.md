@@ -2,7 +2,9 @@
 
 A data-engineering portfolio project that turns 31 raw e-commerce CSV files into
 a tested **star schema for sales analytics**, built with **dbt Core and DuckDB**
-and organised in three layers: staging → intermediate → marts.
+and organised in three layers: staging → intermediate → marts. The marts are
+exported to Parquet and analysed in **Power BI** (sales, customers, products,
+operations).
 
 ## Project at a glance
 
@@ -13,6 +15,7 @@ and organised in three layers: staging → intermediate → marts.
 | Tests | 236 data tests: keys, relationships, accepted values, and business-rule tests |
 | Other dbt features | seed, snapshot (SCD2), macros, `dbt_utils`, analyses |
 | Warehouse | DuckDB (local file) |
+| BI | Power BI on the star schema, fed by Parquet exports of the 18 mart tables |
 
 ## Architecture
 
@@ -34,6 +37,12 @@ marts          18 tables
     ├── sales       mart_sales_daily, mart_product_performance
     ├── customer    mart_customer_360 (RFM segments)
     └── operations  fact_inventory_current, fact_support_tickets
+    │
+    ▼  scripts/export_marts.py                    (Serve)
+exports/*.parquet   one file per mart table
+    │
+    ▼
+Power BI            star-schema model, DAX measures, report pages
 ```
 
 ### What each layer does
@@ -313,6 +322,7 @@ Each folder under `models/` is built into the DuckDB schema of the same name:
 |---|---|
 | `data/raw/ecommerce_100k/*.csv` | 31 generated source tables (orders, order_items, users, products, payments, ...). |
 | `scripts/load_csvs.py` | Creates schema `raw` in DuckDB and loads every CSV into a table of the same name (`orders.csv` → `raw.orders`). dbt only reads these tables, never the CSVs. |
+| `scripts/export_marts.py` | Exports every table in the mart schemas to `exports/<table>.parquet` for Power BI. Opens DuckDB read-only. |
 
 ### `models/staging/ecommerce/`: clean the source
 
@@ -392,7 +402,51 @@ Logic reused by several marts lives here, so it is written once.
 | `target/` | Every dbt command: compiled SQL, `manifest.json`, docs site |
 | `dbt_packages/` | `dbt deps` |
 | `logs/` | dbt run logs |
+| `exports/` | `scripts/export_marts.py` (Parquet files for Power BI) |
 | `.venv/` | Python virtual environment |
+
+## Power BI
+
+> **Status:** the data layer for Power BI is ready (Parquet exports, model
+> design and measure definitions below). The report pages are in progress.
+
+**Why Parquet instead of a direct DuckDB connection.** Power BI has no native
+DuckDB connector; the ODBC route needs a driver that matches the DuckDB file
+version, and DuckDB allows one writer, so an open report would block the next
+`dbt build`. `scripts/export_marts.py` writes each mart table to
+`exports/<table>.parquet` (about 9 MB in total). Parquet keeps decimal and date
+types, which CSV would lose. Import mode is enough: the largest table,
+`fact_sales`, has 100K rows.
+
+**Model.** Load the `dim_*` and `fact_*` tables and relate them one-to-many on
+the `*_key` columns, the same star schema dbt builds. Mark `dim_date` as the date
+table (`date_key` joins to `order_date_key`, `payment_date_key`, ...).
+Measures are thin sums over columns dbt already computed, so business rules stay
+in one place:
+
+| Measure | DAX | Note |
+|---|---|---|
+| Revenue | `SUM(fact_sales[recognized_revenue])` | Sales revenue: paid, shipped, delivered; after discount; before tax and shipping |
+| Net sales | `SUM(fact_sales[net_amount])` | Any status |
+| Refunds | `SUM(fact_sales[refunded_amount])` | Valued at the price paid (design decision 8) |
+| Orders | `DISTINCTCOUNT(fact_orders[order_id])` | Count orders from `fact_orders`, not `fact_sales` |
+| Customer billed value | `SUM(mart_customer_360[lifetime_revenue])` | Includes tax and shipping (design decision 9); never labelled "Revenue" |
+
+Order-level amounts (`order_total`, `shipping_cost`) are never placed against
+product attributes in one visual: that repeats each order once per line, the
+fan-out from design decision 1.
+
+**Report pages.**
+
+| Page | Tables | Questions |
+|---|---|---|
+| Sales overview | `fact_sales`, `mart_sales_daily`, `dim_date`, `dim_product` | Revenue by month and category, year-over-year growth, discount share |
+| Customers | `mart_customer_360`, `dim_customer` | RFM segment sizes and value, cohorts by first order month, average order value |
+| Products | `mart_product_performance` | Top products by revenue, refund rate, rating versus revenue |
+| Operations | `fact_shipments`, `fact_returns`, `fact_inventory_current`, `fact_support_tickets` | On-time delivery (shipped and delivered orders only), return reasons, items to reorder, first reply time |
+
+Each page states its assumptions next to the visuals, comparing common business
+practice with the choice made here (see design decisions 7 to 10).
 
 ## Run locally
 
@@ -406,7 +460,11 @@ python scripts\load_csvs.py          # load CSVs into warehouse/ecommerce.duckdb
 dbt deps --profiles-dir .            # install dbt_utils
 dbt build --profiles-dir .           # seed, run, snapshot and test everything
 dbt docs generate --profiles-dir .   # then: dbt docs serve --profiles-dir .
+python scripts\export_marts.py       # write exports/*.parquet for Power BI
 ```
+
+In Power BI Desktop: Get Data → Parquet (or Folder) → `exports/`. After the next
+`dbt build`, run the export again and press Refresh.
 
 `profiles.yml` holds a local DuckDB profile only; do not put credentials in it.
 
@@ -417,4 +475,4 @@ dbt docs generate --profiles-dir .   # then: dbt docs serve --profiles-dir .
   business insight.
 - Inventory is current state only; schedule `snap_products`-style snapshots of
   inventory to analyse stock over time.
-- Add a BI layer (Power BI) on the star schema for sales trends, cohorts and returns.
+- Finish the Power BI report pages and add screenshots here.

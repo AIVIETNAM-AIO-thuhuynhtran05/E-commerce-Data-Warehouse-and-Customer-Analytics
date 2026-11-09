@@ -11,3 +11,6 @@ warehouse/*.duckdb.wal
 target/
 dbt_packages/
 logs/
+
+# Parquet exports for Power BI (regenerate with scripts/export_marts.py)
+exports/
