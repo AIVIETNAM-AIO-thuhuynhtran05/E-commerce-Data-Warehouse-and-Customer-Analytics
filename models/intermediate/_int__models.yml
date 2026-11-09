@@ -45,6 +45,13 @@ models:
     columns:
       - name: customer_id
         data_tests: [not_null, unique]
+      - name: lifetime_order_value
+        description: Sum of order_total over every order, any status, including tax and shipping.
+      - name: lifetime_revenue
+        description: >
+          Sum of order_total over paid, shipped and delivered orders, including
+          tax and shipping. Not the same basis as recognized_revenue (README,
+          design decision 9).
 
   - name: int_addresses__geography
     description: One row per address with its location attributes and geography_key.

@@ -164,10 +164,14 @@ left join rfm
 left join reviews
     on customers.customer_key = reviews.customer_key
 
--- Chú ý, hai điểm cần sửa:
--- 1. lifetime_revenue cộng order_total (gồm thuế và phí ship), khác với
---    recognized_revenue ở fact_sales. Tổng hai cột lệch nhau: 6,35 triệu so với
---    5,49 triệu. average_order_value và monetary_score cũng bị ảnh hưởng theo.
--- 2. ntile chia đều số khách nên cắt ngang những khách có cùng giá trị. Ví dụ
---    khách cùng có 1 đơn có người được 1 điểm F, có người được 2. Nên dùng
---    ngưỡng cố định hoặc phân vị để khách giống nhau luôn cùng điểm.
+-- Chú ý:
+-- 1. Định nghĩa: lifetime_revenue là tổng order_total của các đơn tính doanh
+--    thu, tức số tiền khách được tính trên hoá đơn, gồm thuế và phí ship.
+--    average_order_value và monetary_score dùng cùng cơ sở này. Đây là định
+--    nghĩa có chủ đích cho giá trị khách hàng (README, quyết định số 9), khác
+--    với recognized_revenue ở fact_sales (sau giảm giá, chưa gồm thuế và phí
+--    ship). Tổng: 6,35 triệu so với 5,49 triệu; phần chênh đúng bằng thuế cộng
+--    phí ship. Trên dashboard nên đặt tên khác nhau cho hai chỉ số này.
+-- 2. Điểm cần sửa: ntile chia đều số khách nên cắt ngang những khách có cùng
+--    giá trị. Ví dụ khách cùng có 1 đơn có người được 1 điểm F, có người được 2.
+--    Nên dùng ngưỡng cố định hoặc phân vị để khách giống nhau luôn cùng điểm.

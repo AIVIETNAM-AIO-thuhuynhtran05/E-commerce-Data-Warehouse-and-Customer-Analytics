@@ -177,6 +177,21 @@ total. This is also an assumption set for this project: real refund policies
 (tax, shipping, clawing back a coupon when a return drops the order below its
 minimum) are decided by finance.
 
+**9. Customer value is measured on billed order totals.** Two columns share the
+word "revenue" on purpose, at different grains:
+
+| Column | Grain | Basis | Total |
+|---|---|---|---|
+| `fact_sales.recognized_revenue` | order item | after discount, before tax and shipping | 5.49M |
+| `mart_customer_360.lifetime_revenue` | customer | full `order_total`, including tax and shipping | 6.35M |
+
+Both count only paid, shipped and delivered orders. The 0.86M gap is exactly tax
+(0.44M) plus shipping (0.42M). Sales reporting uses recognized revenue;
+customer value (lifetime revenue, average order value, RFM monetary score) uses
+what the customer was billed. In a BI tool, label them differently, for example
+"Revenue" and "Customer billed value", so the two totals are not compared as if
+they were the same measure.
+
 ## Data quality
 
 - Primary keys: `unique` + `not_null` on every source, staging model, dimension and fact.

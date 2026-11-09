@@ -5,10 +5,28 @@ models:
     description: >
       One row per customer with order history, RFM segment and review summary.
       lifetime_order_value counts every order status; lifetime_revenue counts
-      only paid, shipped and delivered orders.
+      only paid, shipped and delivered orders. Both are billed order totals,
+      including tax and shipping, so they do not equal recognized_revenue in
+      fact_sales (see README, design decision 9).
     columns:
       - name: customer_key
         data_tests: [not_null, unique]
+      - name: lifetime_order_value
+        description: >
+          Sum of order_total over every order of the customer, any status,
+          including tax and shipping.
+      - name: lifetime_revenue
+        description: >
+          Sum of order_total over paid, shipped and delivered orders: what the
+          customer was billed, including tax and shipping. Customer-level
+          measure. For sales revenue (after discount, before tax and shipping)
+          use fact_sales.recognized_revenue. Across all customers this is 6.35M
+          versus 5.49M of recognized revenue; the gap is tax (0.44M) plus
+          shipping (0.42M).
+      - name: average_order_value
+        description: lifetime_revenue / revenue_order_count, so it also includes tax and shipping.
+      - name: monetary_score
+        description: RFM monetary score (1 to 5) based on lifetime_revenue.
       - name: rfm_segment
         data_tests:
           - not_null

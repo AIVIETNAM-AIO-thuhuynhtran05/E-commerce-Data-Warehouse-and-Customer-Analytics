@@ -39,8 +39,9 @@ select
 from orders
 group by customer_id
 
--- Chú ý: lifetime_revenue đang cộng order_total, tức đã gồm thuế và phí ship.
--- Trong khi đó recognized_revenue ở fact_sales là tiền hàng sau giảm giá,
--- không gồm thuế và phí ship. Hai con số mang cùng tên "doanh thu" nhưng tính
--- khác nhau (tổng 6,35 triệu so với 5,49 triệu). Đây là điểm cần sửa: tính
--- lifetime_revenue từ recognized_revenue của int_order_items__enriched.
+-- Chú ý: lifetime_revenue cộng order_total, tức số tiền khách được tính trên
+-- hoá đơn, gồm cả thuế và phí ship. Đây là định nghĩa có chủ đích cho giá trị
+-- khách hàng (README, quyết định số 9), khác với recognized_revenue ở
+-- fact_sales (sau giảm giá, chưa gồm thuế và phí ship).
+-- Tổng hai cột: 6,35 triệu so với 5,49 triệu. Phần chênh 0,86 triệu đúng bằng
+-- thuế (0,44 triệu) cộng phí ship (0,42 triệu) của các đơn tính doanh thu.
