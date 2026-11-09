@@ -1,4 +1,4 @@
-# Ghi chú: dbt — Đưa kỹ thuật phần mềm vào SQL
+# Ghi chú: dbt — Quản lý SQL như một dự án phần mềm
 
 > Nguồn: [Blog Anh Thư, 06/11/2026](https://aivietnam-aio-thuhuynhtran05.github.io/blog/blog/dbt-ky-thuat-phan-mem-cho-sql/)
 > Minh hoạ bằng chính project này (dbt Core + DuckDB, 31 bảng nguồn, ~264k dòng).
