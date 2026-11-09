@@ -95,7 +95,12 @@ select
     gross_amount - discount_amount                         as net_amount,
     tax_amount,
     refunded_quantity,
-    cast(unit_price * refunded_quantity as decimal(18, 2)) as refunded_amount,
+    -- Refund what the customer actually paid for the returned units: the net
+    -- unit price (after the allocated discount), before tax, without shipping.
+    cast(
+        (gross_amount - discount_amount) / nullif(quantity, 0) * refunded_quantity
+        as decimal(18, 2)
+    )                                                      as refunded_amount,
     case
         when counts_as_revenue then gross_amount - discount_amount
         else 0

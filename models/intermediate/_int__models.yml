@@ -33,6 +33,10 @@ models:
         description: gross_amount - discount_amount, before tax and shipping.
       - name: refunded_quantity
         description: Quantity from returns with status refunded.
+      - name: refunded_amount
+        description: >
+          Net unit price (after the allocated discount) times refunded_quantity.
+          Before tax, without shipping.
       - name: recognized_revenue
         description: net_amount when the order status counts as revenue, else 0.
 

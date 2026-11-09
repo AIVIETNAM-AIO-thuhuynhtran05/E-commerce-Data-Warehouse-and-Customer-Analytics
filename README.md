@@ -10,7 +10,7 @@ and organised in three layers: staging → intermediate → marts.
 |---|---|
 | Source | 31 generated CSV tables, ~264K rows (7K customers, 36K orders, 100K order items, 2021–2025) |
 | Models | 54 (31 staging, 5 intermediate, 8 dimensions, 5 core facts, 5 marts) |
-| Tests | 232 data tests: keys, relationships, accepted values, and business-rule tests |
+| Tests | 235 data tests: keys, relationships, accepted values, and business-rule tests |
 | Other dbt features | seed, snapshot (SCD2), macros, `dbt_utils`, analyses |
 | Warehouse | DuckDB (local file) |
 
@@ -168,6 +168,15 @@ is the source of truth is a rule to agree with finance. The
 `warn_revenue_orders_without_completed_payment` test reports these orders on
 every build.
 
+**8. Refunds equal what the customer paid.** A refund is valued at the net unit
+price of the line (after its share of the order discount), times the returned
+quantity. It excludes tax and shipping, the same basis as recognized revenue, so
+`recognized_revenue - refunded_amount` never goes below zero for a line. Valuing
+refunds at list price would overstate 296 discounted returns, by about 1,750 in
+total. This is also an assumption set for this project: real refund policies
+(tax, shipping, clawing back a coupon when a return drops the order below its
+minimum) are decided by finance.
+
 ## Data quality
 
 - Primary keys: `unique` + `not_null` on every source, staging model, dimension and fact.
@@ -177,6 +186,7 @@ every build.
   - `assert_fact_sales_reconciles_to_orders`: line gross and allocated discounts equal the order header.
   - `assert_no_revenue_from_non_revenue_statuses`: pending, cancelled and refunded orders add no revenue.
   - `warn_orders_without_items` (**warning**): 2,258 orders have no items (subtotal 0, total = shipping). Reported on every build without blocking it.
+  - `assert_refund_not_above_amount_paid` and `assert_return_not_above_amount_paid`: no refund or return is worth more than the customer paid for the line.
   - `warn_revenue_orders_without_completed_payment` (**warning**): 1,429 orders counted as revenue have no completed payment. See design decision 7.
 
 ## Jinja in this project

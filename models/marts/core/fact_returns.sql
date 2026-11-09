@@ -8,7 +8,7 @@ with returns as (
 
 items as (
 
-    select order_item_id, order_id, product_id, customer_id, unit_price
+    select order_item_id, order_id, product_id, customer_id, quantity, net_amount
     from {{ ref('int_order_items__enriched') }}
 
 ),
@@ -30,7 +30,12 @@ select
     reasons.return_reason,
     returns.return_status,
     returns.returned_quantity,
-    cast(returns.returned_quantity * items.unit_price as decimal(18, 2)) as returned_amount
+    -- Amount the customer paid for the returned units: net unit price after the
+    -- allocated discount, before tax, without shipping.
+    cast(
+        items.net_amount / nullif(items.quantity, 0) * returns.returned_quantity
+        as decimal(18, 2)
+    )                                                              as returned_amount
 from returns
 left join items
     on returns.order_item_id = items.order_item_id
