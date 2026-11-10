@@ -1,0 +1,62 @@
+version: 2
+
+# The Power BI report reads the mart tables through exports/*.parquet.
+# One exposure per report page, so `dbt ls --select +exposure:<name>` and the
+# dbt docs lineage show which models feed each page, and which pages are
+# affected when a model changes.
+
+exposures:
+  - name: powerbi_sales_overview
+    label: "Power BI: Sales overview"
+    type: dashboard
+    maturity: low
+    description: >
+      Revenue by month and category, year-over-year growth and discount share.
+      Revenue is recognized_revenue (paid, shipped, delivered; after discount;
+      before tax and shipping).
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('fact_sales')
+      - ref('mart_sales_daily')
+      - ref('dim_date')
+      - ref('dim_product')
+
+  - name: powerbi_customers
+    label: "Power BI: Customers"
+    type: dashboard
+    maturity: low
+    description: >
+      RFM segment sizes and value, cohorts by first order month and average
+      order value. Customer value is billed value (lifetime_revenue includes tax
+      and shipping) and is never labelled Revenue.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('mart_customer_360')
+      - ref('dim_customer')
+
+  - name: powerbi_products
+    label: "Power BI: Products"
+    type: dashboard
+    maturity: low
+    description: Top products by revenue, refund rate, and rating versus revenue.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('mart_product_performance')
+
+  - name: powerbi_operations
+    label: "Power BI: Operations"
+    type: dashboard
+    maturity: low
+    description: >
+      On-time delivery (shipped and delivered orders only), return reasons,
+      items to reorder and first reply time on support tickets.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('fact_shipments')
+      - ref('fact_returns')
+      - ref('fact_inventory_current')
+      - ref('fact_support_tickets')

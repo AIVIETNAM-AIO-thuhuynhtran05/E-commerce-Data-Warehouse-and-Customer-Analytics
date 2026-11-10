@@ -1,0 +1,40 @@
+# Build and test the whole pipeline on every push and pull request to main.
+# A failing dbt test (error severity) fails the run, so a pull request that
+# breaks a model or a business rule shows a red check before it is merged.
+
+name: dbt CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: dbt-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dbt-duckdb
+        run: python -m pip install -r requirements.txt
+
+      # Load the CSVs, dbt deps + dbt build (seeds, models, snapshots, tests),
+      # then export the marts to Parquet, the same command used locally.
+      - name: Run pipeline
+        run: python scripts/run_pipeline.py
+
+      - name: Check dbt docs compile
+        run: dbt docs generate --profiles-dir .

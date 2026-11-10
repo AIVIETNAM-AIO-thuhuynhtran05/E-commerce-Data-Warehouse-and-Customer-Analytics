@@ -323,6 +323,9 @@ Each folder under `models/` is built into the DuckDB schema of the same name:
 | `data/raw/ecommerce_100k/*.csv` | 31 generated source tables (orders, order_items, users, products, payments, ...). |
 | `scripts/load_csvs.py` | Creates schema `raw` in DuckDB and loads every CSV into a table of the same name (`orders.csv` → `raw.orders`). dbt only reads these tables, never the CSVs. |
 | `scripts/export_marts.py` | Exports every table in the mart schemas to `exports/<table>.parquet` for Power BI. Opens DuckDB read-only. |
+| `scripts/run_pipeline.py` | Runs the three steps in order with one command: load the CSVs, `dbt build` (installs packages first if missing), export Parquet. Stops at the first failure, so a failing test never overwrites the Parquet files Power BI reads. |
+| `.github/workflows/dbt-ci.yml` | GitHub Actions: on every push and pull request to `main`, installs `dbt-duckdb` and runs `scripts/run_pipeline.py` plus `dbt docs generate` on a fresh Ubuntu runner. A failing test fails the check. |
+| `models/marts/_exposures.yml` | Declares each Power BI report page as a dbt exposure with the models it reads. The pages appear at the end of the dbt docs lineage, and `dbt ls --select +exposure:powerbi_customers` lists every model behind a page. |
 
 ### `models/staging/ecommerce/`: clean the source
 
@@ -456,15 +459,21 @@ Requirements: Python 3.9+.
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+python scripts\run_pipeline.py       # load CSVs, dbt build, export Parquet
+dbt docs generate --profiles-dir .   # then: dbt docs serve --profiles-dir .
+```
+
+`run_pipeline.py` takes about 30 seconds. The steps can also be run one by one:
+
+```powershell
 python scripts\load_csvs.py          # load CSVs into warehouse/ecommerce.duckdb
 dbt deps --profiles-dir .            # install dbt_utils
 dbt build --profiles-dir .           # seed, run, snapshot and test everything
-dbt docs generate --profiles-dir .   # then: dbt docs serve --profiles-dir .
 python scripts\export_marts.py       # write exports/*.parquet for Power BI
 ```
 
-In Power BI Desktop: Get Data → Parquet (or Folder) → `exports/`. After the next
-`dbt build`, run the export again and press Refresh.
+In Power BI Desktop: Get Data → Parquet (or Folder) → `exports/`. After the
+next pipeline run, press Refresh.
 
 `profiles.yml` holds a local DuckDB profile only; do not put credentials in it.
 
@@ -476,3 +485,6 @@ In Power BI Desktop: Get Data → Parquet (or Folder) → `exports/`. After the 
 - Inventory is current state only; schedule `snap_products`-style snapshots of
   inventory to analyse stock over time.
 - Finish the Power BI report pages and add screenshots here.
+- The pipeline is batch over static CSV files and is started by hand
+  (`run_pipeline.py`); there is no scheduler such as Airflow or cron, and no
+  live source system.
