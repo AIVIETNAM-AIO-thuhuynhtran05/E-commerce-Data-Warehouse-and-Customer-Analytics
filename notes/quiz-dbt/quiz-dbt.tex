@@ -12,7 +12,6 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
-\usepackage{eso-pic}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{upquote}
@@ -21,16 +20,6 @@
 
 \definecolor{aivngreen}{HTML}{2F4F1F}
 \definecolor{aivngray}{HTML}{6B6B6B}
-
-% Khung viền quanh trang
-\AddToShipoutPictureBG{%
-  \begin{tikzpicture}[remember picture,overlay]
-    \draw[line width=0.8pt]
-      ([xshift=0.35cm,yshift=-0.35cm]current page.north west)
-      rectangle
-      ([xshift=-0.35cm,yshift=0.35cm]current page.south east);
-  \end{tikzpicture}%
-}
 
 % Chân trang
 \pagestyle{fancy}
@@ -97,10 +86,9 @@
 
 \section*{Hướng dẫn}
 
-Quiz gồm 12 câu, bám theo năm phần của bài \textit{Transformation with dbt}: vì sao có
-dbt, dbt hoạt động thế nào, thiết kế dữ liệu, dữ liệu đáng tin cậy và các tính năng
-nâng cao. Câu trắc nghiệm chọn một đáp án. Câu ghép nối ghi theo dạng A--1. Câu tự
-luận trả lời ngắn trong một đến hai câu. Đáp án và giải thích ở cuối tài liệu.
+Quiz gồm 11 câu trắc nghiệm, bám theo ba phần đầu của bài \textit{Transformation with
+dbt}: vì sao có dbt, dbt hoạt động thế nào và thiết kế dữ liệu. Mỗi câu chọn một đáp án
+đúng. Đáp án và giải thích ở cuối tài liệu.
 
 % ---------------------------------------------------------------------------
 \section*{Phần I--II. dbt là gì, hoạt động thế nào}
@@ -123,26 +111,50 @@ luận trả lời ngắn trong một đến hai câu. Đáp án và giải thí
   \item dbt không thực hiện bước extract và load.
 \end{choices}
 
-\question (Tự luận) Một model trong dbt là gì? Vì sao trong file model không cần viết
-\code{CREATE TABLE}?
+\question Một model trong dbt là gì?
+\begin{choices}
+  \item Một file \code{.sql} chứa đúng một câu \code{SELECT}; dbt tự bọc câu này thành
+        lệnh tạo view hoặc table.
+  \item Một file YAML khai báo tên bảng và các cột.
+  \item Một file \code{.sql} chứa lệnh \code{CREATE TABLE} và \code{INSERT}.
+  \item Một bảng được tạo thủ công trong warehouse.
+\end{choices}
 
-\question (Tự luận) Hàm \code{source()} và \code{ref()} khác nhau như thế nào? Hàm nào
-là điểm bắt đầu của DAG?
+\question Phát biểu nào đúng về \code{source()} và \code{ref()}?
+\begin{choices}
+  \item \code{source()} trỏ tới một model khác, còn \code{ref()} trỏ tới dữ liệu thô.
+  \item Cả hai chỉ dùng để viết tắt tên bảng, không ảnh hưởng tới thứ tự chạy model.
+  \item \code{source()} trỏ tới dữ liệu thô khai báo trong YAML và là điểm bắt đầu của
+        DAG; \code{ref()} trỏ tới model khác và ngầm khai báo phụ thuộc.
+  \item \code{ref()} chỉ được dùng ở tầng staging.
+\end{choices}
 
-\question Ghép mỗi materialization với mô tả phù hợp.
+\question Cho bốn materialization và bốn mô tả. Cách ghép nào đúng?
 
 \begin{center}
-\begin{tabular}{>{\bfseries}l l @{\hspace{1.2cm}} >{\bfseries}l p{8cm}}
+\begin{tabular}{>{\bfseries}l l @{\hspace{1cm}} >{\bfseries}l p{7.6cm}}
   A. & view        & 1. & Không tạo object, được chèn vào model khác dưới dạng CTE. \\
   B. & table       & 2. & Chỉ lưu câu query, mỗi lần đọc thì tính lại. \\
   C. & incremental & 3. & Lần đầu tạo bảng, các lần sau chỉ xử lý dòng mới hoặc dòng thay đổi. \\
   D. & ephemeral   & 4. & Chạy query, lưu kết quả và build lại toàn bộ mỗi lần. \\
 \end{tabular}
 \end{center}
+\begin{choices}
+  \item A--4, B--2, C--3, D--1
+  \item A--2, B--4, C--1, D--3
+  \item A--1, B--4, C--3, D--2
+  \item A--2, B--4, C--3, D--1
+\end{choices}
 
-\question (Tự luận) Một model incremental lọc theo điều kiện
-\code{updated\_at > max(updated\_at)} và không khai báo \code{unique\_key}. Nêu hai lỗi
-có thể xảy ra và cách phòng cho từng lỗi.
+\question Một model incremental lọc theo điều kiện \code{updated\_at > max(updated\_at)}
+và không khai báo \code{unique\_key}. Cách sửa nào đúng và đủ?
+\begin{choices}
+  \item Lọc lùi một khoảng an toàn để lấy cả dữ liệu đến trễ, đồng thời khai báo
+        \code{unique\_key} để các dòng lấy lại được ghi đè thay vì chèn trùng.
+  \item Chỉ cần khai báo \code{unique\_key}.
+  \item Chỉ cần lọc lùi 3 ngày.
+  \item Đổi materialization sang \code{view}.
+\end{choices}
 
 % ---------------------------------------------------------------------------
 \section*{Phần III. Thiết kế dữ liệu}
@@ -156,36 +168,54 @@ có thể xảy ra và cách phòng cho từng lỗi.
   \item Chuẩn hoá giá trị bằng \code{lower()}, \code{trim()}.
 \end{choices}
 
-\question (Tự luận) Nêu ba trường hợp nên tạo model intermediate thay vì viết logic
-thẳng trong mart.
-
-\question (Tự luận) Trong star schema, fact table và dimension table khác nhau ở điểm
-nào?
-
-\question (Tự luận) Grain là gì? Fan-out xảy ra khi nào, và vì sao lỗi này khó phát
-hiện?
-
-\question Đơn hàng A có 2 sản phẩm và 2 lần thanh toán, mỗi lần 100. Join thẳng bảng
-\code{order\_items} với bảng \code{payments} theo \code{order\_id}. Mỗi cách tính dưới
-đây cho kết quả bao nhiêu, và cách nào đúng?
+\question Trường hợp nào \emph{không} cần tạo model intermediate?
 \begin{choices}
-  \item \code{sum(amount)} trên kết quả join.
-  \item \code{sum(distinct amount)} trên kết quả join.
-  \item Gom \code{payments} về grain đơn hàng (\code{group by order\_id}) trước, rồi mới
-        join.
+  \item Logic quá dài làm model mart khó đọc.
+  \item Cùng một logic được dùng lại ở nhiều mart.
+  \item Cần đổi grain trước khi join.
+  \item Mart chỉ cần join hai model staging đơn giản.
 \end{choices}
 
-% ---------------------------------------------------------------------------
-\section*{Phần IV--V. Kiểm thử và tính năng nâng cao}
-% ---------------------------------------------------------------------------
+\question Phát biểu nào đúng về fact table và dimension table trong star schema?
+\begin{choices}
+  \item Fact ghi lại sự kiện đo đếm được, chứa chỉ số và khoá ngoại; dimension mô tả
+        ngữ cảnh (ai, cái gì, khi nào), dùng để lọc và nhóm.
+  \item Fact mô tả ngữ cảnh, dimension chứa các chỉ số như số lượng, số tiền.
+  \item Fact và dimension bắt buộc phải có cùng grain.
+  \item Dimension là nơi chứa các cột tiền để cộng tổng doanh thu.
+\end{choices}
 
-\question (Tự luận) Unit test, data test và model contract mỗi loại kiểm tra điều gì?
-Vì sao không loại nào thay thế được loại nào?
+\question Fan-out xảy ra khi nào?
+\begin{choices}
+  \item Khi dùng \code{group by} ở tầng staging.
+  \item Khi \code{left join} làm xuất hiện giá trị null.
+  \item Khi model được materialize dạng view thay vì table.
+  \item Khi join hai quan hệ một-nhiều theo cùng một khoá, làm số dòng bị nhân lên.
+\end{choices}
+
+\question Một số đơn hàng chưa có lần thanh toán nào. Sau khi gom \code{payments} về grain
+đơn hàng và \code{left join} vào \code{orders}, cột \code{total\_paid} của các đơn này bị
+null. Nên xử lý dữ liệu thiếu này ở đâu và như thế nào?
+\begin{choices}
+  \item Ở staging: lọc bỏ các đơn chưa thanh toán khỏi \code{stg\_orders}.
+  \item Ở bước join (intermediate hoặc mart): dùng \code{coalesce(total\_paid, 0)}.
+  \item Giữ nguyên null, để dashboard tự xử lý.
+  \item Đổi \code{left join} thành \code{inner join} để không còn dòng null.
+\end{choices}
 
 % ===========================================================================
 \newpage
 \section*{Đáp án và giải thích}
 % ===========================================================================
+
+\begin{center}
+\begin{tabular}{|l|*{11}{>{\centering\arraybackslash}p{0.62cm}|}}
+  \hline
+  \textbf{Câu} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} &
+  \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} \\ \hline
+  \textbf{Đáp án} & b & b & a & c & d & a & c & d & a & d & b \\ \hline
+\end{tabular}
+\end{center}
 
 \begin{enumerate}[label=\textbf{Câu \arabic*.},leftmargin=*,itemsep=6pt]
 
@@ -197,55 +227,51 @@ Vì sao không loại nào thay thế được loại nào?
   \item \textbf{b.} dbt không xử lý dữ liệu. Mọi phép tính do warehouse thực hiện trên
   câu SQL mà dbt sinh ra, nên hiệu năng phụ thuộc vào warehouse.
 
-  \item Model là một file \code{.sql} chứa đúng một câu \code{SELECT}, tên file là tên
-  bảng hoặc view được tạo. dbt tự bọc câu \code{SELECT} thành lệnh tạo object phù hợp
-  (\code{create view}, \code{create table}\ldots) theo materialization đã cấu hình.
+  \item \textbf{a.} Model là một file \code{.sql} chứa đúng một câu \code{SELECT}, tên
+  file là tên bảng hoặc view được tạo. dbt tự bọc câu \code{SELECT} thành lệnh tạo
+  object phù hợp theo materialization, nên không viết \code{CREATE TABLE} hay
+  \code{INSERT}.
 
-  \item \code{source()} trỏ tới dữ liệu thô được khai báo trong file YAML. Đây là điểm
-  bắt đầu của DAG và cho phép kiểm tra độ tươi bằng \code{dbt source freshness}.
-  \code{ref()} trỏ tới một model khác. Mỗi lần gọi \code{ref()} là ngầm khai báo một
-  phụ thuộc, và tên model được đổi thành tên đầy đủ theo target đang chạy (dev hoặc
-  prod).
+  \item \textbf{c.} \code{source()} trỏ tới dữ liệu thô khai báo trong YAML, là điểm
+  bắt đầu của DAG và cho phép kiểm tra độ tươi bằng \code{dbt source freshness}. Mỗi lần
+  gọi \code{ref()} là ngầm khai báo một phụ thuộc; dbt dựa vào đó để dựng DAG và đổi
+  tên model thành tên đầy đủ theo target (dev hoặc prod).
 
-  \item \textbf{A--2, B--4, C--3, D--1.}
+  \item \textbf{d.} View chỉ lưu câu query (A--2). Table lưu kết quả và build lại toàn
+  bộ (B--4). Incremental chỉ xử lý dòng mới hoặc thay đổi sau lần đầu (C--3). Ephemeral
+  không tạo object mà được chèn vào model khác dưới dạng CTE (D--1).
 
-  \item Lỗi thứ nhất là dữ liệu đến trễ bị bỏ qua vĩnh viễn: dòng có \code{updated\_at}
-  nhỏ hơn mốc hiện tại nhưng được nạp muộn sẽ không bao giờ thoả điều kiện lọc. Cách
-  phòng là lọc lùi một khoảng an toàn, ví dụ \code{max(updated\_at) - interval 3 day}.
-  Lỗi thứ hai là dữ liệu bị chèn trùng: không có \code{unique\_key} thì dbt chỉ thêm
-  dòng, nên một đơn đổi trạng thái xuất hiện hai lần. Cách phòng là khai báo
-  \code{unique\_key} để dbt merge. Hai cách phải đi cùng nhau, vì lọc lùi nghĩa là
-  chủ động lấy lại dòng cũ. Khi bảng đã sai, chạy \code{dbt build --full-refresh}.
+  \item \textbf{a.} Model này có hai lỗi. Dữ liệu đến trễ (phát sinh sớm nhưng nạp muộn)
+  không bao giờ thoả điều kiện lọc nên bị bỏ qua vĩnh viễn; cách phòng là lọc lùi, ví dụ
+  \code{max(updated\_at) - interval 3 day}. Không có \code{unique\_key} thì dbt chỉ thêm
+  dòng, nên đơn đổi trạng thái bị chèn trùng; cách phòng là khai báo \code{unique\_key}
+  để dbt merge. Hai cách phải đi cùng nhau, vì lọc lùi nghĩa là chủ động lấy lại dòng
+  cũ: (b) và (c) mỗi cách chỉ sửa một nửa.
 
   \item \textbf{c.} Join làm staging phụ thuộc vào bảng khác, còn \code{group by} làm
   đổi grain. Staging chỉ làm sạch từng bảng nguồn theo quan hệ 1:1.
 
-  \item (1) Logic quá dài làm model mart khó đọc. (2) Cùng một logic được dùng lại ở
-  nhiều mart. (3) Cần đổi grain trước khi join.
+  \item \textbf{d.} Nếu mart chỉ cần join hai model staging đơn giản thì làm thẳng ở
+  mart. Intermediate dành cho ba trường hợp còn lại: logic quá dài, logic dùng lại ở
+  nhiều mart, hoặc cần đổi grain trước khi join.
 
-  \item Fact table ghi lại sự kiện đo đếm được (một lần bán, một lần thanh toán), chứa
-  các chỉ số như số lượng, số tiền và khoá ngoại tới dimension. Dimension table mô tả
-  ngữ cảnh của sự kiện (ai mua, mua gì, khi nào), gồm các cột dùng để lọc và nhóm.
+  \item \textbf{a.} Fact ghi lại sự kiện (một lần bán, một lần thanh toán) với chỉ số và
+  khoá ngoại tới dimension. Dimension mô tả ngữ cảnh của sự kiện, gồm các cột dùng để
+  lọc và nhóm. Mỗi bảng có grain riêng của nó.
 
-  \item Grain là câu trả lời cho câu hỏi ``một dòng trong bảng này đại diện cho cái
-  gì''. Fan-out xảy ra khi join hai quan hệ một-nhiều theo cùng một khoá, làm số dòng
-  bị nhân lên và mọi phép \code{sum()} phía sau bị đội lên. Lỗi khó phát hiện vì câu
-  SQL vẫn chạy không báo lỗi; phần lớn bản ghi có hệ số nhân bằng 1 nên tổng chỉ lệch
-  vài phần trăm; và lỗi có thể xuất hiện muộn khi dữ liệu nguồn thay đổi (ví dụ có
-  thêm tính năng trả góp) dù model không đổi.
+  \item \textbf{d.} Grain là câu trả lời cho câu hỏi ``một dòng trong bảng này đại diện
+  cho cái gì''. Khi join hai quan hệ một-nhiều theo cùng khoá, số dòng bị nhân lên và
+  mọi phép \code{sum()} phía sau bị đội lên. Lỗi khó phát hiện vì câu SQL không báo lỗi,
+  phần lớn bản ghi có hệ số nhân bằng 1 nên tổng chỉ lệch vài phần trăm, và lỗi có thể
+  xuất hiện muộn khi dữ liệu nguồn thay đổi dù model không đổi.
 
-  \item Kết quả join có $2 \times 2 = 4$ dòng.
-  (a) \code{sum(amount)} $= 400$, sai vì mỗi lần thanh toán bị lặp theo số sản phẩm.
-  (b) \code{sum(distinct amount)} $= 100$, sai vì hai lần thanh toán có cùng số tiền
-  nên bị gộp làm một.
-  (c) $= 200$, đúng. Gom về cùng grain rồi mới join là cách làm chuẩn.
-
-  \item Unit test kiểm tra logic SQL trên vài dòng dữ liệu giả, bắt sai công thức và
-  trường hợp biên. Model contract kiểm tra hình dạng (tên cột, kiểu dữ liệu) ngay lúc
-  build, sai thì dbt dừng trước khi tạo bảng. Data test kiểm tra dữ liệu thật sau khi
-  build, bắt dữ liệu nguồn bẩn, fan-out, khoá ngoại mồ côi. Mỗi loại bắt một nhóm lỗi
-  khác nhau: logic đúng vẫn có thể gặp dữ liệu bẩn, và dữ liệu sạch vẫn có thể bị tính
-  sai công thức.
+  \item \textbf{b.} Giá trị null xuất hiện do phép \code{left join}, nên xử lý ngay ở model
+  thực hiện phép join đó: \code{coalesce(total\_paid, 0)} đúng nghĩa ``chưa trả đồng
+  nào''. (a) sai vì staging không lọc bỏ dòng theo quy tắc nghiệp vụ, và đơn chưa thanh
+  toán vẫn là dữ liệu cần báo cáo. (c) sai vì mỗi dashboard sẽ xử lý một kiểu, quay lại
+  vấn đề hai dashboard hai con số. (d) sai vì \code{inner join} làm mất luôn các đơn chưa
+  thanh toán. Để phát hiện dữ liệu thiếu ngay từ nguồn, đặt test \code{not\_null} ở
+  staging; để chặn null ở bảng cuối, đặt \code{not\_null} trên cột đó ở mart.
 
 \end{enumerate}
 
