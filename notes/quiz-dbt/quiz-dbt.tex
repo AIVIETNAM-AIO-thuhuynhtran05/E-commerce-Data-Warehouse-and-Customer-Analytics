@@ -1,0 +1,252 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------------------------------------------------------
+% Tiếng Việt (biên dịch bằng pdfLaTeX, ví dụ trên Overleaf)
+% ---------------------------------------------------------------------------
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+
+\usepackage[a4paper,top=2.2cm,bottom=2.6cm,left=2.6cm,right=2.6cm,footskip=1.2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{upquote}
+\usepackage{array}
+\usepackage{parskip}
+
+\definecolor{aivngreen}{HTML}{2F4F1F}
+\definecolor{aivngray}{HTML}{6B6B6B}
+
+% Khung viền quanh trang
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=0.8pt]
+      ([xshift=0.35cm,yshift=-0.35cm]current page.north west)
+      rectangle
+      ([xshift=-0.35cm,yshift=0.35cm]current page.south east);
+  \end{tikzpicture}%
+}
+
+% Chân trang
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.8pt}
+\fancyfoot[L]{\textbf{SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}}
+\fancyfoot[R]{\textbf{Trang \thepage}}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.8pt}
+  \fancyfoot[L]{\textbf{SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}}
+  \fancyfoot[R]{\textbf{Trang \thepage}}
+}
+
+% Logo: dùng file logo-aivn.png nếu có, nếu không vẽ tạm một vòng tròn
+\newcommand{\aivnlogo}{%
+  \IfFileExists{logo-aivn.png}{%
+    \includegraphics[height=1.6cm]{logo-aivn.png}%
+  }{%
+    \begin{tikzpicture}
+      \node[circle,fill=white,draw=black!15,drop shadow,minimum size=1.5cm,
+            font=\fontsize{24}{24}\selectfont\bfseries\sffamily,
+            text=aivngreen] {AI};
+    \end{tikzpicture}%
+  }%
+}
+
+% Câu hỏi và lựa chọn
+\newcounter{question}
+\newcommand{\question}{\par\medskip\stepcounter{question}\noindent\textbf{Câu \thequestion.}\ }
+\newenvironment{choices}
+  {\begin{enumerate}[label=\alph*),leftmargin=2.2em,itemsep=1pt,topsep=3pt]}
+  {\end{enumerate}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+\thispagestyle{plain}
+
+% ---------------------------------------------------------------------------
+% Phần đầu trang
+% ---------------------------------------------------------------------------
+\noindent
+\begin{minipage}[c]{1.9cm}\aivnlogo\end{minipage}%
+\begin{minipage}[c]{8cm}
+  {\bfseries AI VIET NAM}\\[1pt]
+  {\small\color{aivngray}@aivietnam.edu.vn}
+\end{minipage}
+
+\vspace{0.9cm}
+\noindent\rule{\linewidth}{0.6pt}
+\begin{center}
+  {\LARGE\bfseries Quiz: Transformation with dbt}
+\end{center}
+\noindent\rule{\linewidth}{0.6pt}
+
+\vspace{0.4cm}
+\begin{center}
+  \textbf{Lê Thanh Bảo Trân}\hspace{2.2cm}\textbf{Huỳnh Trần Anh Thư}\\[6pt]
+  \textbf{Proofreading:}
+\end{center}
+\vspace{0.6cm}
+
+\section*{Hướng dẫn}
+
+Quiz gồm 12 câu, bám theo năm phần của bài \textit{Transformation with dbt}: vì sao có
+dbt, dbt hoạt động thế nào, thiết kế dữ liệu, dữ liệu đáng tin cậy và các tính năng
+nâng cao. Câu trắc nghiệm chọn một đáp án. Câu ghép nối ghi theo dạng A--1. Câu tự
+luận trả lời ngắn trong một đến hai câu. Đáp án và giải thích ở cuối tài liệu.
+
+% ---------------------------------------------------------------------------
+\section*{Phần I--II. dbt là gì, hoạt động thế nào}
+% ---------------------------------------------------------------------------
+
+\question Vì sao các tổ chức chuyển từ ETL sang ELT?
+\begin{choices}
+  \item SQL chạy nhanh hơn Python.
+  \item Lưu trữ và tính toán trên cloud warehouse đã rẻ và mạnh, nên có thể nạp dữ
+        liệu thô vào trước rồi biến đổi ngay trong warehouse.
+  \item ETL không xử lý được dữ liệu dạng CSV.
+  \item dbt bắt buộc phải dùng ELT.
+\end{choices}
+
+\question Phát biểu nào sau đây \emph{sai} về dbt?
+\begin{choices}
+  \item dbt biên dịch SQL kết hợp Jinja thành SQL thuần.
+  \item dbt tự xử lý dữ liệu bằng engine riêng của nó.
+  \item dbt điều phối thứ tự chạy model theo DAG.
+  \item dbt không thực hiện bước extract và load.
+\end{choices}
+
+\question (Tự luận) Một model trong dbt là gì? Vì sao trong file model không cần viết
+\code{CREATE TABLE}?
+
+\question (Tự luận) Hàm \code{source()} và \code{ref()} khác nhau như thế nào? Hàm nào
+là điểm bắt đầu của DAG?
+
+\question Ghép mỗi materialization với mô tả phù hợp.
+
+\begin{center}
+\begin{tabular}{>{\bfseries}l l @{\hspace{1.2cm}} >{\bfseries}l p{8cm}}
+  A. & view        & 1. & Không tạo object, được chèn vào model khác dưới dạng CTE. \\
+  B. & table       & 2. & Chỉ lưu câu query, mỗi lần đọc thì tính lại. \\
+  C. & incremental & 3. & Lần đầu tạo bảng, các lần sau chỉ xử lý dòng mới hoặc dòng thay đổi. \\
+  D. & ephemeral   & 4. & Chạy query, lưu kết quả và build lại toàn bộ mỗi lần. \\
+\end{tabular}
+\end{center}
+
+\question (Tự luận) Một model incremental lọc theo điều kiện
+\code{updated\_at > max(updated\_at)} và không khai báo \code{unique\_key}. Nêu hai lỗi
+có thể xảy ra và cách phòng cho từng lỗi.
+
+% ---------------------------------------------------------------------------
+\section*{Phần III. Thiết kế dữ liệu}
+% ---------------------------------------------------------------------------
+
+\question Việc nào \emph{không} nên làm ở tầng staging?
+\begin{choices}
+  \item Đổi tên cột, ví dụ \code{id} thành \code{order\_id}.
+  \item Ép kiểu dữ liệu, ví dụ chuỗi thành \code{date}.
+  \item Join với bảng khác hoặc dùng \code{group by}.
+  \item Chuẩn hoá giá trị bằng \code{lower()}, \code{trim()}.
+\end{choices}
+
+\question (Tự luận) Nêu ba trường hợp nên tạo model intermediate thay vì viết logic
+thẳng trong mart.
+
+\question (Tự luận) Trong star schema, fact table và dimension table khác nhau ở điểm
+nào?
+
+\question (Tự luận) Grain là gì? Fan-out xảy ra khi nào, và vì sao lỗi này khó phát
+hiện?
+
+\question Đơn hàng A có 2 sản phẩm và 2 lần thanh toán, mỗi lần 100. Join thẳng bảng
+\code{order\_items} với bảng \code{payments} theo \code{order\_id}. Mỗi cách tính dưới
+đây cho kết quả bao nhiêu, và cách nào đúng?
+\begin{choices}
+  \item \code{sum(amount)} trên kết quả join.
+  \item \code{sum(distinct amount)} trên kết quả join.
+  \item Gom \code{payments} về grain đơn hàng (\code{group by order\_id}) trước, rồi mới
+        join.
+\end{choices}
+
+% ---------------------------------------------------------------------------
+\section*{Phần IV--V. Kiểm thử và tính năng nâng cao}
+% ---------------------------------------------------------------------------
+
+\question (Tự luận) Unit test, data test và model contract mỗi loại kiểm tra điều gì?
+Vì sao không loại nào thay thế được loại nào?
+
+% ===========================================================================
+\newpage
+\section*{Đáp án và giải thích}
+% ===========================================================================
+
+\begin{enumerate}[label=\textbf{Câu \arabic*.},leftmargin=*,itemsep=6pt]
+
+  \item \textbf{b.} Trong ETL, dữ liệu được biến đổi trên máy chủ trung gian vì lưu
+  trữ và tính toán trong warehouse on-premise đắt. Cloud warehouse và các engine cột
+  như DuckDB làm cho lưu trữ rẻ, tính toán mạnh và tách rời nhau. Dữ liệu thô luôn còn
+  trong kho, nên khi logic sai chỉ cần chạy lại phần biến đổi.
+
+  \item \textbf{b.} dbt không xử lý dữ liệu. Mọi phép tính do warehouse thực hiện trên
+  câu SQL mà dbt sinh ra, nên hiệu năng phụ thuộc vào warehouse.
+
+  \item Model là một file \code{.sql} chứa đúng một câu \code{SELECT}, tên file là tên
+  bảng hoặc view được tạo. dbt tự bọc câu \code{SELECT} thành lệnh tạo object phù hợp
+  (\code{create view}, \code{create table}\ldots) theo materialization đã cấu hình.
+
+  \item \code{source()} trỏ tới dữ liệu thô được khai báo trong file YAML. Đây là điểm
+  bắt đầu của DAG và cho phép kiểm tra độ tươi bằng \code{dbt source freshness}.
+  \code{ref()} trỏ tới một model khác. Mỗi lần gọi \code{ref()} là ngầm khai báo một
+  phụ thuộc, và tên model được đổi thành tên đầy đủ theo target đang chạy (dev hoặc
+  prod).
+
+  \item \textbf{A--2, B--4, C--3, D--1.}
+
+  \item Lỗi thứ nhất là dữ liệu đến trễ bị bỏ qua vĩnh viễn: dòng có \code{updated\_at}
+  nhỏ hơn mốc hiện tại nhưng được nạp muộn sẽ không bao giờ thoả điều kiện lọc. Cách
+  phòng là lọc lùi một khoảng an toàn, ví dụ \code{max(updated\_at) - interval 3 day}.
+  Lỗi thứ hai là dữ liệu bị chèn trùng: không có \code{unique\_key} thì dbt chỉ thêm
+  dòng, nên một đơn đổi trạng thái xuất hiện hai lần. Cách phòng là khai báo
+  \code{unique\_key} để dbt merge. Hai cách phải đi cùng nhau, vì lọc lùi nghĩa là
+  chủ động lấy lại dòng cũ. Khi bảng đã sai, chạy \code{dbt build --full-refresh}.
+
+  \item \textbf{c.} Join làm staging phụ thuộc vào bảng khác, còn \code{group by} làm
+  đổi grain. Staging chỉ làm sạch từng bảng nguồn theo quan hệ 1:1.
+
+  \item (1) Logic quá dài làm model mart khó đọc. (2) Cùng một logic được dùng lại ở
+  nhiều mart. (3) Cần đổi grain trước khi join.
+
+  \item Fact table ghi lại sự kiện đo đếm được (một lần bán, một lần thanh toán), chứa
+  các chỉ số như số lượng, số tiền và khoá ngoại tới dimension. Dimension table mô tả
+  ngữ cảnh của sự kiện (ai mua, mua gì, khi nào), gồm các cột dùng để lọc và nhóm.
+
+  \item Grain là câu trả lời cho câu hỏi ``một dòng trong bảng này đại diện cho cái
+  gì''. Fan-out xảy ra khi join hai quan hệ một-nhiều theo cùng một khoá, làm số dòng
+  bị nhân lên và mọi phép \code{sum()} phía sau bị đội lên. Lỗi khó phát hiện vì câu
+  SQL vẫn chạy không báo lỗi; phần lớn bản ghi có hệ số nhân bằng 1 nên tổng chỉ lệch
+  vài phần trăm; và lỗi có thể xuất hiện muộn khi dữ liệu nguồn thay đổi (ví dụ có
+  thêm tính năng trả góp) dù model không đổi.
+
+  \item Kết quả join có $2 \times 2 = 4$ dòng.
+  (a) \code{sum(amount)} $= 400$, sai vì mỗi lần thanh toán bị lặp theo số sản phẩm.
+  (b) \code{sum(distinct amount)} $= 100$, sai vì hai lần thanh toán có cùng số tiền
+  nên bị gộp làm một.
+  (c) $= 200$, đúng. Gom về cùng grain rồi mới join là cách làm chuẩn.
+
+  \item Unit test kiểm tra logic SQL trên vài dòng dữ liệu giả, bắt sai công thức và
+  trường hợp biên. Model contract kiểm tra hình dạng (tên cột, kiểu dữ liệu) ngay lúc
+  build, sai thì dbt dừng trước khi tạo bảng. Data test kiểm tra dữ liệu thật sau khi
+  build, bắt dữ liệu nguồn bẩn, fan-out, khoá ngoại mồ côi. Mỗi loại bắt một nhóm lỗi
+  khác nhau: logic đúng vẫn có thể gặp dữ liệu bẩn, và dữ liệu sạch vẫn có thể bị tính
+  sai công thức.
+
+\end{enumerate}
+
+\end{document}
