@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "91fa2ad41d698f189780",
+  "position": {
+    "x": 1420,
+    "y": 860,
+    "z": 18000,
+    "height": 210,
+    "width": 480,
+    "tabOrder": 18000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Giả định",
+                    "textStyle": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Doanh nghiệp thường ghi nhận doanh thu khi giao hàng hoặc thu tiền xong. Project tính theo trạng thái đơn (paid, shipped, delivered) vì trạng thái thanh toán trong dữ liệu sinh ngẫu nhiên không khớp trạng thái đơn (1.429 đơn).",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Conversion ở đây là đơn đặt → đơn được tính doanh thu, không phải lượt truy cập → đơn: dữ liệu không có traffic.",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

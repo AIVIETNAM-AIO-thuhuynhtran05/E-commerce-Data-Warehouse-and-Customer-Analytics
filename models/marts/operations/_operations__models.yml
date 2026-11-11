@@ -28,3 +28,60 @@ models:
                 field: customer_key
       - name: hours_to_first_agent_reply
         description: Null when no agent has replied.
+
+  - name: mart_inventory_warehouse
+    description: >
+      One row per product and warehouse (current stock) with reorder flags,
+      the product's latest ABC class and days of cover. Product-level columns
+      (product_quantity_available, avg_daily_units_90d, days_of_cover,
+      cover_bucket) repeat on each warehouse row and must not be summed.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [product_key, warehouse_id]
+    columns:
+      - name: product_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: abc_class
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['A', 'B', 'C']
+      - name: days_of_cover
+        description: >
+          Available stock across all warehouses divided by average daily units
+          sold in the last 90 days with data. Null when the product did not sell.
+      - name: cover_bucket
+        data_tests: [not_null]
+
+  - name: mart_returns
+    description: >
+      One row per return request with reason, reason group, product, category,
+      shipping method and timing. Reason shares barely change across categories
+      and shipping methods, so use it to describe the reason mix, not to explain
+      which categories are returned for which reason.
+    columns:
+      - name: return_id
+        data_tests: [not_null, unique]
+      - name: product_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: reason_group
+        description: "Project rule: seller = damaged, wrong item, late, not as described; customer = does not fit, changed my mind."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['seller', 'customer']
+      - name: days_to_process
+        description: Null for requests still in requested status.
+      - name: refunded_amount
+        description: returned_amount when return_status = 'refunded', otherwise 0.

@@ -1,0 +1,111 @@
+table dim_promotion
+	lineageTag: 1bdea399-e7a3-42bd-8029-698e285545e2
+
+	column promotion_key
+		dataType: string
+		lineageTag: 8e24dbbf-2220-4969-b2fb-982733cdb257
+		summarizeBy: none
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column coupon_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 75724a9d-1309-4d4f-a972-f4c4fe159f13
+		summarizeBy: sum
+		sourceColumn: coupon_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column coupon_code
+		dataType: string
+		lineageTag: 38603181-4a0a-4b87-a963-ba2780f7a647
+		summarizeBy: none
+		sourceColumn: coupon_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_type
+		dataType: string
+		lineageTag: 19aa4f1b-71a1-434e-9284-057f266066e7
+		summarizeBy: none
+		sourceColumn: discount_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_value
+		dataType: double
+		lineageTag: 4adde271-fbc9-4d75-a51d-2fbc07555514
+		summarizeBy: sum
+		sourceColumn: discount_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column min_purchase_amount
+		dataType: double
+		lineageTag: f9c56d12-502a-4034-8bf6-ef4021b067c4
+		summarizeBy: sum
+		sourceColumn: min_purchase_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c0b90ff7-914c-4946-862d-cb15d0d1fa14
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column starts_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ad9b3d56-0755-426e-a955-ac05696196b7
+		summarizeBy: none
+		sourceColumn: starts_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column ends_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2716a722-1b77-4bca-ac1d-9c4de491b9fa
+		summarizeBy: none
+		sourceColumn: ends_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_promotion
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: cc7b61c4-0b5a-4031-a7e3-c044ddbedab1
+		summarizeBy: none
+		sourceColumn: has_promotion
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_label = IF ( dim_promotion[has_promotion], "Có mã giảm giá", "Không có mã" )
+		dataType: string
+		lineageTag: 7dc21fe5-ccfe-45e6-bb85-948351facbe2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_promotion = m
+		mode: import
+		source =
+				let
+				  Source =Parquet.Document(File.Contents(ExportFolder & "dim_promotion.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

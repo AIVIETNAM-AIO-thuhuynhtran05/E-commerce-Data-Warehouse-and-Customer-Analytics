@@ -1,0 +1,417 @@
+table fact_sales
+	lineageTag: 9eaf94b4-8db1-4a01-a553-e8c4359c34eb
+
+	measure Revenue = SUM ( fact_sales[recognized_revenue] )
+		formatString: #,0
+		displayFolder: 1 Revenue
+		lineageTag: bfe74fd2-5e65-4726-9484-0eee618bf7b4
+
+	measure 'Sales all status' = SUM ( fact_sales[net_amount] )
+		formatString: #,0
+		displayFolder: 1 Revenue
+		lineageTag: b843b83b-672b-4904-a321-77321ae775ed
+
+	measure 'Promo revenue' = CALCULATE ( [Revenue], dim_promotion[has_promotion] = TRUE () )
+		formatString: #,0
+		displayFolder: 1 Revenue
+		lineageTag: 241e9d65-b81d-4c18-a3fd-9a549e83d05c
+
+	measure 'Promo share' = DIVIDE ( [Promo revenue], [Revenue] )
+		formatString: 0.0%
+		displayFolder: 1 Revenue
+		lineageTag: 50b78ecb-4350-4b88-aa13-2455d2868292
+
+	measure 'Revenue per day' = DIVIDE ( [Revenue], [Days] )
+		formatString: #,0
+		displayFolder: 1 Revenue
+		lineageTag: 0c9a81fc-dded-4c31-b997-d28b6b1e6f9d
+
+	measure Orders = DISTINCTCOUNT ( fact_sales[order_id] )
+		formatString: #,0
+		displayFolder: 2 Orders
+		lineageTag: e86434aa-8463-4bcb-a583-322199ec6583
+
+	measure 'Revenue orders' = CALCULATE ( [Orders], dim_order_status[counts_as_revenue] = TRUE () )
+		formatString: #,0
+		displayFolder: 2 Orders
+		lineageTag: b68892ac-2b71-40cd-824c-0e1b1f61c8d3
+
+	measure 'Cancelled orders' = CALCULATE ( [Orders], dim_order_status[status_name] = "cancelled" )
+		formatString: #,0
+		displayFolder: 2 Orders
+		lineageTag: 55a035b1-451e-4976-82da-ab9816e44365
+
+	measure 'Cancel rate' = DIVIDE ( [Cancelled orders], [Orders] )
+		formatString: 0.00%
+		displayFolder: 2 Orders
+		lineageTag: 44385c8a-1075-41e7-896c-81232ee9246b
+
+	measure Conversion = DIVIDE ( [Revenue orders], [Orders] )
+		formatString: 0.00%
+		displayFolder: 2 Orders
+		lineageTag: d16f6b3b-2cb5-49cc-ad85-1b4917ac56c7
+
+	measure AOV = DIVIDE ( [Revenue], [Revenue orders] )
+		formatString: #,0.00
+		displayFolder: 2 Orders
+		lineageTag: d9aefb3a-b6f2-4ba3-a0cb-5aa656d0b072
+
+	measure Days =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			RETURN
+			    COUNTROWS ( FILTER ( dim_date, dim_date[date_key] >= FirstKey && dim_date[date_key] <= LastKey ) )
+		formatString: #,0
+		displayFolder: 2 Orders
+		lineageTag: cc5107cb-86df-491a-b563-65b71a3e09bc
+
+	measure 'Orders per day' = DIVIDE ( [Revenue orders], [Days] )
+		formatString: #,0.00
+		displayFolder: 2 Orders
+		lineageTag: 5f436ec4-4b20-48f2-8f13-f01d91bd4286
+
+	measure 'Units sold' = CALCULATE ( SUM ( fact_sales[quantity] ), fact_sales[recognized_revenue] > 0 )
+		formatString: #,0
+		displayFolder: 3 Products
+		lineageTag: edf64401-3465-4b00-a9dd-f86953cc9392
+
+	measure 'Refund rate' = DIVIDE ( SUM ( fact_sales[refunded_quantity] ), SUM ( fact_sales[quantity] ) )
+		formatString: 0.00%
+		displayFolder: 3 Products
+		lineageTag: 3b5a1dba-6e9c-4b74-a185-d86ab7732301
+
+	measure 'Revenue share' = DIVIDE ( [Revenue], CALCULATE ( [Revenue], ALLSELECTED ( dim_product[price_band] ) ) )
+		formatString: 0.0%
+		displayFolder: 3 Products
+		lineageTag: 843973ab-8c59-4fe3-9226-bec5840d864a
+
+	measure 'Units share' = DIVIDE ( [Units sold], CALCULATE ( [Units sold], ALLSELECTED ( dim_product[price_band] ) ) )
+		formatString: 0.0%
+		displayFolder: 3 Products
+		lineageTag: 5a5ed9af-61ef-4f90-9939-f8af75a94f37
+
+	measure 'Revenue LY' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR PrevStart = EDATE ( SelStart, -12 )
+			VAR PrevEnd = EDATE ( SelEnd, -12 )
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Revenue], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: #,0
+		displayFolder: 4 Time comparison
+		lineageTag: 075cf600-8585-4b43-a12b-593be2429bd9
+
+	measure 'Revenue vs LY' = DIVIDE ( [Revenue] - [Revenue LY], [Revenue LY] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 4 Time comparison
+		lineageTag: e0484ec5-524c-46e5-9aa2-fe7087e5288d
+
+	measure 'Revenue vs LY label' = IF ( ISBLANK ( [Revenue vs LY] ), "—", FORMAT ( [Revenue vs LY], "+0.0%;-0.0%;0.0%" ) )
+		displayFolder: 4 Time comparison
+		lineageTag: d1840b96-bf56-4b84-8d60-fcde34ca22e8
+
+	measure 'Revenue vs PP label' = IF ( ISBLANK ( [Revenue vs PP] ), "—", FORMAT ( [Revenue vs PP], "+0.0%;-0.0%;0.0%" ) )
+		displayFolder: 4 Time comparison
+		lineageTag: a643b0d9-3aed-471b-8750-8ada0e7b4b31
+
+	measure 'Revenue PP' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR NumDays = INT ( SelEnd - SelStart ) + 1
+			VAR PrevStart = SelStart - NumDays
+			VAR PrevEnd = SelStart - 1
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Revenue], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: #,0
+		displayFolder: 4 Time comparison
+		lineageTag: 3f806345-cdda-45f5-8013-871879e9bbd0
+
+	measure 'Revenue vs PP' = DIVIDE ( [Revenue] - [Revenue PP], [Revenue PP] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 4 Time comparison
+		lineageTag: c0e05f54-da5a-4af8-8ab9-55902325bc9d
+
+	measure 'Orders LY' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR PrevStart = EDATE ( SelStart, -12 )
+			VAR PrevEnd = EDATE ( SelEnd, -12 )
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Orders], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: #,0
+		displayFolder: 4 Time comparison
+		lineageTag: 7f209c14-7255-4a79-bc40-776895787542
+
+	measure 'Orders vs LY' = DIVIDE ( [Orders] - [Orders LY], [Orders LY] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 4 Time comparison
+		lineageTag: e2c84d92-4012-42f4-ba3e-bf73beaf153f
+
+	measure 'Orders PP' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR NumDays = INT ( SelEnd - SelStart ) + 1
+			VAR PrevStart = SelStart - NumDays
+			VAR PrevEnd = SelStart - 1
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Orders], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: #,0
+		displayFolder: 4 Time comparison
+		lineageTag: cfc0aacf-dc21-46ba-bdc6-511668a3e4ef
+
+	measure 'Orders vs PP' = DIVIDE ( [Orders] - [Orders PP], [Orders PP] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 4 Time comparison
+		lineageTag: 518bf471-1635-46c7-9cf1-0340756a084e
+
+	measure 'Cancel rate LY' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR PrevStart = EDATE ( SelStart, -12 )
+			VAR PrevEnd = EDATE ( SelEnd, -12 )
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Cancel rate], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: 0.00%
+		displayFolder: 4 Time comparison
+		lineageTag: d90528e2-eaf7-44df-a584-4cfcd3b4288d
+
+	measure 'Cancel rate PP' =
+			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
+			VAR DataStart = DATE ( INT ( FirstKey / 10000 ), MOD ( INT ( FirstKey / 100 ), 100 ), MOD ( FirstKey, 100 ) )
+			VAR DataEnd = DATE ( INT ( LastKey / 10000 ), MOD ( INT ( LastKey / 100 ), 100 ), MOD ( LastKey, 100 ) )
+			VAR SelStart = MAX ( MIN ( dim_date[date_day] ), DataStart )
+			VAR SelEnd = MIN ( MAX ( dim_date[date_day] ), DataEnd )
+			VAR NumDays = INT ( SelEnd - SelStart ) + 1
+			VAR PrevStart = SelStart - NumDays
+			VAR PrevEnd = SelStart - 1
+			RETURN
+			    IF (
+			        SelStart <= SelEnd && PrevStart >= DataStart,
+			        CALCULATE ( [Cancel rate], DATESBETWEEN ( dim_date[date_day], PrevStart, PrevEnd ) )
+			    )
+		formatString: 0.00%
+		displayFolder: 4 Time comparison
+		lineageTag: a11c9bc3-a675-43f8-835f-82c644bd9862
+
+	measure 'Cancel rate vs LY (pts)' = IF ( ISBLANK ( [Cancel rate LY] ), BLANK (), [Cancel rate] - [Cancel rate LY] )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: 4 Time comparison
+		lineageTag: 852c3a5a-2ef1-4916-8d01-ecf57f1095dc
+
+	measure 'Cancel rate vs PP (pts)' = IF ( ISBLANK ( [Cancel rate PP] ), BLANK (), [Cancel rate] - [Cancel rate PP] )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: 4 Time comparison
+		lineageTag: 5fd2a276-6e3a-4583-8ab7-815dc0681318
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9de8673b-5571-4f1f-8192-fc0614f5b9c0
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b2678c3-84c4-461a-9a2d-77fda1565b4d
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: cfbe7838-c8cc-4d47-bdae-6158cee6bcb4
+		summarizeBy: sum
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		lineageTag: bf78ddc3-40a5-45d6-81bb-fe2031f576e7
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: 0845e30b-1397-4259-89ef-a94ab06399e7
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_geography_key
+		dataType: string
+		lineageTag: c5245bb1-5bf3-4a72-b67e-9ba0f7f8b92b
+		summarizeBy: none
+		sourceColumn: ship_to_geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_key
+		dataType: string
+		lineageTag: 33fba84b-7b3e-4be2-b9d7-c73c084bd583
+		summarizeBy: none
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_method_key
+		dataType: string
+		lineageTag: 409965fc-ad48-4dbe-8c2d-c1b94c5fa087
+		summarizeBy: none
+		sourceColumn: shipping_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status_key
+		dataType: string
+		lineageTag: 0b97ab74-2e17-44e0-bb12-892d4fac20a9
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 539bf72d-68ac-40d9-962b-e6beb54b9c8f
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 7694d334-b42f-42b2-b083-a5655dad4e9e
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_amount
+		dataType: double
+		lineageTag: c8739dc6-cb89-46db-a92a-13ffe6260220
+		summarizeBy: sum
+		sourceColumn: gross_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_amount
+		dataType: double
+		lineageTag: 0bb852c9-8665-4dda-896a-06ff6beffc13
+		summarizeBy: sum
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_amount
+		dataType: double
+		lineageTag: 592bf666-19c8-437e-8589-92d869f66d08
+		summarizeBy: sum
+		sourceColumn: net_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		lineageTag: f8834ad3-2366-4237-8fa2-6f8d1b6fbf03
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recognized_revenue
+		dataType: double
+		lineageTag: 397c88c9-e8ed-4854-be6f-d1bacb321f42
+		summarizeBy: sum
+		sourceColumn: recognized_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column refunded_quantity
+		dataType: double
+		lineageTag: 06a6483f-1f78-4b8e-a966-01f829899f9e
+		summarizeBy: sum
+		sourceColumn: refunded_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column refunded_amount
+		dataType: double
+		lineageTag: 5ab473ca-a802-4c70-8b8b-0cc9a6238350
+		summarizeBy: sum
+		sourceColumn: refunded_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_sales = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(ExportFolder & "fact_sales.parquet"))
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

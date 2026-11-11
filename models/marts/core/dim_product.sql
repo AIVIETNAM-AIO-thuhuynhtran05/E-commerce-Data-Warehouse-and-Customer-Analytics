@@ -51,6 +51,15 @@ select
     -- đặt tên current_price để nhắc rằng đây là giá hiện tại, không phải giá
     -- lúc bán. Giá lúc bán nằm ở fact_sales.unit_price.
     products.price                                          as current_price,
+    -- Khoảng giá cho trang Power BI. Số thứ tự ở đầu để sắp xếp đúng thứ tự.
+    -- Dùng giá hiện tại được vì mỗi sản phẩm chỉ có một mức giá trong mọi đơn
+    -- 2021-2025 (xem analyses/product_check_price.sql).
+    case
+        when products.price < 20  then '1. Dưới 20'
+        when products.price < 50  then '2. 20 đến 50'
+        when products.price < 100 then '3. 50 đến 100'
+        else '4. Từ 100'
+    end                                                     as price_band,
     products.compare_at_price,  -- giá gạch ngang (giá trước khuyến mãi) hiển thị trên web
     products.is_active,
     products.created_at                                     as product_created_at

@@ -1,0 +1,195 @@
+table mart_product_abc
+	lineageTag: ac10f3f7-2996-4d80-ab33-ef5a891eeb1c
+
+	measure 'ABC revenue' = SUM ( mart_product_abc[recognized_revenue] )
+		formatString: #,0
+		displayFolder: 5 ABC
+		lineageTag: 45ad8d7e-3203-4d42-8dbe-72ae4f97ade4
+
+	measure 'ABC products' = COUNTROWS ( mart_product_abc )
+		formatString: #,0
+		displayFolder: 5 ABC
+		lineageTag: d5bd5378-9dd3-4941-bb2d-bd70ad0c89e6
+
+	measure 'ABC revenue share' = DIVIDE ( [ABC revenue], CALCULATE ( [ABC revenue], ALLEXCEPT ( mart_product_abc, mart_product_abc[year] ) ) )
+		formatString: 0.0%
+		displayFolder: 5 ABC
+		lineageTag: 07c7efb9-b497-437d-9a30-5721b67922ac
+
+	measure 'Cumulative share' = MAX ( mart_product_abc[cumulative_share] )
+		formatString: 0.0%
+		displayFolder: 5 ABC
+		lineageTag: 2e7313ef-5122-4797-bb05-e5a01b7cc00f
+
+	measure 'Top 20% share' =
+			VAR Products = CALCULATE ( COUNTROWS ( mart_product_abc ), ALLEXCEPT ( mart_product_abc, mart_product_abc[year] ) )
+			RETURN
+			    CALCULATE (
+			        MAX ( mart_product_abc[cumulative_share] ),
+			        ALLEXCEPT ( mart_product_abc, mart_product_abc[year] ),
+			        mart_product_abc[revenue_rank] <= Products * 0.2
+			    )
+		formatString: 0.0%
+		displayFolder: 5 ABC
+		lineageTag: 27fe807d-32f1-4d17-ba93-7f9567df0b68
+
+	measure 'A products low stock' = COUNTROWS ( FILTER ( mart_product_abc, mart_product_abc[abc_class] = "A" && mart_product_abc[warehouses_below_reorder] > 0 ) )
+		formatString: #,0
+		displayFolder: 5 ABC
+		lineageTag: f5cb10de-529b-488d-bf39-5528329987b0
+
+	measure 'A products low everywhere' = COUNTROWS ( FILTER ( mart_product_abc, mart_product_abc[abc_class] = "A" && mart_product_abc[warehouse_count] > 0 && mart_product_abc[warehouses_below_reorder] = mart_product_abc[warehouse_count] ) )
+		formatString: #,0
+		displayFolder: 5 ABC
+		lineageTag: dbbb02f7-5fd2-41c6-866e-2610fbfbf6e6
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f396af6-58e7-4c9a-a199-85116839ef09
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: c25e09ea-f963-42b2-8b54-b03b796a482a
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: ff590dd2-89ab-4e27-869a-92c084138f41
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 19dcf89a-7646-4bbe-80ef-418acd93c6d9
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_name
+		dataType: string
+		lineageTag: 7d4fa121-5914-47a5-b161-2f42e2e987b8
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 762dcc18-90a4-41eb-922b-ec1069f9acc2
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column recognized_revenue
+		dataType: double
+		formatString: #,0
+		lineageTag: 62a16a40-544a-4673-9dbb-b93d30824c61
+		summarizeBy: sum
+		sourceColumn: recognized_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold
+		dataType: double
+		formatString: #,0
+		lineageTag: 00addbe0-102a-4ac4-8d92-3c092ee62bcf
+		summarizeBy: sum
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a9d415c-04a1-4428-a312-dfb4d89f26bd
+		summarizeBy: none
+		sourceColumn: revenue_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: a9e86044-0a39-49d2-9e22-7ccd98e2a191
+		summarizeBy: none
+		sourceColumn: revenue_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column cumulative_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: afa4a22f-12f7-499f-9051-9ae8a876473f
+		summarizeBy: none
+		sourceColumn: cumulative_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column abc_class
+		dataType: string
+		lineageTag: 932fc395-4f8b-4b15-b221-04c0a07722e0
+		summarizeBy: none
+		sourceColumn: abc_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column previous_year_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c56553f-1aa1-4ea2-b849-4f474c884327
+		summarizeBy: none
+		sourceColumn: previous_year_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_count
+		dataType: int64
+		formatString: 0
+		lineageTag: b70c25e3-10e6-4c65-8e08-b2516d70da9b
+		summarizeBy: none
+		sourceColumn: warehouse_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouses_below_reorder
+		dataType: int64
+		formatString: 0
+		lineageTag: a4dbe0b2-792b-4789-a664-c2604dfbe075
+		summarizeBy: none
+		sourceColumn: warehouses_below_reorder
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_available
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3db94b0e-d8b3-494f-b139-cc982eb248de
+		summarizeBy: sum
+		sourceColumn: quantity_available
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mart_product_abc = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "mart_product_abc.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

@@ -14,3 +14,13 @@ logs/
 
 # Parquet exports for Power BI (regenerate with scripts/export_marts.py)
 exports/
+
+# Power BI: the .pbip project folders are the source. The data cache, local
+# settings and the .pbix copy are not committed (the .pbix is a binary
+# snapshot that goes stale; the cache holds imported data).
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+
+# Editor settings
+.vscode/

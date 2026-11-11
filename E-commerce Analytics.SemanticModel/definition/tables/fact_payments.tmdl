@@ -1,0 +1,84 @@
+table fact_payments
+	lineageTag: 8b7e418b-9faf-49d6-b144-9e17a6dc1860
+
+	column payment_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a194f81-06ab-4762-81d2-085039a31c51
+		summarizeBy: sum
+		sourceColumn: payment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 05a231b4-a5bb-4222-b891-0a1b26385733
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 8644ca26-c12d-4499-911a-22dfc4e935a0
+		summarizeBy: sum
+		sourceColumn: payment_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		lineageTag: 644c4c19-bbd5-42ca-8751-294149d0a4a7
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method_key
+		dataType: string
+		lineageTag: 58a74856-92c7-45f8-83d0-32644f31c68b
+		summarizeBy: none
+		sourceColumn: payment_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: 5c33f15c-9b6a-456a-8a38-012a5ec9965b
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_reference
+		dataType: string
+		lineageTag: 0f0973e8-fdbc-4823-80dd-e6952ed7a713
+		summarizeBy: none
+		sourceColumn: transaction_reference
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_amount
+		dataType: double
+		lineageTag: 029726f8-7d20-4cf1-a86f-ccd4b464904e
+		summarizeBy: sum
+		sourceColumn: payment_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_payments = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(ExportFolder & "fact_payments.parquet"))
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

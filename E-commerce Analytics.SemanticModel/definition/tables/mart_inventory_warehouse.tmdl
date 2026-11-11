@@ -1,0 +1,226 @@
+table mart_inventory_warehouse
+	lineageTag: b5194c1b-99e2-430b-8723-aeab8261b5c0
+
+	measure 'Stock available' = SUM ( mart_inventory_warehouse[quantity_available] )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: faaeaefd-b758-4f33-8ab4-f1c56df1c9d6
+
+	measure 'Stock reserved' = SUM ( mart_inventory_warehouse[quantity_reserved] )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 8aa215dc-1958-4fe1-9134-25e947c7f1d5
+
+	measure 'Stock pairs' = COUNTROWS ( mart_inventory_warehouse )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 3df8b0b4-42bb-4b11-975f-2b2acaf26a77
+
+	measure 'Reorder pairs' = CALCULATE ( COUNTROWS ( mart_inventory_warehouse ), mart_inventory_warehouse[needs_reorder] = TRUE () )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 27ffc085-2822-41e9-a202-73accc240abd
+
+	measure 'Reorder rate' = DIVIDE ( [Reorder pairs], [Stock pairs] )
+		formatString: 0.0%
+		displayFolder: 6 Inventory
+		lineageTag: b0a1091b-5728-4963-87dc-d95079ebbac1
+
+	measure 'Out of stock pairs' = CALCULATE ( COUNTROWS ( mart_inventory_warehouse ), mart_inventory_warehouse[is_out_of_stock] = TRUE () )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 96c5edd8-f651-4f5d-b829-4c01de3ae369
+
+	measure 'Stocked products' = DISTINCTCOUNT ( mart_inventory_warehouse[product_key] )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 26b1c00c-8013-406b-933f-76585f193a37
+
+	measure 'Products without stock record' = COUNTROWS ( EXCEPT ( ALL ( dim_product[product_key] ), ALL ( mart_inventory_warehouse[product_key] ) ) )
+		formatString: #,0
+		displayFolder: 6 Inventory
+		lineageTag: 25733265-8b6c-4013-8618-7e877f1ae3ae
+
+	column product_key
+		dataType: string
+		lineageTag: cc966109-29ae-4b55-9d29-ebe81335e651
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 5b924cff-d2b8-4246-860b-9547d80520c2
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 75f3b463-63ca-4219-bfee-4503e7cf6098
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_name
+		dataType: string
+		lineageTag: e00ca751-95da-4b9a-8f92-b28cd41d5b89
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column abc_class
+		dataType: string
+		lineageTag: 8ad9fff9-4246-454a-9ddd-90dad5da07a5
+		summarizeBy: none
+		sourceColumn: abc_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 49d2d891-1c8c-41e2-a8ec-167920451d9f
+		summarizeBy: none
+		sourceColumn: revenue_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dcea372-f914-4765-bfeb-31498096549c
+		summarizeBy: none
+		sourceColumn: warehouse_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_name
+		dataType: string
+		lineageTag: c7f44caf-dd97-4f2c-a6b7-fe12e276e0a8
+		summarizeBy: none
+		sourceColumn: warehouse_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_city
+		dataType: string
+		lineageTag: cbe08d37-7d9d-4033-95d2-4ffd188cd85d
+		summarizeBy: none
+		sourceColumn: warehouse_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_count
+		dataType: int64
+		formatString: 0
+		lineageTag: e63c35ed-df88-47d7-85e6-c840dadd0c58
+		summarizeBy: sum
+		sourceColumn: record_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_on_hand
+		dataType: double
+		formatString: #,0
+		lineageTag: c42c6b3a-4d51-4d47-aaa3-adb56d0abbe6
+		summarizeBy: sum
+		sourceColumn: quantity_on_hand
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_reserved
+		dataType: double
+		formatString: #,0
+		lineageTag: ecf44be1-637f-4558-85b6-21af2d1ec240
+		summarizeBy: sum
+		sourceColumn: quantity_reserved
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_available
+		dataType: double
+		formatString: #,0
+		lineageTag: 2f26e09a-b479-4334-ab4d-6456bf09614c
+		summarizeBy: sum
+		sourceColumn: quantity_available
+
+		annotation SummarizationSetBy = Automatic
+
+	column reorder_level
+		dataType: int64
+		formatString: 0
+		lineageTag: d7b1053d-43aa-4b75-b5fb-82a7221d93d6
+		summarizeBy: none
+		sourceColumn: reorder_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column needs_reorder
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 41c29e22-fd1c-4bd9-8c9b-ec67ea6788f5
+		summarizeBy: none
+		sourceColumn: needs_reorder
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_out_of_stock
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e1d69ff3-ad45-4a0e-8d8c-ba0ec8f0dbd6
+		summarizeBy: none
+		sourceColumn: is_out_of_stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_quantity_available
+		dataType: double
+		formatString: #,0
+		lineageTag: e81c4fd2-54f6-4d39-b5c8-e1b52aa362df
+		summarizeBy: none
+		sourceColumn: product_quantity_available
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_daily_units_90d
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 764052c0-2779-484b-82fe-40b44268178c
+		summarizeBy: none
+		sourceColumn: avg_daily_units_90d
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_of_cover
+		dataType: double
+		formatString: #,0
+		lineageTag: bfe10229-9431-46cf-bb2d-831763897d07
+		summarizeBy: none
+		sourceColumn: days_of_cover
+
+		annotation SummarizationSetBy = Automatic
+
+	column cover_bucket
+		dataType: string
+		lineageTag: 2e8c9947-85c2-4c8e-b126-4c67b67ef524
+		summarizeBy: none
+		sourceColumn: cover_bucket
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mart_inventory_warehouse = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "mart_inventory_warehouse.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

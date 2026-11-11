@@ -1,0 +1,170 @@
+table fact_orders
+	lineageTag: 11e14553-5c6f-4222-89c9-18f835d23663
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c75fc1f-9f5b-4c18-bee6-eac98ce02beb
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: aa0100e3-b0d7-4fc5-8037-58d4a3b9b630
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		lineageTag: f1398d1a-402e-485a-9dc9-6159efef19e7
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_geography_key
+		dataType: string
+		lineageTag: 03e56402-37f8-492d-85d2-3dfb059d6894
+		summarizeBy: none
+		sourceColumn: ship_to_geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_key
+		dataType: string
+		lineageTag: 50a7214b-4918-48da-a8d0-aa1815fa3287
+		summarizeBy: none
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_method_key
+		dataType: string
+		lineageTag: f2a69824-3641-41a2-81cf-abba9521f200
+		summarizeBy: none
+		sourceColumn: shipping_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status_key
+		dataType: string
+		lineageTag: 61ebffc7-1b2f-4c19-a065-f958df6f2c38
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column counts_as_revenue
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 097885f6-8de2-4d57-9d7f-ca3cf6b0ab94
+		summarizeBy: none
+		sourceColumn: counts_as_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_items
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: fdcd415b-7836-460b-9481-b80da22e2be8
+		summarizeBy: none
+		sourceColumn: has_items
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_line_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a22d05b-d485-47ec-be1d-54a6073a1b26
+		summarizeBy: none
+		sourceColumn: item_line_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_quantity
+		dataType: double
+		lineageTag: 317ce447-5bcc-4ff0-9e88-298eb4b18e87
+		summarizeBy: none
+		sourceColumn: item_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column subtotal
+		dataType: double
+		lineageTag: d503cd9b-24d2-44b7-ad7e-b3a34e66e870
+		summarizeBy: none
+		sourceColumn: subtotal
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_amount
+		dataType: double
+		lineageTag: 8f30bb04-578b-4585-9dea-760c1b79830c
+		summarizeBy: none
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		lineageTag: 31cfa66c-aece-44f2-b976-d9025384152b
+		summarizeBy: none
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column shipping_cost
+		dataType: double
+		lineageTag: 387eff39-4c08-422a-a9de-a44f3de60f2a
+		summarizeBy: none
+		sourceColumn: shipping_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_total
+		dataType: double
+		lineageTag: 5f986d3d-e0bb-4744-b8b2-3de539c667f0
+		summarizeBy: none
+		sourceColumn: order_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column completed_payment_amount
+		dataType: double
+		lineageTag: 7b6a3d5f-d6cf-4e41-b453-27761658adfd
+		summarizeBy: none
+		sourceColumn: completed_payment_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_orders = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(ExportFolder & "fact_orders.parquet"))
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

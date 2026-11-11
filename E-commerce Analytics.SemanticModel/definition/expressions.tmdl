@@ -1,0 +1,7 @@
+expression ExportFolder = "D:\DE\dbt\exports\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f0f97708-133d-4dbe-a578-7a3f062b38b9
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

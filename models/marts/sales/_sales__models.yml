@@ -24,3 +24,35 @@ models:
         description: Refunded units / units sold.
       - name: revenue_rank
         description: Rank by recognized revenue, 1 = highest.
+
+  - name: mart_product_abc
+    description: >
+      One row per product per year with sales. ABC class by recognized revenue:
+      A = first 80% of revenue, B = next 15%, C = last 5% (including products
+      with no sales that year). Inventory columns are the current snapshot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [year, product_key]
+    columns:
+      - name: product_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: abc_class
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['A', 'B', 'C']
+      - name: revenue_rank
+        description: Row number by revenue within the year, 1 = highest.
+      - name: cumulative_share
+        description: Running share of the year's revenue up to and including this product.
+      - name: previous_year_rank
+        description: revenue_rank in the previous year, null for the first year.
+      - name: warehouses_below_reorder
+        description: Number of warehouses where this product is at or below its reorder level now.

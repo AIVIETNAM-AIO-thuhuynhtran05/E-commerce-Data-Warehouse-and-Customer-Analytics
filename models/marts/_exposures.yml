@@ -18,9 +18,10 @@ exposures:
       name: Huỳnh Trần Anh Thư
     depends_on:
       - ref('fact_sales')
-      - ref('mart_sales_daily')
       - ref('dim_date')
       - ref('dim_product')
+      - ref('dim_order_status')
+      - ref('dim_promotion')
 
   - name: powerbi_customers
     label: "Power BI: Customers"
@@ -40,11 +41,39 @@ exposures:
     label: "Power BI: Products"
     type: dashboard
     maturity: low
-    description: Top products by revenue, refund rate, and rating versus revenue.
+    description: >
+      Revenue, units and refund rate by category, brand and product; revenue
+      and units share by price band; 2025 versus 2024 growth by category.
     owner:
       name: Huỳnh Trần Anh Thư
     depends_on:
-      - ref('mart_product_performance')
+      - ref('fact_sales')
+      - ref('dim_product')
+      - ref('dim_date')
+
+  - name: powerbi_revenue_concentration
+    label: "Power BI: Revenue concentration"
+    type: dashboard
+    maturity: low
+    description: >
+      Pareto chart and ABC classes of products by yearly revenue, with class A
+      products that are below their reorder level.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('mart_product_abc')
+
+  - name: powerbi_inventory
+    label: "Power BI: Inventory"
+    type: dashboard
+    maturity: low
+    description: >
+      Current stock by warehouse, product-warehouse pairs below the reorder
+      level, and days of cover against the last 90 days of sales.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('mart_inventory_warehouse')
 
   - name: powerbi_operations
     label: "Power BI: Operations"
@@ -60,3 +89,15 @@ exposures:
       - ref('fact_returns')
       - ref('fact_inventory_current')
       - ref('fact_support_tickets')
+
+  - name: powerbi_returns
+    label: "Power BI: Returns"
+    type: dashboard
+    maturity: low
+    description: >
+      Return reason mix, seller versus customer reasons, approval outcome,
+      refunded amount and processing time.
+    owner:
+      name: Huỳnh Trần Anh Thư
+    depends_on:
+      - ref('mart_returns')

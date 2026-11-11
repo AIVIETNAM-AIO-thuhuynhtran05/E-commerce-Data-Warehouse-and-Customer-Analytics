@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "1f6e22b0f01d1f9626b0",
+  "position": {
+    "x": 1135,
+    "y": 925,
+    "z": 12000,
+    "height": 145,
+    "width": 765,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Ghi chú dữ liệu",
+                    "textStyle": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Nhóm lý do seller / customer là quy ước của project, nguồn không có trường này. Tỷ trọng lý do gần như không đổi theo danh mục và phương thức giao hàng (giao trễ khoảng 9% ở mọi phương thức), nên lý do trong nguồn có vẻ được gán ngẫu nhiên: trang này mô tả cơ cấu lý do, không giải thích danh mục nào hay bị trả vì lý do gì.",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

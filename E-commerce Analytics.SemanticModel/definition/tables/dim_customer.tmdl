@@ -1,0 +1,113 @@
+table dim_customer
+	lineageTag: 03691516-004f-4fc1-97f8-9e9b4e1b8cde
+
+	column customer_key
+		dataType: string
+		lineageTag: 19320cae-bc2e-48a6-8c22-41a165a757ab
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c18a2ed7-4279-4374-88ac-8c7c68f85f28
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_name
+		dataType: string
+		lineageTag: 317e0274-bc81-4c10-8882-3ced822cbefc
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: 81497d13-9167-4476-b31c-b6985811f64c
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: dff484e7-7a52-488e-bcf8-f4310c49e814
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 872a9f09-c682-4e39-bf4c-7ba7fd618216
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column signed_up_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a805484a-7b5e-45dc-a40f-9875cc2ec649
+		summarizeBy: none
+		sourceColumn: signed_up_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 626dfe3b-0fbf-4a5f-be33-41c407f438b0
+		summarizeBy: none
+		sourceColumn: signup_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column first_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0d1bc0b3-04dd-451a-9f45-d3a5908a0aef
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column first_order_cohort_month
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a12cb7d0-c18f-4cb2-a992-35448817f12f
+		summarizeBy: none
+		sourceColumn: first_order_cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_ordered
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9bddd731-a832-45e7-a33e-0a481b989f7c
+		summarizeBy: none
+		sourceColumn: has_ordered
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				  Source =  Parquet.Document(File.Contents(ExportFolder & "dim_customer.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

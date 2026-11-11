@@ -1,0 +1,67 @@
+table dim_shipping_method
+	lineageTag: e4bb5c4a-0fc8-4d34-a72f-a9bd88576a21
+
+	column shipping_method_key
+		dataType: string
+		lineageTag: 35b2aab1-2db9-4266-81de-bac21c785f8b
+		summarizeBy: none
+		sourceColumn: shipping_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_method_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 056ad0cf-39d7-48b9-b9a6-5a55836b93df
+		summarizeBy: none
+		sourceColumn: shipping_method_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_method_name
+		dataType: string
+		lineageTag: 0cc7e0dc-58c6-4a69-bab7-2a98a0df076e
+		summarizeBy: none
+		sourceColumn: shipping_method_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column carrier
+		dataType: string
+		lineageTag: ad88d427-012f-413a-a090-f2332a78568c
+		summarizeBy: none
+		sourceColumn: carrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column base_cost
+		dataType: double
+		lineageTag: 65f9a98f-bf51-4393-bf82-5f5fdf2c7097
+		summarizeBy: none
+		sourceColumn: base_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column estimated_days
+		dataType: int64
+		formatString: 0
+		lineageTag: fe8d64af-a0bc-4167-b3fe-6d6a7eb665e8
+		summarizeBy: none
+		sourceColumn: estimated_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_shipping_method = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "dim_shipping_method.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

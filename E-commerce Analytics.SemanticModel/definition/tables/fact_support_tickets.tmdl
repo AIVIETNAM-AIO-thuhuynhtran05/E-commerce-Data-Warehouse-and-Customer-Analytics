@@ -1,0 +1,92 @@
+table fact_support_tickets
+	lineageTag: 8c9a40fb-407c-4523-8777-c9d351a88fbd
+
+	column ticket_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 02f5b83b-0588-4840-92f0-d1f2df601d3e
+		summarizeBy: sum
+		sourceColumn: ticket_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		lineageTag: 2f8a00c9-76cf-4d2a-b910-1d5c8adb24a1
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ce08805-9bff-43e0-ab3a-6f7eaf2d2afd
+		summarizeBy: sum
+		sourceColumn: created_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: string
+		lineageTag: 00100611-48ce-4821-b31b-7615b4128d7b
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column ticket_status
+		dataType: string
+		lineageTag: 559c0e2c-4b10-4b9c-ba95-5d255634722e
+		summarizeBy: none
+		sourceColumn: ticket_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column subject
+		dataType: string
+		lineageTag: c56fdceb-b2b0-426b-86db-53591c24aa74
+		summarizeBy: none
+		sourceColumn: subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column message_count
+		dataType: int64
+		formatString: 0
+		lineageTag: e44aec73-139a-4ef0-b548-098a38a93b69
+		summarizeBy: sum
+		sourceColumn: message_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column agent_message_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b3b216c-92aa-407a-aee0-e84398ae0657
+		summarizeBy: sum
+		sourceColumn: agent_message_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column hours_to_first_agent_reply
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d1d413a-dbab-4336-bdf0-a61b3f2b8dda
+		summarizeBy: sum
+		sourceColumn: hours_to_first_agent_reply
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_support_tickets = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "fact_support_tickets.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

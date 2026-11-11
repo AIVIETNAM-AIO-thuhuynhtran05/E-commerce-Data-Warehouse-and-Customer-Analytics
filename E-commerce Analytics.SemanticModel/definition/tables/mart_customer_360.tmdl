@@ -1,0 +1,209 @@
+table mart_customer_360
+	lineageTag: ef6056db-cdc2-4fdb-94e2-6b74ae5f40ed
+
+	column customer_key
+		dataType: string
+		lineageTag: 6b9512cf-370b-43b1-a663-40ba51780123
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 424d8eb0-2637-403b-85a3-02db869c05f1
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_name
+		dataType: string
+		lineageTag: 7c969e99-cfb3-4101-a797-b9deff439967
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: 69b257f3-a4e1-4c14-a6ea-625b0fde1882
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 91eeb3c3-9793-42c5-b1ea-c66f4ec1ea25
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a55018b-6547-41e6-a32b-8f4d1acf2e33
+		summarizeBy: none
+		sourceColumn: signup_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column first_order_cohort_month
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8b8d7bee-a7c2-4a46-8c88-3e7e1c9a68bc
+		summarizeBy: none
+		sourceColumn: first_order_cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f2c1528-24d0-4673-8739-a87e60ef6e73
+		summarizeBy: sum
+		sourceColumn: order_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_order_count
+		dataType: int64
+		formatString: 0
+		lineageTag: ea2e387f-fde9-403a-b3b7-37210a5ba31e
+		summarizeBy: sum
+		sourceColumn: revenue_order_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column lifetime_order_value
+		dataType: double
+		lineageTag: f9713128-081c-4c19-92d7-ae3eb63a87dd
+		summarizeBy: sum
+		sourceColumn: lifetime_order_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lifetime_revenue
+		dataType: double
+		lineageTag: 877d29b8-055f-448e-9569-8462bce68af3
+		summarizeBy: sum
+		sourceColumn: lifetime_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_order_value
+		dataType: double
+		lineageTag: 0dec484c-b26d-4693-a7a5-5b2ab656f92e
+		summarizeBy: sum
+		sourceColumn: average_order_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column first_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 678ee7fd-1d55-4cce-9875-e3dfef1ada52
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e72adcf8-1de2-41da-8500-fd03af556038
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column recency_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 065566f2-40bc-48cd-b8c4-f0105b9e0442
+		summarizeBy: sum
+		sourceColumn: recency_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column recency_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f6fd8d4-2786-4346-9a1d-5accfe5e5e4b
+		summarizeBy: sum
+		sourceColumn: recency_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 284a4461-dc4d-4e86-b641-22ccab58da6a
+		summarizeBy: sum
+		sourceColumn: frequency_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary_score
+		dataType: int64
+		formatString: 0
+		lineageTag: ae69d9b9-a739-4d44-bf07-a4b8e9c9f49c
+		summarizeBy: sum
+		sourceColumn: monetary_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column rfm_segment
+		dataType: string
+		lineageTag: 83285acf-b7f3-4b37-81e7-c1209e672392
+		summarizeBy: none
+		sourceColumn: rfm_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_count
+		dataType: int64
+		formatString: 0
+		lineageTag: a6421d33-7355-46ec-b66e-fecbd8a90a15
+		summarizeBy: sum
+		sourceColumn: review_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_review_rating
+		dataType: double
+		lineageTag: 936f5af5-9bfe-4ce1-9c24-d0c6d2d84527
+		summarizeBy: sum
+		sourceColumn: average_review_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition mart_customer_360 = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "mart_customer_360.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

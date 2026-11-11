@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "cadc9dbc1e0e4caa16e3",
+  "position": {
+    "x": 1135,
+    "y": 925,
+    "z": 12000,
+    "height": 145,
+    "width": 765,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Ghi chú dữ liệu",
+                    "textStyle": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Nguồn có 224 cặp sản phẩm × kho bị lặp nhiều bản ghi; project cộng số lượng và lấy mức nhập lại cao nhất. Số ngày đủ bán tính ở cấp sản phẩm vì đơn hàng không ghi kho xuất. Tên kho và thành phố do bộ sinh dữ liệu tạo, không khớp nhau.",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

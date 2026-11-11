@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "bbcbef8e1538a24b28ea",
+  "position": {
+    "x": 1215,
+    "y": 970,
+    "z": 11000,
+    "height": 100,
+    "width": 685,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Ghi chú",
+                    "textStyle": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Tên sản phẩm và thương hiệu do bộ sinh dữ liệu tạo ra; một số sản phẩm khác nhau có cùng tên nên Top 5 xếp hạng theo mã sản phẩm và có cột SKU. Rating, sản phẩm mua cùng, ảnh hưởng của giá và ngày ra mắt không có tín hiệu trong dữ liệu này nên không đưa vào trang (notes/kiem-tra-phan-tich-san-pham.md).",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

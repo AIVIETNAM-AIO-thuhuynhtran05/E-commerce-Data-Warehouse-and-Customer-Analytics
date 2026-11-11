@@ -1,0 +1,111 @@
+table fact_returns
+	lineageTag: 8c3f4161-10e5-4004-9c9e-2882f7f3b736
+
+	column return_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ea20a551-f0eb-41e4-8fcd-dc7d24634f54
+		summarizeBy: sum
+		sourceColumn: return_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: dfde9781-5ea7-4235-8c22-e6f0e7f975ec
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fac0bc2-ecd2-451a-9a8f-a8da149f6527
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 69074a1b-1c2c-43de-9000-05deadaf5d5d
+		summarizeBy: sum
+		sourceColumn: requested_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column processed_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 417ae31c-e870-4a4b-999e-50ce3ef94a63
+		summarizeBy: sum
+		sourceColumn: processed_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		lineageTag: ec3343db-eb5b-45fd-8776-a79e2484b369
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: b42e6619-c6a5-4169-a715-bb2017464145
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_reason
+		dataType: string
+		lineageTag: c87cac47-63e3-46a2-a791-5e7de421ccee
+		summarizeBy: none
+		sourceColumn: return_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_status
+		dataType: string
+		lineageTag: d7266a62-66cd-4d79-aab7-431ba72121d4
+		summarizeBy: none
+		sourceColumn: return_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column returned_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f4557fb-1050-42df-8b8d-880f20fc18d5
+		summarizeBy: sum
+		sourceColumn: returned_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column returned_amount
+		dataType: double
+		lineageTag: d1720700-38fe-4003-97f3-e0580ba9b3e0
+		summarizeBy: sum
+		sourceColumn: returned_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_returns = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "fact_returns.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

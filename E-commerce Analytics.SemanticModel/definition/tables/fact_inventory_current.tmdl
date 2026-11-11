@@ -1,0 +1,102 @@
+table fact_inventory_current
+	lineageTag: c249180d-191d-4719-b04f-5336240a4654
+
+	column inventory_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d3389c9e-b4e5-4804-a4f8-5483e28a8556
+		summarizeBy: sum
+		sourceColumn: inventory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: caa2b212-7962-4f10-a397-0e406ac05a68
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c888129-40c2-4a22-abb0-cef30a74afa7
+		summarizeBy: sum
+		sourceColumn: warehouse_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_name
+		dataType: string
+		lineageTag: 8fe9664b-4752-4751-b6b0-358e4bde31b3
+		summarizeBy: none
+		sourceColumn: warehouse_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_city
+		dataType: string
+		lineageTag: cc21a79c-54a5-409a-ad56-4d624649682c
+		summarizeBy: none
+		sourceColumn: warehouse_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_on_hand
+		dataType: int64
+		formatString: 0
+		lineageTag: 33659e79-61e1-4a7d-a37d-82a8ac77fea2
+		summarizeBy: sum
+		sourceColumn: quantity_on_hand
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_reserved
+		dataType: int64
+		formatString: 0
+		lineageTag: fca1b909-2354-49ea-a7df-fd76ee82b48a
+		summarizeBy: sum
+		sourceColumn: quantity_reserved
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_available
+		dataType: int64
+		formatString: 0
+		lineageTag: 79c64c01-9316-45c1-a4da-dfbe5d4fc974
+		summarizeBy: sum
+		sourceColumn: quantity_available
+
+		annotation SummarizationSetBy = Automatic
+
+	column reorder_level
+		dataType: int64
+		formatString: 0
+		lineageTag: fe2abdb5-bf60-4016-a236-10dd4940ec9e
+		summarizeBy: sum
+		sourceColumn: reorder_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column needs_reorder
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8b5b1eaf-1b0c-4262-a6f6-02f22a926f58
+		summarizeBy: none
+		sourceColumn: needs_reorder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_inventory_current = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "fact_inventory_current.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

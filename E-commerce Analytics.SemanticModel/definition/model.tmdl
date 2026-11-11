@@ -1,0 +1,38 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["ExportFolder","fact_sales","fact_payments","fact_shipments","fact_returns","fact_inventory_current","fact_support_tickets","dim_date","dim_customer","dim_product","dim_geography","dim_promotion","dim_shipping_method","mart_customer_360","mart_product_performance","fact_orders","dim_order_status","dim_payment_method","mart_product_abc","mart_inventory_warehouse","mart_returns"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_sales
+ref table fact_payments
+ref table fact_shipments
+ref table fact_returns
+ref table fact_inventory_current
+ref table fact_support_tickets
+ref table dim_date
+ref table dim_customer
+ref table dim_product
+ref table dim_geography
+ref table dim_promotion
+ref table dim_shipping_method
+ref table mart_customer_360
+ref table mart_product_performance
+ref table fact_orders
+ref table dim_order_status
+ref table dim_payment_method
+ref table mart_product_abc
+ref table mart_inventory_warehouse
+ref table mart_returns
+
+ref cultureInfo en-US
+

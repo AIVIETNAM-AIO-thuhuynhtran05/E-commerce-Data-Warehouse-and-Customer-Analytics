@@ -1,0 +1,63 @@
+table dim_geography
+	lineageTag: 65c2294e-c792-44df-96b6-ee6183be1edb
+
+	column geography_key
+		dataType: string
+		lineageTag: 3a6979be-9788-4f4f-97d9-d0889808d6ce
+		summarizeBy: none
+		sourceColumn: geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		lineageTag: 3d77fe20-859a-4fea-b349-290e80a9310f
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		lineageTag: ca9620d2-0d18-4120-b159-cfab7590cf21
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_province
+		dataType: string
+		lineageTag: a8d8f2cf-430e-4dcd-a2fa-e32810bdd9e1
+		summarizeBy: none
+		sourceColumn: state_province
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 44ddd1e8-48ea-4542-9da8-32c0d2d2bbd1
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 341368db-74e5-4c6a-8168-4851a64c2b3c
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_geography = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "dim_geography.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

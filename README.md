@@ -379,6 +379,7 @@ Logic reused by several marts lives here, so it is written once.
 | `customer/mart_customer_360.sql` | One row per customer: lifetime metrics and RFM segment. |
 | `operations/fact_inventory_current.sql` | Current stock by product and warehouse. |
 | `operations/fact_support_tickets.sql` | One row per support ticket: priority, status, message counts, hours to first agent reply. |
+| `operations/mart_returns.sql` | One row per return request: reason, reason group (seller or customer), status, processing time, product, category, shipping method, refunded amount. |
 | `_sales__models.yml`, `_customer__models.yml`, `_operations__models.yml` | Documentation and tests for each folder. |
 
 ### Other dbt folders
@@ -396,6 +397,7 @@ Logic reused by several marts lives here, so it is written once.
 | `tests/warn_orders_without_items.sql` | Warning only: reports orders that have no items. |
 | `analyses/fanout_revenue_inflation.sql` | Shows how joining order-level amounts to item grain inflates totals. Compiled, not built. |
 | `analyses/revenue_definitions.sql` | Compares four definitions of "revenue" on the same data. |
+| `analyses/product_check_*.sql` | Four checks showing that rating, cross-sell, price and launch analyses have no signal in this data. Write-up: `notes/kiem-tra-phan-tich-san-pham.md`. |
 
 ### Generated, not committed
 
@@ -447,6 +449,7 @@ fan-out from design decision 1.
 | Customers | `mart_customer_360`, `dim_customer` | RFM segment sizes and value, cohorts by first order month, average order value |
 | Products | `mart_product_performance` | Top products by revenue, refund rate, rating versus revenue |
 | Operations | `fact_shipments`, `fact_returns`, `fact_inventory_current`, `fact_support_tickets` | On-time delivery (shipped and delivered orders only), return reasons, items to reorder, first reply time |
+| Returns | `mart_returns` | Reason mix, seller versus customer reasons, rejection rate, refunded amount, processing time |
 
 Each page states its assumptions next to the visuals, comparing common business
 practice with the choice made here (see design decisions 7 to 10).
@@ -482,6 +485,18 @@ next pipeline run, press Refresh.
 - Data is generated: some relationships are random (ship-to addresses, all
   categories top level, one country), so results show the method, not real
   business insight.
+- Return reasons look randomly assigned: their shares barely change across
+  categories and shipping methods ("Arrived too late" is about 9% for every
+  method, overnight included). `mart_returns` describes the reason mix but
+  cannot explain which categories are returned for which reason. The
+  seller / customer reason group is a project rule, not a field in the source.
+- No sales funnel. A view → cart → checkout → purchase funnel needs event data
+  (sessions, page views) and orders linked to carts; the source has neither.
+  6,813 customers placed orders but only 2,879 ever had items in a cart. An
+  estimate that matched cart items to later orders by customer and product was
+  tested and dropped: 0.37% of cart items were bought in the 30 days after
+  being added and 0.38% in the 30 days before, so adding to cart carries no
+  signal about buying in this data.
 - Inventory is current state only; schedule `snap_products`-style snapshots of
   inventory to analyse stock over time.
 - Finish the Power BI report pages and add screenshots here.

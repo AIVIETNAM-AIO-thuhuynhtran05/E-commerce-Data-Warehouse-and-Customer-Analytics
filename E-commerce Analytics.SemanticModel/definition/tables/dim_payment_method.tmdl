@@ -1,0 +1,40 @@
+table dim_payment_method
+	lineageTag: ba1907a8-d860-4b45-911e-862a53ae1351
+
+	column payment_method_key
+		dataType: string
+		lineageTag: 720e51c4-f870-491f-a8c5-0989525c103f
+		summarizeBy: none
+		sourceColumn: payment_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f8c1fb9f-d2cc-453a-8c5b-2968791fbaba
+		summarizeBy: none
+		sourceColumn: payment_method_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method_name
+		dataType: string
+		lineageTag: faae056c-0851-4eb5-a1c5-a4868c368bbc
+		summarizeBy: none
+		sourceColumn: payment_method_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_payment_method = m
+		mode: import
+		source =
+				let
+				  Source = Parquet.Document(File.Contents(ExportFolder & "dim_payment_method.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -60,3 +60,16 @@ models:
         data_tests: [not_null, unique]
       - name: geography_key
         data_tests: [not_null]
+
+  - name: int_inventory__product_warehouse
+    description: >
+      Current inventory with one row per product and warehouse. The source has
+      224 product-warehouse pairs spread over several records; quantities are
+      summed and the reorder level is the maximum of those records.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [product_key, warehouse_id]
+    columns:
+      - name: record_count
+        description: Number of source inventory records merged into this row.

@@ -1,0 +1,72 @@
+table dim_order_status
+	lineageTag: 77c82686-e3e3-4a90-8d91-a49d97d042e7
+
+	column order_status_key
+		dataType: string
+		lineageTag: 5a742b90-4083-43c5-92e7-9da6502ddf5b
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cbc6705-6e9d-43e8-9418-1cc5bd6dae7d
+		summarizeBy: none
+		sourceColumn: order_status_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column status_name
+		dataType: string
+		lineageTag: b09a8c8f-e892-487e-8218-41b01ed35f26
+		summarizeBy: none
+		sourceColumn: status_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column status_description
+		dataType: string
+		lineageTag: c6547097-33c6-490e-b5bd-56af164112bf
+		summarizeBy: none
+		sourceColumn: status_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column fulfillment_stage
+		dataType: string
+		lineageTag: 99471c47-c5b8-4d1a-8ca8-80a04f3e552c
+		summarizeBy: none
+		sourceColumn: fulfillment_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column counts_as_revenue
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 74870bde-35e3-4976-a8b4-40d23e01ec33
+		summarizeBy: none
+		sourceColumn: counts_as_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_label = IF ( dim_order_status[counts_as_revenue], "Tính doanh thu", "Không tính doanh thu" )
+		dataType: string
+		lineageTag: 96805009-3cee-4ec4-bcfc-1eb80d649278
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_order_status = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(ExportFolder & "dim_order_status.parquet"))
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

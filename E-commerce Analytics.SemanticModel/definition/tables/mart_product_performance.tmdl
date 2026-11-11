@@ -1,0 +1,180 @@
+table mart_product_performance
+	lineageTag: cc1b12be-8a98-4dc9-a764-d77c6da41f88
+
+	column product_key
+		dataType: string
+		lineageTag: 0fe902ad-99f3-4da2-90bc-410fdf6d0b63
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e62a5fd2-dafe-4aa8-b7cb-fe2e35fad40d
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku
+		dataType: string
+		lineageTag: e81043df-243a-46dd-8f3b-07215d9feafe
+		summarizeBy: none
+		sourceColumn: sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 64c842b6-4933-4481-b320-00d0db42075a
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 7bd7f049-1b4d-46d4-9fbb-d5ee7a0f5143
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_name
+		dataType: string
+		lineageTag: cb30c119-889f-4efb-bbaf-3a4554c777e8
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_price
+		dataType: double
+		lineageTag: 0152f6f5-94fd-42cf-8303-438c090987da
+		summarizeBy: sum
+		sourceColumn: current_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c1716ec3-fa79-43f0-b079-79adcfd5519d
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_count
+		dataType: int64
+		formatString: 0
+		lineageTag: ffc49f4f-d697-4c7e-944e-3ec339fbbde1
+		summarizeBy: sum
+		sourceColumn: order_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold
+		dataType: double
+		lineageTag: 40bf6372-c6a4-423f-bdcf-3302a752b928
+		summarizeBy: sum
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_amount
+		dataType: double
+		lineageTag: cf0bc31a-ce00-463b-b347-2ce25f60f7f7
+		summarizeBy: sum
+		sourceColumn: net_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recognized_revenue
+		dataType: double
+		lineageTag: 9e9009c2-39ee-4aed-8bec-d62d941b3357
+		summarizeBy: sum
+		sourceColumn: recognized_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column refunded_quantity
+		dataType: double
+		lineageTag: 1fb2c04b-7a99-4200-87df-4dacb57f93d2
+		summarizeBy: sum
+		sourceColumn: refunded_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column refunded_amount
+		dataType: double
+		lineageTag: e054cd69-88f3-4129-a2ae-0a0732bf442b
+		summarizeBy: sum
+		sourceColumn: refunded_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column refund_rate
+		dataType: double
+		lineageTag: 4dd0397b-44cc-4ec2-a3c2-18bbdadb3f27
+		summarizeBy: sum
+		sourceColumn: refund_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column review_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a3a207a-c9ac-4661-a91a-352814ff23bf
+		summarizeBy: sum
+		sourceColumn: review_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_rating
+		dataType: double
+		lineageTag: 1489d3d3-8d0f-488d-8adc-02f3c7aeb54d
+		summarizeBy: sum
+		sourceColumn: average_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 7fb7fb7b-7238-4c77-ad1a-686b309d1b26
+		summarizeBy: sum
+		sourceColumn: revenue_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mart_product_performance = m
+		mode: import
+		source =
+				let
+				  Source =Parquet.Document(File.Contents(ExportFolder & "mart_product_performance.parquet"))
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
