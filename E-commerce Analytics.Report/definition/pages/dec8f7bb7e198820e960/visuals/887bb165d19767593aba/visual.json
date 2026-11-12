@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "887bb165d19767593aba",
   "position": {
     "x": 1075,
@@ -28,6 +28,7 @@
               },
               "queryRef": "dim_product.brand_name",
               "nativeQueryRef": "brand_name",
+              "active": true,
               "displayName": "Thương hiệu"
             }
           ]

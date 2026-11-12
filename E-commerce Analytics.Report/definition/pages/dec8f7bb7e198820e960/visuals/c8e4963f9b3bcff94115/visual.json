@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "c8e4963f9b3bcff94115",
   "position": {
     "x": 955,
@@ -28,6 +28,7 @@
               },
               "queryRef": "dim_product.price_band",
               "nativeQueryRef": "price_band",
+              "active": true,
               "displayName": "Khoảng giá"
             }
           ]
@@ -82,8 +83,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

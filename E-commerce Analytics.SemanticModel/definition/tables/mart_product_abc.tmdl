@@ -193,3 +193,4 @@ table mart_product_abc
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+

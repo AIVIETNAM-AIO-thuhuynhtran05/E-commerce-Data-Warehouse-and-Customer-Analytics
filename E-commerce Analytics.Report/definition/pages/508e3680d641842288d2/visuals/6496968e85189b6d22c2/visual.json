@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "6496968e85189b6d22c2",
   "position": {
     "x": 340,
@@ -28,6 +28,7 @@
               },
               "queryRef": "dim_date.year_month",
               "nativeQueryRef": "year_month",
+              "active": true,
               "displayName": "Tháng"
             }
           ]
@@ -67,8 +68,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

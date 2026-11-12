@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "f1985dda5ed68d4fe19c",
   "position": {
     "x": 1530,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_inventory_warehouse.abc_class",
               "nativeQueryRef": "abc_class",
+              "active": true,
               "displayName": "Nhóm ABC"
             }
           ]

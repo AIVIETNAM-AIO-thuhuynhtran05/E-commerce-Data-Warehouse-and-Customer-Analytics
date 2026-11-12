@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "3409b20a7f4bfb4b85a5",
   "position": {
     "x": 655,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_inventory_warehouse.warehouse_name",
               "nativeQueryRef": "warehouse_name",
+              "active": true,
               "displayName": "Kho"
             }
           ]
@@ -67,8 +68,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

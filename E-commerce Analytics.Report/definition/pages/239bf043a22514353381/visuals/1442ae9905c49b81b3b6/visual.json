@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "1442ae9905c49b81b3b6",
   "position": {
     "x": 1135,
@@ -13,25 +13,6 @@
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "mart_inventory_warehouse"
-                    }
-                  },
-                  "Property": "warehouse_name"
-                }
-              },
-              "queryRef": "mart_inventory_warehouse.warehouse_name",
-              "nativeQueryRef": "warehouse_name",
-              "displayName": "Kho"
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -47,7 +28,28 @@
               },
               "queryRef": "mart_inventory_warehouse.abc_class",
               "nativeQueryRef": "abc_class",
+              "active": true,
               "displayName": "Nhóm"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_inventory_warehouse"
+                    }
+                  },
+                  "Property": "warehouse_name"
+                }
+              },
+              "queryRef": "mart_inventory_warehouse.warehouse_name",
+              "nativeQueryRef": "warehouse_name",
+              "active": true,
+              "displayName": "Kho"
             }
           ]
         },

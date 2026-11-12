@@ -86,14 +86,6 @@ table dim_product
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column price_band
-		dataType: string
-		lineageTag: 1470e8cc-a23e-4102-8516-0c6de808e40e
-		summarizeBy: none
-		sourceColumn: price_band
-
-		annotation SummarizationSetBy = Automatic
-
 	column compare_at_price
 		dataType: double
 		lineageTag: df0cdb50-aa72-4114-bdab-ab66f756ccbc
@@ -119,6 +111,14 @@ table dim_product
 		lineageTag: 5aa93dff-37da-4be6-ba4c-1672e861cc53
 		summarizeBy: none
 		sourceColumn: product_created_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_band
+		dataType: string
+		lineageTag: 1470e8cc-a23e-4102-8516-0c6de808e40e
+		summarizeBy: none
+		sourceColumn: price_band
 
 		annotation SummarizationSetBy = Automatic
 

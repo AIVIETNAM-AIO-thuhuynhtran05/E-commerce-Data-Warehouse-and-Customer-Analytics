@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "7b3be8ad30def2a47992",
   "position": {
     "x": 1150,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_inventory_warehouse.warehouse_name",
               "nativeQueryRef": "warehouse_name",
+              "active": true,
               "displayName": "Kho"
             }
           ]

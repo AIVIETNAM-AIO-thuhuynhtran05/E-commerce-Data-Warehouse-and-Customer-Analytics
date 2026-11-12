@@ -1,6 +1,6 @@
 table dim_date
-	dataCategory: Time
 	lineageTag: d18ce254-67c4-4425-80c7-d0c465f5e41e
+	dataCategory: Time
 
 	column date_key
 		dataType: int64
@@ -52,10 +52,10 @@ table dim_date
 
 	column month_name
 		dataType: string
-		sortByColumn: month
 		lineageTag: bc502d59-de29-4d0f-9c7d-a8c06bd8d99f
 		summarizeBy: none
 		sourceColumn: month_name
+		sortByColumn: month
 
 		annotation SummarizationSetBy = Automatic
 

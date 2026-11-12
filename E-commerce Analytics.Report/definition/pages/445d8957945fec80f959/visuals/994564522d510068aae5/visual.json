@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "994564522d510068aae5",
   "position": {
     "x": 1290,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_returns.requested_month",
               "nativeQueryRef": "requested_month",
+              "active": true,
               "displayName": "Tháng yêu cầu"
             }
           ]
@@ -86,8 +87,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "visualContainerObjects": {

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "d0f1f26105ffb3521e7a",
   "position": {
     "x": 1530,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_returns.reason_group",
               "nativeQueryRef": "reason_group",
+              "active": true,
               "displayName": "Nhóm lý do"
             }
           ]

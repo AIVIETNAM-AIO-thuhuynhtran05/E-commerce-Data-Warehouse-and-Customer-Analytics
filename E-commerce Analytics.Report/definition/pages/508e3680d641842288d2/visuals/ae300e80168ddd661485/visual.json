@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ae300e80168ddd661485",
   "position": {
     "x": 760,
@@ -28,6 +28,7 @@
               },
               "queryRef": "dim_product.category_name",
               "nativeQueryRef": "category_name",
+              "active": true,
               "displayName": "Danh mục"
             }
           ]

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "2d265956f00e45177fe7",
   "position": {
     "x": 1500,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_product_abc.year",
               "nativeQueryRef": "year",
+              "active": true,
               "displayName": "Năm"
             }
           ]

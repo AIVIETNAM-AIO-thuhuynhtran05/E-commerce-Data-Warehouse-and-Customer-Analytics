@@ -239,3 +239,4 @@ table mart_returns
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "10f83050d8ab2079bd9b",
   "position": {
     "x": 460,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_product_abc.revenue_rank",
               "nativeQueryRef": "revenue_rank",
+              "active": true,
               "displayName": "Thứ hạng sản phẩm"
             }
           ]
@@ -105,8 +106,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

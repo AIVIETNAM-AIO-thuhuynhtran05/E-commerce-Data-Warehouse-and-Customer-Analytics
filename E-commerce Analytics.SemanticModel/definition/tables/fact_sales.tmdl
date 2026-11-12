@@ -113,14 +113,6 @@ table fact_sales
 		displayFolder: 4 Time comparison
 		lineageTag: e0484ec5-524c-46e5-9aa2-fe7087e5288d
 
-	measure 'Revenue vs LY label' = IF ( ISBLANK ( [Revenue vs LY] ), "—", FORMAT ( [Revenue vs LY], "+0.0%;-0.0%;0.0%" ) )
-		displayFolder: 4 Time comparison
-		lineageTag: d1840b96-bf56-4b84-8d60-fcde34ca22e8
-
-	measure 'Revenue vs PP label' = IF ( ISBLANK ( [Revenue vs PP] ), "—", FORMAT ( [Revenue vs PP], "+0.0%;-0.0%;0.0%" ) )
-		displayFolder: 4 Time comparison
-		lineageTag: a643b0d9-3aed-471b-8750-8ada0e7b4b31
-
 	measure 'Revenue PP' =
 			VAR FirstKey = CALCULATE ( MIN ( fact_sales[order_date_key] ), REMOVEFILTERS () )
 			VAR LastKey = CALCULATE ( MAX ( fact_sales[order_date_key] ), REMOVEFILTERS () )
@@ -238,6 +230,14 @@ table fact_sales
 		formatString: +0.00%;-0.00%;0.00%
 		displayFolder: 4 Time comparison
 		lineageTag: 5fd2a276-6e3a-4583-8ab7-815dc0681318
+
+	measure 'Revenue vs LY label' = IF ( ISBLANK ( [Revenue vs LY] ), "—", FORMAT ( [Revenue vs LY], "+0.0%;-0.0%;0.0%" ) )
+		displayFolder: 4 Time comparison
+		lineageTag: d1840b96-bf56-4b84-8d60-fcde34ca22e8
+
+	measure 'Revenue vs PP label' = IF ( ISBLANK ( [Revenue vs PP] ), "—", FORMAT ( [Revenue vs PP], "+0.0%;-0.0%;0.0%" ) )
+		displayFolder: 4 Time comparison
+		lineageTag: a643b0d9-3aed-471b-8750-8ada0e7b4b31
 
 	column order_item_id
 		dataType: int64

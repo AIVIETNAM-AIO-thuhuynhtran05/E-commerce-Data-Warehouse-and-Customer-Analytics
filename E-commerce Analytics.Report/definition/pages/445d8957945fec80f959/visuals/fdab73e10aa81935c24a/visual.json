@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "fdab73e10aa81935c24a",
   "position": {
     "x": 655,
@@ -28,6 +28,7 @@
               },
               "queryRef": "mart_returns.return_reason",
               "nativeQueryRef": "return_reason",
+              "active": true,
               "displayName": "Lý do"
             }
           ]
@@ -86,8 +87,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
